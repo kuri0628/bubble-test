@@ -65,6 +65,7 @@
       padding: 10px 15px;
       border-radius: 14px;
       background: white;
+      position: relative;
       font-size: 14px;
       line-height: 1.4;
       word-break: break-word;
@@ -72,46 +73,44 @@
 
     .message.me .bubble {
       background: #646464;
-      color: #FEFEFE;
+      color:#FEFEFE;
     }
 
     .message .bubble::after {
       content: "";
       position: absolute;
-      top: 5px;
-      right: -15px;
+      top: 0px;
+      right: -10px;
       width: 0;
       height: 0;
-      border: 15px solid transparent;
+      border: 10px solid transparent;
     }
 
     .message:not(.me) .bubble::after {
-      left: -15px;
-      top: 5px;
-      border: none;
-      border-bottom: 15px solid transparent;
-      border-left: 15px solid white;
-    }
+  left: 0px; /* 위치-메시지 왼쪽 면 */
+  top: 0px;   /* 위치-메시지 상단 */
+  border: none;
+  width: 0;
+  height: 0;
+  border-bottom: 15px solid transparent; /* 꼬리 크기 */
+  border-left: 15px solid white; /* 꼬리 크기 */
+  border-top: none;
+  border-right: none;
+}
+
 
     .message.me .bubble::after {
-      right: -15px;
-      top: 5px;
-      border: none;
-      border-bottom: 15px solid transparent;
-      border-right: 15px solid #646464;
-    }
+  right: 0px;
+  top: 0px;
+  border: none;
+  width: 0;
+  height: 0;
+  border-bottom: 15px solid transparent; /* 꼬리 크기 */
+  border-right: 15px solid #646464; /* 꼬리 크기 */
+  border-top: none;
+  border-left: none;
+}
 
-    /* ✅ 인라인 시간 스타일 */
-    .time-inline {
-      font-size: 10px;
-      color: #888;
-      margin-left: 8px;
-      white-space: nowrap;
-    }
-
-    .message.me .time-inline {
-      color: #ddd; /* 내 메시지는 좀 더 흐리게 */
-    }
   </style>
 </head>
 <body>
@@ -122,34 +121,26 @@
 
       <div class="message">
         <img class="profile" src="sunwoo_profile.jpg" alt="프로필">
-        <div class="bubble">
-          자기! 많이 기다렸어~🤗 <span class="time-inline">오전 9:00</span>
-        </div>
+        <div class="bubble">자기! 많이 기다렸어~🤗</div>
       </div>
 
       <div class="message me">
-        <div class="bubble">
-          선우야 버블을 보내 보아라 <span class="time-inline">오전 9:02</span>
-        </div>
+        <div class="bubble">선우야 버블을 보내 보아라</div>
       </div>
 
       <div class="date">2024년 8월 12일 월요일</div>
 
       <div class="message me">
-        <div class="bubble">
-          김선우 버블 존버중 <span class="time-inline">오전 10:15</span>
-        </div>
+        <div class="bubble">김선우 버블 존버중</div>
       </div>
 
       <div class="date">2024년 8월 13일 화요일</div>
 
       <div class="message me">
-        <div class="bubble">
-          선우야 퍼뜩 안오나. <span class="time-inline">오전 11:47</span>
-        </div>
+        <div class="bubble">선우야 퍼뜩 안오나.</div>
       </div>
 
     </div>
   </div>
 </body>
-</html>
+</html> 
