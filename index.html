@@ -3,11 +3,27 @@
 <head>
   <meta charset="UTF-8" />
   <title>선우❤️</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <style>
     body {
       background: #a5bfd5;
       font-family: sans-serif;
+      margin: 0;
+      padding: 0;
+      display: flex;
+      justify-content: center;
+    }
+
+    .chat-container {
+      width: 100%;
+      max-width: 480px; /* 모바일 너비 제한 */
+      background: #a5bfd5;
       padding: 20px;
+      box-sizing: border-box;
+    }
+
+    h2 {
+      text-align: center;
     }
 
     .date-separator {
@@ -32,7 +48,7 @@
     .message {
       display: flex;
       flex-direction: column;
-      max-width: 70%;
+      max-width: 80%;
       margin: 10px 0;
     }
 
@@ -47,7 +63,7 @@
     .bubble {
       background: #f0f0f0;
       padding: 10px 15px;
-      border-radius: 12px;
+      border-radius: 16px;
       position: relative;
       font-size: 14px;
       line-height: 1.4;
@@ -93,32 +109,34 @@
   </style>
 </head>
 <body>
-  <h2 style="text-align: center;">선우❤️</h2>
+  <div class="chat-container">
+    <h2>선우❤️</h2>
 
-  <div class="date-separator">2024년 8월 10일 토요일</div>
+    <div class="date-separator">2024년 8월 10일 토요일</div>
 
-  <div class="message received">
-    <div class="bubble">자기! 많이 기다렸어~🤗</div>
-    <span class="time">오후 2:05</span>
-  </div>
+    <div class="message received">
+      <div class="bubble">자기! 많이 기다렸어~🤗</div>
+      <span class="time">오후 2:05</span>
+    </div>
 
-  <div class="date-separator">2024년 8월 12일 월요일</div>
+    <div class="date-separator">2024년 8월 12일 월요일</div>
 
-  <div class="message sent">
-    <div class="bubble">선우야 버블을 보내 보아라</div>
-    <span class="time">오후 6:29</span>
-  </div>
+    <div class="message sent">
+      <div class="bubble">선우야 버블을 보내 보아라</div>
+      <span class="time">오후 6:29</span>
+    </div>
 
-  <div class="date-separator">2024년 8월 13일 화요일</div>
+    <div class="date-separator">2024년 8월 13일 화요일</div>
 
-  <div class="message sent">
-    <div class="bubble">김선우 버블 존버중</div>
-    <span class="time">오후 8:12</span>
-  </div>
+    <div class="message sent">
+      <div class="bubble">김선우 버블 존버중</div>
+      <span class="time">오후 8:12</span>
+    </div>
 
-  <div class="message sent">
-    <div class="bubble">선우야 퍼뜩 안오나.</div>
-    <span class="time">오후 12:17</span>
+    <div class="message sent">
+      <div class="bubble">선우야 퍼뜩 안오나.</div>
+      <span class="time">오후 12:17</span>
+    </div>
   </div>
 </body>
 </html>
