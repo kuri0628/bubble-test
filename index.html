@@ -3,20 +3,23 @@
 <head>
   <meta charset="UTF-8" />
   <title>선우❤️</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
   <style>
-    body {
-      background: #a5bfd5;
-      font-family: sans-serif;
+    html, body {
       margin: 0;
       padding: 0;
+      height: 100%;
+      width: 100%;
+      overflow-x: hidden;
       display: flex;
       justify-content: center;
+      background: #a5bfd5;
     }
 
     .chat-container {
       width: 100%;
-      max-width: 480px; /* 모바일 너비 제한 */
+      max-width: 420px; /* 모바일 Bubble 앱 너비 느낌 */
+      min-height: 100%;
       background: #a5bfd5;
       padding: 20px;
       box-sizing: border-box;
@@ -24,6 +27,7 @@
 
     h2 {
       text-align: center;
+      margin: 0 0 20px;
     }
 
     .date-separator {
@@ -63,7 +67,7 @@
     .bubble {
       background: #f0f0f0;
       padding: 10px 15px;
-      border-radius: 16px;
+      border-radius: 14px;
       position: relative;
       font-size: 14px;
       line-height: 1.4;
@@ -129,7 +133,7 @@
     <div class="date-separator">2024년 8월 13일 화요일</div>
 
     <div class="message sent">
-      <div class="bubble">김선우 버블 존버중</div>
+      <div class="bubble">김선우 버블 준비중</div>
       <span class="time">오후 8:12</span>
     </div>
 
