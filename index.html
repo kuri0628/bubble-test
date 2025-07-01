@@ -63,8 +63,8 @@
     .bubble {
       max-width: 70%;
       padding: 10px 15px;
-      border-radius: 18px;
-      background: #fff;
+      border-radius: 20px;
+      background: white;
       position: relative;
       font-size: 14px;
       line-height: 1.4;
@@ -72,7 +72,7 @@
     }
 
     .message.me .bubble {
-      background: #eeeeee; /* 내 메시지 색상 (연회색) */
+      background: #dcf8c6;
     }
 
     .message .bubble::after {
@@ -81,17 +81,17 @@
       top: 10px;
       width: 0;
       height: 0;
-      border: 8px solid transparent;
+      border: 10px solid transparent;
     }
 
     .message:not(.me) .bubble::after {
-      left: -15px;
-      border-right-color: #fff; /* 상대 말풍선 꼬리 색 */
+      left: -20px;
+      border-right-color: white;
     }
 
     .message.me .bubble::after {
-      right: -15px;
-      border-left-color: #eeeeee; /* 내 말풍선 꼬리 색 */
+      right: -20px;
+      border-left-color: #646464;
     }
   </style>
 </head>
@@ -103,7 +103,7 @@
 
       <div class="message">
         <img class="profile" src="https://via.placeholder.com/40" alt="프로필">
-        <div class="bubble">유진! 많이 기다렸어~🤗</div>
+        <div class="bubble">자기! 많이 기다렸어~🤗</div>
       </div>
 
       <div class="message me">
@@ -113,7 +113,7 @@
       <div class="date">2024년 8월 12일 월요일</div>
 
       <div class="message me">
-        <div class="bubble">김선우 버블 준비중</div>
+        <div class="bubble">김선우 버블 존버중</div>
       </div>
 
       <div class="date">2024년 8월 13일 화요일</div>
@@ -121,6 +121,7 @@
       <div class="message me">
         <div class="bubble">선우야 퍼똑 안오나.</div>
       </div>
+
     </div>
   </div>
 </body>
