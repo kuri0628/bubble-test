@@ -49,13 +49,8 @@
       margin: 10px 0;
     }
 
-    .message:not(.me) {
-      flex-direction: row; /* 상대 메시지: 프로필-버블-시간 */
-    }
-
     .message.me {
       justify-content: flex-end;
-      flex-direction: row-reverse; /* 내 메시지: 버블-시간 */
     }
 
     .profile {
@@ -70,7 +65,7 @@
       padding: 10px 15px;
       border-radius: 14px;
       background: white;
-      position: relative;
+      position: relative; /* ✅ 시간 배치 위해 추가 */
       font-size: 14px;
       line-height: 1.4;
       word-break: break-word;
@@ -81,19 +76,11 @@
       color: #FEFEFE;
     }
 
-    .time {
-      font-size: 10px;
-      color: #555;
-      margin: 0 5px;
-      align-self: flex-end;
-      white-space: nowrap;
-    }
-
     .message .bubble::after {
       content: "";
       position: absolute;
-      top: 5px; /* 살짝 내려서 꼬리 이음 매끄럽게 */
-      right: -15px;
+      top: 5px; /* ✅ 살짝 내림 */
+      right: -15px; /* ✅ 꼬리 크기 맞춤 */
       width: 0;
       height: 0;
       border: 15px solid transparent;
@@ -115,6 +102,22 @@
       border-right: 15px solid #646464;
     }
 
+    /* ✅ 추가된 시간 스타일 */
+    .time {
+      position: absolute;
+      bottom: -16px; /* 말풍선 아래로 */
+      right: 10px; /* 상대 메시지: 꼬리 반대쪽 */
+      font-size: 10px;
+      color: #555;
+      white-space: nowrap;
+    }
+
+    .message.me .time {
+      right: auto;
+      left: 10px; /* 내 메시지: 꼬리 반대쪽 */
+      color: #aaa;
+    }
+
   </style>
 </head>
 <body>
@@ -125,27 +128,35 @@
 
       <div class="message">
         <img class="profile" src="sunwoo_profile.jpg" alt="프로필">
-        <div class="bubble">자기! 많이 기다렸어~🤗</div>
-        <span class="time">오전 9:00</span>
+        <div class="bubble">
+          자기! 많이 기다렸어~🤗
+          <span class="time">오전 9:00</span>
+        </div>
       </div>
 
       <div class="message me">
-        <div class="bubble">선우야 버블을 보내 보아라</div>
-        <span class="time">오전 9:02</span>
+        <div class="bubble">
+          선우야 버블을 보내 보아라
+          <span class="time">오전 9:02</span>
+        </div>
       </div>
 
       <div class="date">2024년 8월 12일 월요일</div>
 
       <div class="message me">
-        <div class="bubble">김선우 버블 존버중</div>
-        <span class="time">오전 10:15</span>
+        <div class="bubble">
+          김선우 버블 존버중
+          <span class="time">오전 10:15</span>
+        </div>
       </div>
 
       <div class="date">2024년 8월 13일 화요일</div>
 
       <div class="message me">
-        <div class="bubble">선우야 퍼뜩 안오나.</div>
-        <span class="time">오전 11:47</span>
+        <div class="bubble">
+          선우야 퍼뜩 안오나.
+          <span class="time">오전 11:47</span>
+        </div>
       </div>
 
     </div>
