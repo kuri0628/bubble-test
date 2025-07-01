@@ -2,126 +2,123 @@
 <html lang="ko">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>선우❤️</title>
   <style>
     body {
-      background: #b0c4de;
-      font-family: "Apple SD Gothic Neo", sans-serif;
-      margin: 0;
-      padding: 0;
-      display: flex;
-      justify-content: center;
+      background: #a5bfd5;
+      font-family: sans-serif;
+      padding: 20px;
     }
 
-    .container {
-      width: 100%;
-      max-width: 400px;
-      background: #b0c4de;
-      min-height: 100vh;
-      display: flex;
-      flex-direction: column;
-    }
-
-    .header {
-      background: white;
+    .date-separator {
       text-align: center;
-      padding: 10px;
-      font-weight: bold;
-      border-bottom: 1px solid #ccc;
-    }
-
-    .chat {
-      padding: 20px 10px;
-      flex: 1;
-    }
-
-    .date {
-      text-align: center;
+      margin: 30px 0 10px;
+      position: relative;
+      color: #666;
       font-size: 12px;
-      color: #555;
-      margin: 10px 0;
+    }
+
+    .date-separator::before {
+      content: "";
+      position: absolute;
+      top: 50%;
+      left: 10%;
+      right: 10%;
+      height: 1px;
+      background: #ccc;
+      z-index: -1;
     }
 
     .message {
       display: flex;
-      align-items: flex-end;
+      flex-direction: column;
+      max-width: 70%;
       margin: 10px 0;
     }
 
-    .message.me {
-      justify-content: flex-end;
+    .received {
+      align-items: flex-start;
     }
 
-    .profile {
-      width: 40px;
-      height: 40px;
-      border-radius: 50%;
-      margin-right: 10px;
+    .sent {
+      align-items: flex-end;
     }
 
     .bubble {
-      max-width: 70%;
+      background: #f0f0f0;
       padding: 10px 15px;
-      border-radius: 18px;
-      background: #fff;
+      border-radius: 12px;
       position: relative;
       font-size: 14px;
       line-height: 1.4;
-      word-break: break-word;
     }
 
-    .message.me .bubble {
-      background: #eeeeee; /* 내 메시지 색상 (연회색) */
+    .received .bubble {
+      background: #ffffff;
     }
 
-    .message .bubble::after {
+    .sent .bubble {
+      background: #5c5c5c;
+      color: #fff;
+    }
+
+    .bubble::after {
       content: "";
       position: absolute;
-      top: 10px;
+      bottom: 0;
       width: 0;
       height: 0;
       border: 8px solid transparent;
     }
 
-    .message:not(.me) .bubble::after {
-      left: -15px;
-      border-right-color: #fff; /* 상대 말풍선 꼬리 색 */
+    .received .bubble::after {
+      left: -8px;
+      border-right-color: #ffffff;
+      border-left: 0;
+      border-top: 0;
     }
 
-    .message.me .bubble::after {
-      right: -15px;
-      border-left-color: #eeeeee; /* 내 말풍선 꼬리 색 */
+    .sent .bubble::after {
+      right: -8px;
+      border-left-color: #5c5c5c;
+      border-right: 0;
+      border-top: 0;
+    }
+
+    .time {
+      font-size: 10px;
+      color: #999;
+      margin-top: 3px;
     }
   </style>
 </head>
 <body>
-  <div class="container">
-    <div class="header">선우 ❤️</div>
-    <div class="chat">
-      <div class="date">2024년 8월 10일 토요일</div>
+  <h2 style="text-align: center;">선우❤️</h2>
 
-      <div class="message">
-        <img class="profile" src="https://via.placeholder.com/40" alt="프로필">
-        <div class="bubble">유진! 많이 기다렸어~🤗</div>
-      </div>
+  <div class="date-separator">2024년 8월 10일 토요일</div>
 
-      <div class="message me">
-        <div class="bubble">선우야 버블을 보내 보아라</div>
-      </div>
+  <div class="message received">
+    <div class="bubble">자기! 많이 기다렸어~🤗</div>
+    <span class="time">오후 2:05</span>
+  </div>
 
-      <div class="date">2024년 8월 12일 월요일</div>
+  <div class="date-separator">2024년 8월 12일 월요일</div>
 
-      <div class="message me">
-        <div class="bubble">김선우 버블 준비중</div>
-      </div>
+  <div class="message sent">
+    <div class="bubble">선우야 버블을 보내 보아라</div>
+    <span class="time">오후 6:29</span>
+  </div>
 
-      <div class="date">2024년 8월 13일 화요일</div>
+  <div class="date-separator">2024년 8월 13일 화요일</div>
 
-      <div class="message me">
-        <div class="bubble">선우야 퍼똑 안오나.</div>
-      </div>
-    </div>
+  <div class="message sent">
+    <div class="bubble">김선우 버블 존버중</div>
+    <span class="time">오후 8:12</span>
+  </div>
+
+  <div class="message sent">
+    <div class="bubble">선우야 퍼뜩 안오나.</div>
+    <span class="time">오후 12:17</span>
   </div>
 </body>
 </html>
