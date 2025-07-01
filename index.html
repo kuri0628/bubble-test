@@ -87,13 +87,13 @@
     }
 
     .message:not(.me) .bubble::after {
-  left: -10px; /* 좀 짧게 */
-  top: 10px;   /* 아래로 조금 내려줌 */
+  left: -10px; /* 위치-메시지 왼쪽 면 */
+  top: 10px;   /* 위치-메시지 상단 */
   border: none;
   width: 0;
   height: 0;
   border-top: 10px solid transparent;
-  border-right: 10px solid white; /* 말풍선 배경색 */
+  border-left: 10px solid white; /* 말풍선 배경색 */
   border-bottom: none;
   border-left: none;
 }
@@ -106,7 +106,7 @@
   width: 0;
   height: 0;
   border-top: 10px solid transparent;
-  border-left: 10px solid #646464; /* 내 말풍선 배경색 */
+  border-right: 10px solid #646464; /* 내 말풍선 배경색 */
   border-bottom: none;
   border-right: none;
 }
