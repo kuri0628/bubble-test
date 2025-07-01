@@ -79,10 +79,12 @@
     .message .bubble::after {
       content: "";
       position: absolute;
-      top: 10px;
+      top: 0px;
+      right: -10px;
       width: 0;
       height: 0;
-      border: 10px solid transparent;
+      border-top: 10px solid #646464;
+      border-left: 10px solid transparent;
     }
 
     .message:not(.me) .bubble::after {
