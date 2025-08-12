@@ -113,9 +113,9 @@
     }
 
     .bubble {
-      max-width: 77%;/* 말풍선 범위 */
-      padding: 8px 12px;/* 여백 상하,좌우 */
-      border-radius: 12px;/* 말풍선 둥근 정도 */
+      max-width: 77%; /* 말풍선 범위 */
+      padding: 8px 12px; /* 여백 상하,좌우 */
+      border-radius: 12px; /* 말풍선 둥근 정도 */
       background: white;
       font-size: 15px;
       line-height: 1.4;
@@ -129,40 +129,33 @@
       color: #FEFEFE;
     }
 
-    /* 말풍선 꼬리 */
-    .message .bubble::after {
+    /* -------- 꼬리 분리 스타일 -------- */
+    /* 상대 메시지 꼬리 */
+    .message:not(.me) .bubble::after {
       content: "";
       position: absolute;
-      top: 0px;
-      right: -10px;
-      width: 0;
-      height: 0;
-      border: 10px solid transparent;
-    }
-
-    .message:not(.me) .bubble::after {
-      left: 0px;
-      top: 0px;
-      border: none;
+      left: 0px;  /* 꼬리 위치 조절 */
+      top: 0px;   /* 꼬리 위치 조절 */
       width: 0;
       height: 0;
       border-bottom: 15px solid transparent;
-      border-left: 15px solid white;
+      border-left: 15px solid white; /* 말풍선 배경색과 맞춤 */
       border-top: none;
       border-right: none;
     }
 
+    /* 내 메시지 꼬리 */
     .message.me .bubble::after {
-      right: 0px;
-      bottom: 0px;
-      border: none;
+      content: "";
+      position: absolute;
+      right: 0px;    /* 꼬리 위치 조절 */
+      bottom: 0px;   /* 꼬리 위치 조절 */
       width: 0;
       height: 0;
-      border-top: 15px solid #111111;
-      border-left: 15px solid #eeeeee;
+      border-top: 15px solid #111111;    /* 말풍선 배경에 맞춘 색 */
+      border-left: 15px solid #eeeeee;   /* 꼬리 그라데이션 효과 */
       border-bottom: none;
       border-right: none;
-  
     }
 
     /* 시간 표시 */
@@ -436,16 +429,3 @@
   </div>
 </body>
 </html>
-
-
-
-
-
-
-
-
-
-
-
-
-
