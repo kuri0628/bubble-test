@@ -59,11 +59,26 @@
       justify-content: flex-end;
     }
 
+    /* 프로필과 닉네임을 감싸는 영역 */
+    .profile-container {
+      display: flex;
+      align-items: center;
+      margin-right: 10px; /* 프로필+닉네임과 말풍선 사이 간격 */
+    }
+
     .profile {
       width: 40px;
       height: 40px;
       border-radius: 50%;
-      margin-right: 10px;
+      object-fit: cover;
+    }
+
+    .nickname {
+      font-size: 14px;
+      font-weight: 600;
+      color: #333;
+      margin-left: 6px;
+      user-select: none;
     }
 
     .bubble {
@@ -147,7 +162,10 @@
       <div class="date">2024년 8월 10일 토요일</div>
 
       <div class="message">
-        <img class="profile" src="sunwoo_profile.jpg" alt="프로필" />
+        <div class="profile-container">
+          <img class="profile" src="sunwoo_profile.jpg" alt="프로필" />
+          <span class="nickname">선우</span>
+        </div>
         <div class="bubble">자기! 많이 기다렸어~🤗</div>
         <div class="time">14:05</div>
       </div>
@@ -170,11 +188,11 @@
         <div class="bubble">선우야 퍼뜩 안오나.</div>
         <div class="time">12:17</div>
       </div>
-
     </div>
   </div>
 </body>
 </html>
+
 
 
 
