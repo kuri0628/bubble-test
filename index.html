@@ -121,15 +121,22 @@
     .time {
       font-size: 12px;
       color: #555;
-      margin-left: 8px;
       white-space: nowrap;
       user-select: none;
     }
 
-    /* 오른쪽 메시지일 경우 시간은 왼쪽 간격 대신 오른쪽 간격으로 */
+    /* 밝은 말풍선 시간 - 말풍선 오른쪽 */
+    .message:not(.me) .time {
+      margin-left: 8px;
+      margin-right: 0;
+      order: 1;
+    }
+
+    /* 어두운 말풍선 시간 - 말풍선 왼쪽 */
     .message.me .time {
       margin-left: 0;
       margin-right: 8px;
+      order: -1;
     }
   </style>
 </head>
