@@ -6,7 +6,7 @@
   <title>마에다 리쿠❤️</title>
   <style>
     body {
-      background: #abc0d1;
+      background: #abc0d1; /* 배경화면 색상 */
       font-family: "Apple SD Gothic Neo", sans-serif;
       margin: 0;
       padding: 0;
@@ -17,7 +17,6 @@
     .container {
       width: 100%;
       max-width: 400px;
-      background: #abc0d1;
       min-height: 100vh;
       display: flex;
       flex-direction: column;
@@ -60,12 +59,12 @@
     }
 
     .profile-container {
-      margin-right: 10px;
+      margin-right: 8px; /* 프로필 - 메시지 사이 간격 설정 */
     }
 
     .profile {
-      width: 40px;
-      height: 40px;
+      width: 50px;
+      height: 50px;
       border-radius: 50%;
       object-fit: cover;
       display: block;
@@ -86,11 +85,11 @@
     }
 
     .bubble {
-      max-width: 85%;
+      max-width: 8%; /* 버블 말풍선 길이 조절, 커지면 길이 늘어남 */
       padding: 10px 15px;
       border-radius: 14px;
       background: white;
-      font-size: 14px;
+      font-size: 15px; /* 글씨 크기 */
       line-height: 1.4;
       word-break: break-word;
       position: relative;
@@ -136,9 +135,9 @@
       border-left: none;
     }
 
-    /* 시간 표시 */
+    /* 채팅 보낸 시간 */
     .time {
-      font-size: 10px;
+      font-size: 10px; /* 채팅 보낸 시간 크기 */
       color: #758594;
       white-space: nowrap;
       user-select: none;
@@ -146,7 +145,7 @@
       align-self: flex-end;
     }
 
-    /* 어두운 말풍선 시간 - 왼쪽에 붙이려면 order 조절 가능 */
+    /* 내가 보낸 메시지 */
     .message.me .time {
       margin-left: 0;
       margin-right: 8px;
@@ -367,6 +366,7 @@
   </div>
 </body>
 </html>
+
 
 
 
