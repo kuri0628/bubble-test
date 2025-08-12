@@ -89,7 +89,7 @@
 
     .nickname {
       font-size: 12px;
-      font-weight: bold;
+      font-weight: 800;
       color: #333;
       margin-bottom: 4px;
       user-select: none;
@@ -114,10 +114,10 @@
 
     .bubble {
       max-width: 77%;/* 말풍선 범위 */
-      padding: 10px 15px;/* 여백 상하,좌우 */
+      padding: 8px 12px;/* 여백 상하,좌우 */
       border-radius: 12px;/* 말풍선 둥근 정도 */
       background: white;
-      font-size: 16px;
+      font-size: 15px;
       line-height: 1.4;
       word-break: break-word;
       position: relative;
@@ -154,14 +154,14 @@
 
     .message.me .bubble::after {
       right: 0px;
-      top: 0px;
+      bottom: 0px;
       border: none;
       width: 0;
       height: 0;
-      border-bottom: 15px solid #111111;
-      border-right: 15px solid #eeeeee;
-      border-top: none;
-      border-left: none;
+      border-top: 15px solid #111111;
+      border-left: 15px solid #eeeeee;
+      border-bottom: none;
+      border-right: none;
   
     }
 
@@ -183,7 +183,7 @@
 
       <div class="message">
         <div class="profile-container">
-          <img class="profile" src="riku_profile.jpg" alt="프로필" />
+          <img class="profile" src="sunwoo_profile.jpg" alt="프로필" />
         </div>
         <div class="text-container">
           <div class="nickname">陸</div>
@@ -436,6 +436,7 @@
   </div>
 </body>
 </html>
+
 
 
 
