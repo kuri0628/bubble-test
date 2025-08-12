@@ -1,83 +1,170 @@
 <!DOCTYPE html>
 <html lang="ko">
 <head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>채팅 UI 예제</title>
-<style>
-  body {
-    font-family: 'Arial', sans-serif;
-    background: #f0f0f0;
-    padding: 20px;
-  }
-  .chat-container {
-    max-width: 400px;
-    margin: 0 auto;
-    background: white;
-    border-radius: 10px;
-    padding: 15px;
-    box-shadow: 0 0 8px rgba(0,0,0,0.1);
-  }
-  .message {
-    display: flex;
-    flex-direction: column;
-    margin-bottom: 15px;
-    position: relative;
-  }
-  .message.user {
-    align-items: flex-end;
-  }
-  .message .bubble {
-    max-width: 70%;
-    padding: 10px 15px;
-    border-radius: 15px;
-    background: #4a90e2;
-    color: white;
-    position: relative;
-    font-size: 14px;
-  }
-  .message.user .bubble {
-    background: #4a90e2;
-  }
-  .message.other .bubble {
-    background: #e5e5ea;
-    color: #000;
-  }
-  /* 시간 표시를 말풍선 밖 아래에 */
-  .message .time {
-    font-size: 12px;
-    color: #888;
-    margin-top: 4px;
-  }
-  /* 오른쪽 정렬인 경우 시간도 오른쪽 정렬 */
-  .message.user .time {
-    align-self: flex-end;
-  }
-  /* 왼쪽 정렬인 경우 시간도 왼쪽 정렬 */
-  .message.other .time {
-    align-self: flex-start;
-  }
-</style>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>선우❤️</title>
+  <style>
+    body {
+      background: #b0c4de;
+      font-family: "Apple SD Gothic Neo", sans-serif;
+      margin: 0;
+      padding: 0;
+      display: flex;
+      justify-content: center;
+    }
+
+    .container {
+      width: 100%;
+      max-width: 400px;
+      background: #EEEEEE;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .header {
+      background: white;
+      text-align: center;
+      padding: 10px;
+      font-weight: bold;
+      border-bottom: 1px solid #ccc;
+    }
+
+    .chat {
+      padding: 20px 10px;
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .date {
+      text-align: center;
+      font-size: 12px;
+      color: #555;
+      margin: 10px 0;
+    }
+
+    .message {
+      display: flex;
+      align-items: flex-end;
+      margin: 10px 0;
+    }
+
+    .message:not(.me) {
+      justify-content: flex-start;
+    }
+
+    .message.me {
+      justify-content: flex-end;
+    }
+
+    .profile {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      margin-right: 10px;
+    }
+
+    .bubble {
+      max-width: 70%;
+      padding: 10px 15px;
+      border-radius: 14px;
+      background: white;
+      position: relative;
+      font-size: 14px;
+      line-height: 1.4;
+      word-break: break-word;
+    }
+
+    .message.me .bubble {
+      background: #646464;
+      color:#FEFEFE;
+    }
+
+    /* 말풍선 꼬리 */
+    .message .bubble::after {
+      content: "";
+      position: absolute;
+      top: 0px;
+      right: -10px;
+      width: 0;
+      height: 0;
+      border: 10px solid transparent;
+    }
+
+    .message:not(.me) .bubble::after {
+      left: 0px;
+      top: 0px;
+      border: none;
+      width: 0;
+      height: 0;
+      border-bottom: 15px solid transparent;
+      border-left: 15px solid white;
+      border-top: none;
+      border-right: none;
+    }
+
+    .message.me .bubble::after {
+      right: 0px;
+      top: 0px;
+      border: none;
+      width: 0;
+      height: 0;
+      border-bottom: 15px solid transparent;
+      border-right: 15px solid #646464;
+      border-top: none;
+      border-left: none;
+    }
+
+    /* 시간 표시 */
+    .time {
+      font-size: 12px;
+      color: #555;
+      margin-left: 8px;
+      white-space: nowrap;
+      user-select: none;
+    }
+
+    /* 오른쪽 메시지일 경우 시간은 왼쪽 간격 대신 오른쪽 간격으로 */
+    .message.me .time {
+      margin-left: 0;
+      margin-right: 8px;
+    }
+  </style>
 </head>
 <body>
-  <div class="chat-container">
-    <div class="message other">
-      <div class="bubble">안녕하세요! 오늘 기분 어때요?</div>
-      <div class="time">17:02</div>
-    </div>
-    <div class="message user">
-      <div class="bubble">좋아요! 코딩 열심히 하고 있어요.</div>
-      <div class="time">17:03</div>
-    </div>
-    <div class="message other">
-      <div class="bubble">멋지네요! 계속 화이팅!</div>
-      <div class="time">17:04</div>
+  <div class="container">
+    <div class="header">선우 ❤️</div>
+    <div class="chat">
+      <div class="date">2024년 8월 10일 토요일</div>
+
+      <div class="message">
+        <img class="profile" src="sunwoo_profile.jpg" alt="프로필" />
+        <div class="bubble">자기! 많이 기다렸어~🤗</div>
+        <div class="time">17:00</div>
+      </div>
+
+      <div class="message me">
+        <div class="bubble">선우야 버블을 보내 보아라</div>
+        <div class="time">17:02</div>
+      </div>
+
+      <div class="date">2024년 8월 12일 월요일</div>
+
+      <div class="message me">
+        <div class="bubble">김선우 버블 존버중</div>
+        <div class="time">17:10</div>
+      </div>
+
+      <div class="date">2024년 8월 13일 화요일</div>
+
+      <div class="message me">
+        <div class="bubble">선우야 퍼뜩 안오나.</div>
+        <div class="time">08:15</div>
+      </div>
+
     </div>
   </div>
 </body>
 </html>
-
-.message.me .time {
-  color: #bbb;
-}
-
