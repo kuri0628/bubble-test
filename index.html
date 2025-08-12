@@ -59,11 +59,8 @@
       justify-content: flex-end;
     }
 
-    /* 프로필과 닉네임을 감싸는 영역 */
     .profile-container {
-      display: flex;
-      align-items: center;
-      margin-right: 10px; /* 프로필+닉네임과 말풍선 사이 간격 */
+      margin-right: 10px;
     }
 
     .profile {
@@ -71,13 +68,20 @@
       height: 40px;
       border-radius: 50%;
       object-fit: cover;
+      display: block;
+    }
+
+    .text-container {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
     }
 
     .nickname {
-      font-size: 14px;
+      font-size: 12px;
       font-weight: 600;
       color: #333;
-      margin-left: 6px;
+      margin-bottom: 4px;
       user-select: none;
     }
 
@@ -86,10 +90,10 @@
       padding: 10px 15px;
       border-radius: 14px;
       background: white;
-      position: relative;
       font-size: 14px;
       line-height: 1.4;
       word-break: break-word;
+      position: relative;
     }
 
     .message.me .bubble {
@@ -138,20 +142,16 @@
       color: #758594;
       white-space: nowrap;
       user-select: none;
-    }
-
-    /* 밝은 말풍선 시간 - 말풍선 오른쪽 */
-    .message:not(.me) .time {
       margin-left: 8px;
-      margin-right: 0;
-      order: 1;
+      align-self: flex-end;
     }
 
-    /* 어두운 말풍선 시간 - 말풍선 왼쪽 */
+    /* 어두운 말풍선 시간 - 왼쪽에 붙이려면 order 조절 가능 */
     .message.me .time {
       margin-left: 0;
       margin-right: 8px;
       order: -1;
+      align-self: flex-end;
     }
   </style>
 </head>
@@ -159,14 +159,17 @@
   <div class="container">
     <div class="header">선우 ❤️</div>
     <div class="chat">
+
       <div class="date">2024년 8월 10일 토요일</div>
 
       <div class="message">
         <div class="profile-container">
           <img class="profile" src="sunwoo_profile.jpg" alt="프로필" />
-          <span class="nickname">선우</span>
         </div>
-        <div class="bubble">자기! 많이 기다렸어~🤗</div>
+        <div class="text-container">
+          <div class="nickname">선우</div>
+          <div class="bubble">자기! 많이 기다렸어~🤗</div>
+        </div>
         <div class="time">14:05</div>
       </div>
 
@@ -188,12 +191,8 @@
         <div class="bubble">선우야 퍼뜩 안오나.</div>
         <div class="time">12:17</div>
       </div>
+
     </div>
   </div>
 </body>
 </html>
-
-
-
-
-
