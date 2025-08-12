@@ -1,159 +1,59 @@
-<!DOCTYPE html>
-<html lang="ko">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>선우❤️</title>
-  <style>
-    body {
-      background: #b0c4de;
-      font-family: "Apple SD Gothic Neo", sans-serif;
-      margin: 0;
-      padding: 0;
-      display: flex;
-      justify-content: center;
-    }
+body {
+  font-family: 'Arial', sans-serif;
+  background: #f5f5f5;
+  margin: 0;
+  padding: 20px;
+}
 
-    .container {
-      width: 100%;
-      max-width: 400px;
-      background: #EEEEEE;
-      min-height: 100vh;
-      display: flex;
-      flex-direction: column;
-    }
+.chat-container {
+  max-width: 500px;
+  margin: 0 auto;
+}
 
-    .header {
-      background: white;
-      text-align: center;
-      padding: 10px;
-      font-weight: bold;
-      border-bottom: 1px solid #ccc;
-    }
+.message {
+  display: flex;
+  align-items: flex-end;
+  margin: 10px 0;
+}
 
-    .chat {
-      padding: 20px 10px;
-      flex: 1;
-    }
+.message.me {
+  justify-content: flex-end;
+}
 
-    .date {
-      text-align: center;
-      font-size: 12px;
-      color: #555;
-      margin: 10px 0;
-    }
+.profile {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  margin-right: 6px;
+}
 
-    .message {
-      display: flex;
-      align-items: flex-end;
-      margin: 10px 0;
-    }
+.bubble-wrapper {
+  display: flex;
+  align-items: flex-end;
+  gap: 4px;
+}
 
-    .message.me {
-      justify-content: flex-end;
-    }
+.bubble {
+  max-width: 70%;
+  padding: 10px 15px;
+  border-radius: 14px;
+  background: white;
+  font-size: 14px;
+  line-height: 1.4;
+  word-break: break-word;
+}
 
-    .profile {
-      width: 40px;
-      height: 40px;
-      border-radius: 50%;
-      margin-right: 10px;
-    }
+.message.me .bubble {
+  background: #8469e1;
+  color: white;
+}
 
-    .bubble {
-      max-width: 70%;
-      padding: 10px 15px 18px; /* 시간표시 공간 확보 */
-      border-radius: 14px;
-      background: white;
-      position: relative;
-      font-size: 14px;
-      line-height: 1.4;
-      word-break: break-word;
-    }
+.time {
+  font-size: 10px;
+  color: #999;
+  white-space: nowrap;
+}
 
-    .message.me .bubble {
-      background: #646464;
-      color:#FEFEFE;
-    }
-
-    /* 시간 표시 */
-    .time {
-      position: absolute;
-      bottom: 4px;
-      right: 8px;
-      font-size: 10px;
-      color: #999;
-    }
-
-    .message.me .time {
-      color: #ddd;
-    }
-
-    /* 꼬리 모양 */
-    .message:not(.me) .bubble::after {
-      left: 0px;
-      top: 0px;
-      border: none;
-      width: 0;
-      height: 0;
-      border-bottom: 15px solid transparent;
-      border-left: 15px solid white;
-      border-top: none;
-      border-right: none;
-    }
-
-    .message.me .bubble::after {
-      right: 0px;
-      top: 0px;
-      border: none;
-      width: 0;
-      height: 0;
-      border-bottom: 15px solid transparent;
-      border-right: 15px solid #646464;
-      border-top: none;
-      border-left: none;
-    }
-  </style>
-</head>
-<body>
-  <div class="container">
-    <div class="header">선우 ❤️</div>
-    <div class="chat">
-      <div class="date">2024년 8월 10일 토요일</div>
-
-      <div class="message">
-        <img class="profile" src="sunwoo_profile.jpg" alt="프로필">
-        <div class="bubble">
-          자기! 많이 기다렸어~🤗
-          <span class="time">오전 10:30</span>
-        </div>
-      </div>
-
-      <div class="message me">
-        <div class="bubble">
-          선우야 버블을 보내 보아라
-          <span class="time">오전 10:32</span>
-        </div>
-      </div>
-
-      <div class="date">2024년 8월 12일 월요일</div>
-
-      <div class="message me">
-        <div class="bubble">
-          김선우 버블 존버중
-          <span class="time">오전 11:02</span>
-        </div>
-      </div>
-
-      <div class="date">2024년 8월 13일 화요일</div>
-
-      <div class="message me">
-        <div class="bubble">
-          선우야 퍼뜩 안오나.
-          <span class="time">오전 09:48</span>
-        </div>
-      </div>
-    </div>
-  </div>
-</body>
-</html>
+.message.me .time {
+  color: #bbb;
+}
