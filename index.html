@@ -1,59 +1,83 @@
-body {
-  font-family: 'Arial', sans-serif;
-  background: #f5f5f5;
-  margin: 0;
-  padding: 20px;
-}
-
-.chat-container {
-  max-width: 500px;
-  margin: 0 auto;
-}
-
-.message {
-  display: flex;
-  align-items: flex-end;
-  margin: 10px 0;
-}
-
-.message.me {
-  justify-content: flex-end;
-}
-
-.profile {
-  width: 36px;
-  height: 36px;
-  border-radius: 50%;
-  margin-right: 6px;
-}
-
-.bubble-wrapper {
-  display: flex;
-  align-items: flex-end;
-  gap: 4px;
-}
-
-.bubble {
-  max-width: 70%;
-  padding: 10px 15px;
-  border-radius: 14px;
-  background: white;
-  font-size: 14px;
-  line-height: 1.4;
-  word-break: break-word;
-}
-
-.message.me .bubble {
-  background: #8469e1;
-  color: white;
-}
-
-.time {
-  font-size: 10px;
-  color: #999;
-  white-space: nowrap;
-}
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>채팅 UI 예제</title>
+<style>
+  body {
+    font-family: 'Arial', sans-serif;
+    background: #f0f0f0;
+    padding: 20px;
+  }
+  .chat-container {
+    max-width: 400px;
+    margin: 0 auto;
+    background: white;
+    border-radius: 10px;
+    padding: 15px;
+    box-shadow: 0 0 8px rgba(0,0,0,0.1);
+  }
+  .message {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 15px;
+    position: relative;
+  }
+  .message.user {
+    align-items: flex-end;
+  }
+  .message .bubble {
+    max-width: 70%;
+    padding: 10px 15px;
+    border-radius: 15px;
+    background: #4a90e2;
+    color: white;
+    position: relative;
+    font-size: 14px;
+  }
+  .message.user .bubble {
+    background: #4a90e2;
+  }
+  .message.other .bubble {
+    background: #e5e5ea;
+    color: #000;
+  }
+  /* 시간 표시를 말풍선 밖 아래에 */
+  .message .time {
+    font-size: 12px;
+    color: #888;
+    margin-top: 4px;
+  }
+  /* 오른쪽 정렬인 경우 시간도 오른쪽 정렬 */
+  .message.user .time {
+    align-self: flex-end;
+  }
+  /* 왼쪽 정렬인 경우 시간도 왼쪽 정렬 */
+  .message.other .time {
+    align-self: flex-start;
+  }
+</style>
+</head>
+<body>
+  <div class="chat-container">
+    <div class="message other">
+      <div class="bubble">안녕하세요! 오늘 기분 어때요?</div>
+      <div class="time">17:02</div>
+    </div>
+    <div class="message user">
+      <div class="bubble">좋아요! 코딩 열심히 하고 있어요.</div>
+      <div class="time">17:03</div>
+    </div>
+    <div class="message other">
+      <div class="bubble">멋지네요! 계속 화이팅!</div>
+      <div class="time">17:04</div>
+    </div>
+  </div>
+</body>
+</html>
 
 .message.me .time {
   color: #bbb;
 }
+
