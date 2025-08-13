@@ -127,6 +127,11 @@
       /* word-break: keep-all; 한글 단어·특수문자 단위로 줄바꿈 */
       overflow-wrap: break-word;  /* 긴 영어/숫자도 말풍선 안에서 개행 */
     }
+    /* 한 줄로 강제 */
+    .bubble.no-break {
+    white-space: nowrap;       /* 강제로 한 줄 */
+    overflow-wrap: normal;     /* 글자 단위 줄바꿈 금지 */
+    }
 
     .message.me .bubble {
       background: #A584F9;
@@ -181,7 +186,7 @@
 
       <div class="message">
         <div class="profile-container">
-          <img class="profile" src="riku_profile.jpg" alt="프로필" />
+          <img class="profile" src="sunwoo_profile.jpg" alt="프로필" />
         </div>
         <div class="text-container">
           <div class="nickname">陸</div>
@@ -240,7 +245,7 @@
         <div class="text-container">
           <div class="nickname">陸</div>
           <div class="bubble-time-container">
-            <div class="bubble">자기도 더워서 밥 안 들어가도 꼭 먹어야돼</div>
+            <div class="bubble no-break">자기도 더워서 밥 안 들어가도 꼭 먹어야돼</div>
             <div class="time">20:18</div>
           </div>
         </div>
@@ -273,7 +278,7 @@
         <div class="text-container">
           <div class="nickname">陸</div>
           <div class="bubble-time-container">
-            <div class="bubble">근데 쌀밥 먹으면 나 춤 더 잘 출 수 있어</div>
+            <div class="bubble no-break">근데 쌀밥 먹으면 나 춤 더 잘 출 수 있어</div>
             <div class="time">20:19</div>
           </div>
         </div>
@@ -299,7 +304,7 @@
         <div class="text-container">
           <div class="nickname">陸</div>
           <div class="bubble-time-container">
-            <div class="bubble">데뷔초 때는 내 춤이 가벼운 느낌이었는데</div>
+            <div class="bubble no-break">데뷔초 때는 내 춤이 가벼운 느낌이었는데</div>
             <div class="time">20:21</div>
           </div>
         </div>
@@ -413,6 +418,7 @@
   </div>
 </body>
 </html>
+
 
 
 
