@@ -123,7 +123,8 @@
       position: relative;
       user-select: text;
       white-space: pre-wrap; /* 공백 유지 + 자동 줄바꿈 허용 */
-      word-break: keep-all;  /* 한글 단어·특수문자 단위로 줄바꿈 */
+      overflow-wrap: anywhere;
+      /* word-break: keep-all; 한글 단어·특수문자 단위로 줄바꿈 */
       overflow-wrap: break-word;  /* 긴 영어/숫자도 말풍선 안에서 개행 */
     }
 
@@ -412,6 +413,7 @@
   </div>
 </body>
 </html>
+
 
 
 
