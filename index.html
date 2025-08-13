@@ -89,7 +89,7 @@
 
     .nickname {
       font-size: 12px;
-      font-weight: 650;
+      font-weight: 620;
       color: #333;
       margin-bottom: 4px;
       user-select: none;
@@ -113,7 +113,7 @@
     }
 
     .bubble {
-      max-width: 77%; /* 말풍선 범위 */
+      max-width: 78%; /* 말풍선 범위 */
       padding: 9px 12px; /* 여백 상하,좌우 */
       border-radius: 12px; /* 말풍선 둥근 정도 */
       background: white;
@@ -161,11 +161,12 @@
 
     /* 시간 표시 */
     .time {
-      font-size: 11px;;
+      font-size: 11px;
       font-weight: 500;
       color: #758594;
       white-space: nowrap;
       user-select: none;
+      margin-top: 2px; /* 시간 - 숫자↑위치↓*/
     }
   </style>
 </head>
@@ -330,14 +331,7 @@
 
       <div class="message me">
         <div class="bubble-time-container">
-          <div class="bubble">그치 춤은 어려워</div>
-          <div class="time">20:23</div>
-        </div>
-      </div>
-
-      <div class="message me">
-        <div class="bubble-time-container">
-          <div class="bubble">하지만 리쿠 엄청나게 잘 해내고 있잖아</div>
+          <div class="bubble">그치 춤은 어려워 하지만 리쿠 엄청나게 잘 해내고 있잖아</div>
           <div class="time">20:23</div>
         </div>
       </div>
@@ -352,20 +346,6 @@
             <div class="bubble">그래도 더 잘하고 싶으니까 무겁게 추는거랑 강약조절하는 연습하고 있어 ㅎㅎ</div>
             <div class="time">20:24</div>
           </div>
-        </div>
-      </div>
-
-      <div class="message me">
-        <div class="bubble-time-container">
-          <div class="bubble">우와 리쿠는 항상 열심히구나</div>
-          <div class="time">20:24</div>
-        </div>
-      </div>
-
-      <div class="message me">
-        <div class="bubble-time-container">
-          <div class="bubble">리쿠 보니까 나도 무언가 열심히 해야겠다는 의지가 생긴다😤💞!!!</div>
-          <div class="time">20:24</div>
         </div>
       </div>
 
@@ -431,6 +411,7 @@
   </div>
 </body>
 </html>
+
 
 
 
