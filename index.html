@@ -6,7 +6,7 @@
   <title>前田陸❤️</title>
   <style>
     body {
-      background: #EEEEEE;
+      background: #666666;
       font-family: "Apple SD Gothic Neo", sans-serif;
       margin: 0;
       padding: 0;
@@ -174,6 +174,11 @@
       color: #758594;
       white-space: nowrap;
       user-select: none;
+  /* 숫자와 기호가 같은 기준선에 오도록 */
+      font-feature-settings: "tnum"; /* 고정폭 숫자 사용 */
+      line-height: 1;/* 폰트 높이를 딱 맞게 */
+      position: relative;/* 미세 조정 가능하도록 */
+      top: -0.5px;/* 콜론을 살짝 위로 올림 */
     }
   </style>
 </head>
@@ -516,7 +521,7 @@
           <div class="bubble">선우야 퍼뜩 안오나.</div>
           <div class="time">12:17</div>
         </div>
-      </div>>
+      </div>
 
       <div class="message">
         <div class="profile-container">
@@ -600,5 +605,6 @@
   </div>
 </body>
 </html>
+
 
 
