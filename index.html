@@ -176,12 +176,17 @@
       white-space: nowrap;
       user-select: none;
   /* 숫자와 기호가 같은 기준선에 오도록 */
-      font-feature-settings: "tnum"; /* 고정폭 숫자 사용 */
+      /*font-feature-settings: "tnum"; 고정폭 숫자 사용 */
       font-variant-numeric: tabular-nums;
       line-height: 1;/* 폰트 높이를 딱 맞게 */
       position: relative;/* 미세 조정 가능하도록 */
-      top: -0.5px;/* 콜론을 살짝 위로 올림 */
+      /*top: -0.5px; 콜론을 살짝 위로 올림 */
     }
+    
+    .colon {
+      display: inline-block;
+      transform: translateY(-1px); /* 콜론만 위로 */
+}
   </style>
 </head>
 <body>
@@ -199,7 +204,7 @@
           <div class="nickname">陸</div>
           <div class="bubble-time-container">
             <div class="bubble">나 오늘 뭐 먹을까</div>
-            <div class="time">20:16</div>
+            <div class="time">20<span class="colon">:</span>16</div>
           </div>
         </div>
       </div>
@@ -207,7 +212,7 @@
       <div class="message me">
         <div class="bubble-time-container">
           <div class="bubble">흠</div>
-          <div class="time">20:16</div>
+          <div class="time">20<span class="colon">:</span>16</div>
         </div>
       </div>
 
@@ -607,6 +612,7 @@
   </div>
 </body>
 </html>
+
 
 
 
