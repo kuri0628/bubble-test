@@ -171,15 +171,15 @@
       transform: translateY(-0.0em);
     }
 
-    /* 사진이 독립된 블록으로 보이는 버전 */
-    .image-message img {
+    /* 사진이 말풍선 안에 들어가는 버전 */
+    .bubble.image-message {
+      padding: 0;
+      background: transparent;
+    }
+    .bubble.image-message img {
       max-width: 220px;
       border-radius: 10px;
       display: block;
-    }
-    .text-container .time {
-      margin-left: 4px;
-      margin-top: 2px;
     }
   </style>
 </head>
@@ -210,17 +210,19 @@
         </div>
       </div>
 
-      <!-- 사진 독립 블록 -->
+      <!-- 사진도 말풍선처럼 -->
       <div class="message">
         <div class="profile-container">
           <img class="profile" src="riku_profile.jpg" alt="프로필" />
         </div>
         <div class="text-container">
           <div class="nickname">陸</div>
-          <div class="image-message">
-            <img src="250821_1.jpg" alt="사진">
+          <div class="bubble-time-container">
+            <div class="bubble image-message">
+              <img src="250821_1.jpg" alt="사진">
+            </div>
+            <div class="time">14<span class="colon">:</span>34</div>
           </div>
-          <div class="time">14<span class="colon">:</span>34</div>
         </div>
       </div>
 
