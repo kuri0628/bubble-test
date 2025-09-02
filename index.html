@@ -1,214 +1,437 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>前田陸❤️</title>
+  <style>
+          body {
+           font-family: "Apple SD Gothic Neo", "SF Pro Display", "SF Pro Text", "Helvetica Neue", sans-serif;/*font-family: "Apple SD Gothic Neo", sans-serif;*/
+           background: #666666;
+           margin: 0;
+           padding: 0;
+           display: flex;
+           justify-content: center;
+         }
+          
+         .container {
+           width: 100%;
+           max-width: 400px;
+           background: #EEEEEE;
+           min-height: 100vh;
+           display: flex;
+           flex-direction: column;
+         }
+          
+         .header {
+           background: white;
+           text-align: center;
+           padding: 10px;
+           font-weight: bold;
+           border-bottom: 1px
+           solid #ccc;
+         }
+
+         .chat {
+           padding: 20px 10px;
+           flex: 1;
+           display: flex;
+           flex-direction: column;
+         }  
+          
+         .date {
+           text-align: center;
+           font-size: 12px;
+           color: #555;
+           margin: 10px 0;
+           user-select: none;
+         }
+          
+        .message {
+          display: flex;
+          align-items: flex-start; /* 전체 메시지 위쪽 정렬 */
+          margin: 8px 0; /* 말풍선 간격 상하, 좌우 */
+        }
+          
+        .message:not(.me) {
+          justify-content: flex-start;
+        }
+          
+        .message.me {
+          justify-content: flex-end;
+        }
+          
+        .profile-container {
+          margin-right: 6px; /* '프사' 랑 '말풍선' 간격 */
+          position: relative;
+          height: 60px; /* 닉네임+메시지 높이 예상 */
+          display: flex;
+          flex-direction: column;
+          justify-content: flex-start; /* 위쪽 정렬 */
+        }
+          
+        .profile {
+          width: 42px;
+          height: 42px;
+          border-radius: 50%;
+          object-fit: cover;
+          display: block;
+          user-select: none;
+          margin-top: 6px; /* 닉네임 높이 1/3 만큼 띄움 */
+          flex-shrink: 0;
+        }
+          
+        .text-container {
+          display: flex;
+          flex-direction: column;
+          justify-content: flex-start;
+          min-height: 60px; /* 프로필과 높이 맞추기 */
+        }
+          
+        .nickname {
+          font-size: 12px;
+          font-weight: 600;
+          color: #333;
+          margin-bottom: 4px;
+          user-select: none;
+        }
+        /* 말풍선과 시간 묶음 */
+        .bubble-time-container {
+          display: flex;
+          align-items: flex-end; /* 말풍선과 시간 아래쪽 정렬 */
+          gap: 6px;
+        }
+/* 상대 메시지: 시간 오른쪽 */
+        .message:not(.me) .bubble-time-container {
+          flex-direction: row;
+        }
+/* 내 메시지: 시간 왼쪽 */
+        .message.me .bubble-time-container {
+          flex-direction: row-reverse;
+        }
+          
+        .bubble {
+          max-width: 80%; /* 말풍선 범위 */
+          padding: 10px 13px; /* 여백 상하,좌우 */
+          border-radius: 13px; /* 말풍선 둥근 정도 */
+          background: white;
+          font-size: 15.5px;
+          letter-spacing: 0.4px; /* 자간 */
+          line-height: 1.3; /* 행간 */
+          position: relative;
+          user-select: text;
+          white-space: pre-wrap;     /* 공백 유지 + 자동 줄바꿈 허용 */
+          overflow-wrap: anywhere;   /* word-break: keep-all; 한글 단어·특수문자 단위로 줄바꿈 */
+          overflow-wrap: break-word; /* 긴 영어/숫자도 말풍선 안에서 개행 */
+        }
+/* 한 줄로 강제 */
+        .bubble.no-break {
+          white-space: nowrap;       /* 강제로 한 줄 */
+          overflow-wrap: normal;     /* 글자 단위 줄바꿈 금지 */
+        }
+          
+        .message.me .bubble {
+          background: #A584F9;
+          color: #FFFDFF;
+        }
+/* -------- 꼬리 분리 스타일 -------- */
+          /* 상대 메시지 꼬리 */
+        .message:not(.me) .bubble::after {
+          content: "";
+          position: absolute;
+          left: 0px;  /* 꼬리 위치 조절 */
+          top: 0px;   /* 꼬리 위치 조절 */
+          width: 0;
+          height: 0;
+          border-bottom: 15px solid transparent;
+          border-left: 15px solid white; /* 말풍선 배경색과 맞춤 */
+          border-top: none;
+          border-right: none;
+        }
+/* 내 메시지 꼬리 */
+        .message.me .bubble::after {
+          content: "";
+          position: absolute;
+          right: 0px;    /* 꼬리 위치 조절 */
+          bottom: 0px;   /* 꼬리 위치 조절 */
+          width: 0;
+          height: 0; 
+          border-top: 15px solid transparent; /* 투명 */
+          border-right: 15px
+          solid #A584F9;   /* 직각삼각형만큼 보임 */
+          border-bottom: none;
+          border-left: none;
+        }
+/* 시간 표시 */
+        .time {
+          font-size: 11px;
+          font-weight: 500;
+          color: #B6B6B6;
+          white-space: nowrap;
+          user-select: none; /* 숫자와 기호가 같은 기준선에 오도록 */
+             /*font-feature-settings: "tnum"; 고정폭 숫자 사용 */
+          font-variant-numeric: tabular-nums;
+          line-height: 1; /* 폰트 높이를 딱 맞게 */
+          position: relative; /* 미세 조정 가능하도록 */
+          /*top: -0.5px; 콜론을 살짝 위로 올림 */
+        }
+/* 숫자와 기호가 같은 기준선에 오도록 */
+        .colon {
+          display: inline-block;
+          transform: translateY(-0.0em); /* font-size 기준으로 콜론만 살짝 위로 */
+        }
+          
+        .image-message img {
+          max-width: 220px;
+          border-radius: 10px;
+          display:block;
+        }
+</style>
+</head>
+<body>  
+  <div class="container">
+    <div class="header">前田陸❤️</div>
+    <div class="chat">
+      <div class="date">2025년 8월 16일 토요일</div>
+
 <div class="message">
-        <div class="profile-container">
-          <img class="profile" src="riku_profile.jpg" alt="프로필" />
-        </div>
-        <div class="text-container">
-          <div class="nickname">陸</div>
-          <div class="bubble-time-container">
-            <div class="bubble">今日暑かった〜</div>
-            <div class="time">00<span class="colon">:</span>03</div>
-          </div>
-        </div>
+      <div class="profile-container">
+            <img class="profile" src="riku_profile_color.jpg" alt="프로필" />
       </div>
+      <div class="text-container">
+            <div class="nickname">陸</div>
+      <div class="bubble-time-container">
+            <div class="bubble">오늘 컬러 무대 봤엉?</div>
+            <div class="time">00<span class="colon">:</span>23</div>
+      </div>
+      </div>
+</div>
+            
+<div class="message">
+      <div class="profile-container">
+            <img class="profile" src="riku_profile_color.jpg" alt="프로필" />
+      </div>
+      <div class="text-container">
+            <div class="nickname">陸</div>
+      <div class="bubble-time-container">
+            <div class="bubble">진짜 많이 기다렷어</div>
+            <div class="time">00<span class="colon">:</span>23</div>
+      </div>
+      </div>
+</div>
 
-      <div class="message">
-        <div class="profile-container">
-          <img class="profile" src="riku_profile.jpg" alt="프로필" />
-        </div>
-        <div class="text-container">
-          <div class="nickname">陸</div>
-          <div class="bubble-time-container">
-            <div class="bubble">けど最高だった</div>
-            <div class="time">18<span class="colon">:</span>19</div>
-          </div>
-        </div>
+<div class="message">
+      <div class="profile-container">
+            <img class="profile" src="riku_profile_color.jpg" alt="프로필" />
       </div>
+      <div class="text-container">
+            <div class="nickname">陸</div>
+      <div class="bubble-time-container">
+            <div class="bubble">컬러를 무대에서 하는 날을</div>
+            <div class="time">00<span class="colon">:</span>24</div>
+      </div>
+      </div>
+</div>
+            
+<div class="message">
+      <div class="profile-container">
+            <img class="profile" src="riku_profile_color.jpg" alt="프로필" />
+      </div>
+      <div class="text-container">
+            <div class="nickname">陸</div>
+      <div class="bubble-time-container">
+            <div class="bubble">진짜 멋잇징</div>
+            <div class="time">00<span class="colon">:</span>24</div>
+      </div>
+      </div>
+</div>
 
-      <div class="message">
-        <div class="profile-container">
-          <img class="profile" src="riku_profile.jpg" alt="프로필" />
-        </div>
-        <div class="text-container">
-          <div class="nickname">陸</div>
-          <div class="bubble-time-container">
-            <div class="bubble">また来たいな</div>
-            <div class="time">18<span class="colon">:</span>19</div>
-          </div>
-        </div>
+<div class="message">
+      <div class="profile-container">
+            <img class="profile" src="riku_profile_color.jpg" alt="프로필" />
       </div>
+      <div class="text-container">
+            <div class="nickname">陸</div>
+      <div class="bubble-time-container">
+            <div class="bubble">많이 조아해줘</div>
+            <div class="time">00<span class="colon">:</span>24</div>
+      </div>
+      </div>
+</div>
+            
+<div class="message">
+      <div class="profile-container">
+            <img class="profile" src="riku_profile_color.jpg" alt="프로필" />
+      </div>
+      <div class="text-container">
+            <div class="nickname">陸</div>
+      <div class="bubble-time-container">
+            <div class="bubble">고양이릴스도 조앗지</div>
+            <div class="time">00<span class="colon">:</span>25</div>
+      </div>
+      </div>
+</div>
 
-      <div class="message">
-        <div class="profile-container">
-          <img class="profile" src="riku_profile.jpg" alt="프로필" />
-        </div>
-        <div class="text-container">
-          <div class="nickname">陸</div>
-          <div class="bubble-time-container">
-            <div class="bubble">君は今日1日どーだった？</div>
-            <div class="time">18<span class="colon">:</span>19</div>
-          </div>
-        </div>
+<div class="message">
+      <div class="profile-container">
+            <img class="profile" src="riku_profile_color.jpg" alt="프로필" />
       </div>
+      <div class="text-container">
+            <div class="nickname">陸</div>
+      <div class="bubble-time-container">
+            <div class="bubble">사쿠가 옆에 잇엇는데</div>
+            <div class="time">00<span class="colon">:</span>25</div>
+      </div>
+      </div>
+</div>
+            
+<div class="message">
+      <div class="profile-container">
+            <img class="profile" src="riku_profile_color.jpg" alt="프로필" />
+      </div>
+      <div class="text-container">
+            <div class="nickname">陸</div>
+      <div class="bubble-time-container">
+            <div class="bubble">넘넘 귀여운거야</div>
+            <div class="time">00<span class="colon">:</span>25</div>
+      </div>
+      </div>
+</div>
+            
+<div class="message">
+      <div class="profile-container">
+            <img class="profile" src="riku_profile_color.jpg" alt="프로필" />
+      </div>
+      <div class="text-container">
+            <div class="nickname">陸</div>
+      <div class="bubble-time-container">
+            <div class="bubble">걍 안고 싶엇어</div>
+            <div class="time">00<span class="colon">:</span>25</div>
+      </div>
+      </div>
+</div>
+            
+<div class="message">
+      <div class="profile-container">
+            <img class="profile" src="riku_profile_color.jpg" alt="프로필" />
+      </div>
+      <div class="text-container">
+            <div class="nickname">陸</div>
+      <div class="bubble-time-container">
+            <div class="bubble">우리 막내들</div>
+            <div class="time">00<span class="colon">:</span>26</div>
+      </div>
+      </div>
+</div>
 
-      <div class="message">
-        <div class="profile-container">
-          <img class="profile" src="riku_profile.jpg" alt="프로필" />
-        </div>
-        <div class="text-container">
-          <div class="nickname">陸</div>
-          <div class="bubble-time-container">
-            <div class="bubble">あ！</div>
-            <div class="time">16<span class="colon">:</span>56</div>
-          </div>
-        </div>
+<div class="message">
+      <div class="profile-container">
+            <img class="profile" src="riku_profile_color.jpg" alt="프로필" />
       </div>
+      <div class="text-container">
+            <div class="nickname">陸</div>
+      <div class="bubble-time-container">
+            <div class="bubble">아 ㅠㅠ</div>
+            <div class="time">00<span class="colon">:</span>26</div>
+      </div>
+      </div>
+</div>
+            
+<div class="message">
+      <div class="profile-container">
+            <img class="profile" src="riku_profile_color.jpg" alt="프로필" />
+      </div>
+      <div class="text-container">
+            <div class="nickname">陸</div>
+      <div class="bubble-time-container">
+            <div class="bubble">넘 귀여워서 힘들어</div>
+            <div class="time">00<span class="colon">:</span>26</div>
+      </div>
+      </div>
+</div>
 
-      <div class="message">
-        <div class="profile-container">
-          <img class="profile" src="riku_profile.jpg" alt="프로필" />
-        </div>
-        <div class="text-container">
-          <div class="nickname">陸</div>
-          <div class="bubble-time-container">
-            <div class="bubble">花火みた？？</div>
-            <div class="time">16<span class="colon">:</span>56</div>
-          </div>
-        </div>
+<div class="message">
+      <div class="profile-container">
+            <img class="profile" src="riku_profile_color.jpg" alt="프로필" />
       </div>
+      <div class="text-container">
+            <div class="nickname">陸</div>
+      <div class="bubble-time-container">
+            <div class="bubble">그만 귀여우면 안되나</div>
+            <div class="time">00<span class="colon">:</span>26</div>
+      </div>
+      </div>
+</div>
+            
+<div class="message">
+      <div class="profile-container">
+            <img class="profile" src="riku_profile_color.jpg" alt="프로필" />
+      </div>
+      <div class="text-container">
+            <div class="nickname">陸</div>
+      <div class="bubble-time-container">
+            <div class="bubble">근데 힐링돼</div>
+            <div class="time">00<span class="colon">:</span>26</div>
+      </div>
+      </div>
+</div>
 
-      <div class="message">
-        <div class="profile-container">
-          <img class="profile" src="riku_profile.jpg" alt="프로필" />
-        </div>
-        <div class="text-container">
-          <div class="nickname">陸</div>
-          <div class="bubble-time-container">
-            <div class="bubble">俺らステージの上やったからあんまり見えんかった</div>
-            <div class="time">16<span class="colon">:</span>57</div>
-          </div>
-        </div>
+<div class="message">
+      <div class="profile-container">
+            <img class="profile" src="riku_profile_color.jpg" alt="프로필" />
       </div>
+      <div class="text-container">
+            <div class="nickname">陸</div>
+      <div class="bubble-time-container">
+            <div class="bubble">진짜</div>
+            <div class="time">00<span class="colon">:</span>26</div>
+      </div>
+      </div>
+</div>
+            
+<div class="message">
+      <div class="profile-container">
+            <img class="profile" src="riku_profile_color.jpg" alt="프로필" />
+      </div>
+      <div class="text-container">
+            <div class="nickname">陸</div>
+      <div class="bubble-time-container">
+            <div class="bubble">사랑한다</div>
+            <div class="time">00<span class="colon">:</span>27</div>
+      </div>
+      </div>
+</div>
 
-      <div class="message">
-        <div class="profile-container">
-          <img class="profile" src="riku_profile.jpg" alt="프로필" />
-        </div>
-        <div class="text-container">
-          <div class="nickname">陸</div>
-          <div class="bubble-time-container">
-            <div class="bubble">ぴえん</div>
-            <div class="time">16<span class="colon">:</span>57</div>
-          </div>
-        </div>
+<div class="message me">
+      <div class="bubble-time-container">
+            <div class="bubble">웅 잘 기다리구잇을게</div>
+            <div class="time">20:24</div>
       </div>
+</div>
 
-      <div class="message">
-        <div class="profile-container">
-          <img class="profile" src="riku_profile.jpg" alt="프로필" />
-        </div>
-        <div class="text-container">
-          <div class="nickname">陸</div>
-          <div class="bubble-time-container">
-            <div class="bubble">今度また一緒に見よーね</div>
-            <div class="time">16<span class="colon">:</span>57</div>
-          </div>
-        </div>
-      </div>
 
-      <div class="message">
-        <div class="profile-container">
-          <img class="profile" src="riku_profile.jpg" alt="프로필" />
-        </div>
-        <div class="text-container">
-          <div class="nickname">陸</div>
-          <div class="bubble-time-container">
-            <div class="bubble">ユジンと浴衣デートとかしてみたいね</div>
-            <div class="time">16<span class="colon">:</span>59</div>
-          </div>
-        </div>
-      </div>
 
-      <div class="message">
-        <div class="profile-container">
-          <img class="profile" src="riku_profile.jpg" alt="프로필" />
-        </div>
-        <div class="text-container">
-          <div class="nickname">陸</div>
-          <div class="bubble-time-container">
-            <div class="bubble">絶対きれい</div>
-            <div class="time">16<span class="colon">:</span>59</div>
-          </div>
-        </div>
-      </div>
 
-      <div class="message">
-        <div class="profile-container">
-          <img class="profile" src="riku_profile.jpg" alt="프로필" />
-        </div>
-        <div class="text-container">
-          <div class="nickname">陸</div>
-          <div class="bubble-time-container">
-            <div class="bubble">やくそく</div>
-            <div class="time">17<span class="colon">:</span>00</div>
-          </div>
-        </div>
-      </div>
 
-      <div class="message">
-        <div class="profile-container">
-          <img class="profile" src="riku_profile.jpg" alt="프로필" />
-        </div>
-        <div class="text-container">
-          <div class="nickname">陸</div>
-          <div class="bubble-time-container">
-            <div class="bubble">だいすきだよ</div>
-            <div class="time">22<span class="colon">:</span>33</div>
-          </div>
-        </div>
-      </div>
 
-      <div class="message">
-        <div class="profile-container">
-          <img class="profile" src="riku_profile.jpg" alt="프로필" />
-        </div>
-        <div class="text-container">
-          <div class="nickname">陸</div>
-          <div class="bubble-time-container">
-            <div class="bubble">へへ</div>
-            <div class="time">22<span class="colon">:</span>33</div>
-          </div>
-        </div>
-      </div>
 
-      <div class="message">
-        <div class="profile-container">
-          <img class="profile" src="riku_profile.jpg" alt="프로필" />
-        </div>
-        <div class="text-container">
-          <div class="nickname">사쿠</div>
-          <div class="bubble-time-container">
-            <div class="bubble">기다리고잇어</div>
-            <div class="time">22<span class="colon">:</span>33</div>
-          </div>
-        </div>
-      </div>
 
-      <div class="message me">
-        <div class="bubble-time-container">
-          <div class="bubble">웅 잘 기다리구잇을게</div>
-          <div class="time">20:24</div>
-        </div>
-      </div>
 
-      <div class="message">
-        <div class="profile-container">
-          <img class="profile" src="riku_profile.jpg" alt="프로필" />
-        </div>
-        <div class="text-container">
-          <div class="nickname">사쿠</div>
-          <div class="bubble-time-container">
-            <div class="bubble">금메달 갖고 갈게</div>
-            <div class="time">22<span class="colon">:</span>33</div>
-          </div>
-        </div>
-      </div>
+
+
+
+
+          
+
+
+
+
+
+
+
+
+
+
+
+
+          
