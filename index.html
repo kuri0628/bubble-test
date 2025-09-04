@@ -122,7 +122,6 @@
           user-select: text;
           white-space: pre-wrap;     /* 공백 유지 + 자동 줄바꿈 허용 */
           overflow-wrap: anywhere;   /* word-break: keep-all; 한글 단어·특수문자 단위로 줄바꿈 */
-          overflow-wrap: break-word; /* 긴 영어/숫자도 말풍선 안에서 개행 */
         }
 /* 한 줄로 강제 */
         .bubble.no-break {
@@ -162,30 +161,22 @@
           border-bottom: none;
           border-left: none;
         }
-/* 시간 표시 */
+/* -------- 시간 표시 관련 -------- */
         .time {
           font-size: 11px;
           font-weight: 500;
           color: #B6B6B6;
           white-space: nowrap;
           user-select: none; /* 숫자와 기호가 같은 기준선에 오도록 */
-             /*font-feature-settings: "tnum"; 고정폭 숫자 사용 */
           font-variant-numeric: tabular-nums;
           line-height: 1; /* 폰트 높이를 딱 맞게 */
-          position: relative; /* 미세 조정 가능하도록 */
-          /*top: -0.5px; 콜론을 살짝 위로 올림 */
         }
-/* 숫자와 기호가 같은 기준선에 오도록 */
+/* 시간-콜론 높이 맞춤 */
         .colon {
           display: inline-block;
           transform: translateY(-0.0em); /* font-size 기준으로 콜론만 살짝 위로 */
         }
-          
-        .image-message img {
-          max-width: 220px;
-          border-radius: 10px;
-          display:block;
-        }
+        
 </style>
 </head>
 <body>  
@@ -435,4 +426,5 @@
 
 
           
+
 
