@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>선우❤️</title>
+  <style>
+    body {
+      background: #b0c4de;
+      font-family: "Apple SD Gothic Neo", sans-serif;
+      margin: 0;
+      padding: 0;
+      display: flex;
+      justify-content: center;
+    }
+
+    .container {
+      width: 100%;
+      max-width: 400px;
+      background: #b0c4de;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .header {
+      background: white;
+      text-align: center;
+      padding: 10px;
+      font-weight: bold;
+      border-bottom: 1px solid #ccc;
+    }
+
+    .chat {
+      padding: 20px 10px;
+      flex: 1;
+    }
+
+    .date {
+      text-align: center;
+      font-size: 12px;
+      color: #555;
+      margin: 10px 0;
+    }
+
+    .message {
+      display: flex;
+      align-items: flex-end;
+      margin: 10px 0;
+    }
+
+    .message.me {
+      justify-content: flex-end;
+    }
+
+    .profile {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      margin-right: 10px;
+    }
+
+    .bubble {
+      max-width: 70%;
+      padding: 10px 15px;
+      border-radius: 14px;
+      background: white;
+      position: relative;
+      font-size: 14px;
+      line-height: 1.4;
+      word-break: break-word;
+    }
+
+    .message.me .bubble {
+      background: #646464;
+      color:#FEFEFE;
+    }
+
+    .message .bubble::after {
+      content: "";
+      position: absolute;
+      top: 0px;
+      right: -10px;
+      width: 0;
+      height: 0;
+      border: 10px solid transparent;
+    }
+
+    .message:not(.me) .bubble::after {
+  left: 0px; /* 위치-메시지 왼쪽 면 */
+  top: 0px;   /* 위치-메시지 상단 */
+  border: none;
+  width: 0;
+  height: 0;
+  border-bottom: 15px solid transparent; /* 꼬리 크기 */
+  border-left: 15px solid white; /* 꼬리 크기 */
+  border-top: none;
+  border-right: none;
+}
+
+
+    .message.me .bubble::after {
+  right: 0px;
+  top: 0px;
+  border: none;
+  width: 0;
+  height: 0;
+  border-bottom: 15px solid transparent; /* 꼬리 크기 */
+  border-right: 15px solid #646464; /* 꼬리 크기 */
+  border-top: none;
+  border-left: none;
+}
+
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="header">선우 ❤️</div>
+    <div class="chat">
+      <div class="date">2024년 8월 10일 토요일</div>
+
+      <div class="message">
+        <img class="profile" src="sunwoo_profile.jpg" alt="프로필">
+        <div class="bubble">자기! 많이 기다렸어~🤗</div>
+      </div>
+
+      <div class="message me">
+        <div class="bubble">선우야 버블을 보내 보아라</div>
+      </div>
+
+      <div class="date">2024년 8월 12일 월요일</div>
+
+      <div class="message me">
+        <div class="bubble">김선우 버블 존버중</div>
+      </div>
+
+      <div class="date">2024년 8월 13일 화요일</div>
+
+      <div class="message me">
+        <div class="bubble">선우야 퍼뜩 안오나.</div>
+      </div>
+
+    </div>
+  </div>
+</body>
+</html>
