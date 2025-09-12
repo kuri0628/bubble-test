@@ -24,9 +24,15 @@
       padding: 15px;
       border-radius: 10px;
       cursor: pointer;
-      text-align: center; /* 텍스트 가운데 */
       color: white;
+/* --- 아래 4줄 추가 --- */
+      aspect-ratio: 1 / 1;     /* 가로세로 비율을 1:1로 만듦 */
+      display: flex;
+      justify-content: center; /* 좌우 중앙 정렬 */
+      align-items: center;     /* 상하 중앙 정렬 */
     }
+
+    
     .chat-item:hover {
       background: #eee;
     }
@@ -46,4 +52,5 @@
   </div>
 </body>
 </html>
+
 
