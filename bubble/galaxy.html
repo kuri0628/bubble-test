@@ -21,6 +21,7 @@
       align-items: center;
       margin-bottom: 3.9px; /* 이름 - 메시지 간격 */
     }
+    /* ▼▼▼ input-bar ▼▼▼ */
     .fixed-bottom-image { position: fixed; bottom: 0; left: 0; width: 100%; text-align: center; }
     .fixed-bottom-image img { max-width: 500px; width: 100%; display: block; margin: 0 auto; }
     
@@ -41,18 +42,19 @@
       border-radius: 50%;
       background-size: cover;
       background-position: center;
-      margin-top: 2px;
-      border: 0.3px solid #cdcdcd;
+      margin-top: 2px; /* 숫자↓ 위치↑ */
+      border: 0.3px solid #cdcdcd; /* 테두리 */
     }
     .name {
       font-size: 11px;
       font-weight: 400;
       color: #171718;
     }
+/* 말풍선 */
     .bubble {
       background: #FFFFFF;
       border-radius: 4px 14.5px 14.5px 14.5px;
-      padding: 12px 12px 11px 12px;
+      padding: 12px 12px 11px 12px;  /* 위 오른 아래 왼쪽 여백 */
       font-size: 13.7px;
       font-weight: 400;
       line-height: 1.2;
@@ -66,104 +68,112 @@
       position: relative;
       top: 2px;
     }
+    /* 1. 날짜 구분선 스타일 */
     .date-divider { text-align: center;        
       font-size: 10px; color: #8A8A8A;
-      margin: 21px 0 22px;
-      position: relative;
+      margin: 21px 0 22px; /* 날짜 - 메시지 간격 */
+      position: relative;  /* 선(::before)을 위치시킬 기준점 */
     }
+    /* 날짜 위에 선을 그리기 위한 가상 요소 추가 */
    .date-divider::before {
       content: '';
       position: absolute;
-      top: -7px;
-      left: 50%;
-      width: 100vw;
-      height: 0.8px;
+      top: -7px; /* 날짜와 선 간격, 숫자↓ 간격↑ */
+      left: 50%;                   /* 1. 선의 시작점을 화면 중앙으로 이동 */
+      width: 100vw;                /* 2. 선의 너비를 화면 전체 너비로 설정 (핵심!) */
+      height: 0.8px; /* 선 두께 */
       background: #E0E0E0;
-      transform: translateX(-50%);
+      transform: translateX(-50%); /* 3. 자기 너비의 절반만큼 왼쪽으로 당겨서 완벽한 중앙 정렬 */
     }
+    /* 내가 보내는 메시지 스타일  오른쪽배치 - 메시지 색 - 시간 */
     .my-chat-message { display: flex; justify-content: flex-end; margin-bottom: 18px; margin-top: 19px; }
     .my-bubble { background: #A584F9; color: #FFFFFF; border-radius: 14.5px 14.5px 4px 14.5px; }
     .my-chat-message .time { margin-left: 0; margin-right: 6px; }
+    /* 3. 사진 메시지 스타일 */
     .image-bubble { padding: 0; background: none; margin-left: 1.4px; }
     .image-bubble img {
       max-width: 244px;
       border-radius: 4px 13px 13px 13px;
       display: block;
     }
+/* 단독 이모티콘 스타일 (글자 크기 키우기) */
     .standalone-emoji {
       font-size: 66px;
       line-height: 1.5;
       background: none;
     }
+/* 스티커 이미지 스타일 (이미지 크기 지정) */
     .sticker-image {
       width: 110px;
       height: auto;
     }
+    
+/* ▼▼▼ [번역] ▼▼▼ */
+    /* 점선 스타일 */
     .dotted-divider {
       border: none; 
       background-image: linear-gradient(to right, #F4F4F4 4.5px, transparent 5px);
-      background-size: 6.5px 100%;
+      background-size: 6.5px 100%; /* 점선 빈 부분 길이 */
       background-repeat: repeat-x;
       background-position: left;
-      height: 1px;
-      margin: 8.5px -13px;
+      height: 1px; /* 선의 높이(두께) 지정 */
+      margin: 8.5px -13px; /* 점선 상하 간격 , 점선을 말풍선까지 연결 */
     }
+    /* 말풍선 내부 번역 텍스트 */
     .translation-inner {
       font-size: 13.5px;
       color: #9050F3;
       line-height: 1.2;
     }
     .bubble.has-translation {
-      padding-bottom: 9px;
+      padding-bottom: 9px; /* 번역 있는 말풍선의 아래 여백만 줄이기 */
     }
-
-    /* ▼▼▼ 새로 수정한 답장 스타일 ▼▼▼ */
+/* ▼▼▼ [ARTIST 답장] ▼▼▼ */
     .reply-bubble {
-        background-color: #F5F5F5;
-        padding: 9px 11px;
-        margin-bottom: 4px;
-        border-radius: 4px 14.5px 14.5px 4px;
+      background-color: #F5F5F5;
+      padding: 9px 11px;
+      margin-bottom: 4px;
+      border-radius: 4px 14.5px 14.5px 4px;
     }
     .reply-title {
-        font-size: 11px;
-        font-weight: 500;
-        color: #8A8A8A;
-        margin-bottom: 3px;
+      font-size: 11px;
+      font-weight: 500;
+      color: #8A8A8A;
+      margin-bottom: 3px;
     }
     .reply-content {
-        font-size: 13.5px;
-        color: #333333;
+      font-size: 13.5px;
+      color: #333333;
     }
     .bubble-after-reply {
-        border-top-left-radius: 4px;
+      border-top-left-radius: 4px;
     }
-
   </style>
 </head>
-<body>
+  <body>
   <div class="chat-container" id="chat"></div>
   <div class="fixed-bottom-image">
     <img src="../pic/input_bar.jpg" alt="채팅 입력창 이미지">
   </div>
   
   <script>
-    const showTranslations = true;
+    const showTranslations = true; // 번역을 보려면 true, 숨기려면 false로 변경
 
+    // 아티스트 정보
     const artistProfile = [
       {img: "../profile/profile_sunwoo.jpg", name: "김선우"},
       {img: "../profile/riku_baby.jpg", name:"YUSHI"},
       {img: "../profile/profile_riku_color.jpg", name:"陸"}
     ];
 
+    // 메시지 배열 (translation 속성은 그대로 유지)
     const messages = [
-      // ... 기존 메시지 데이터 ...
-      { sender: 'artist', type: 'text', content: "이상한 소리 햌ㅅ더니 배고파", time: "오후 11:27", profileIndex: 0 },
-      
+      { type: 'date', content: '2024년 8월 10일 토요일' },
       { sender: 'artist', type: 'reply', replyContent: '노래에 진심인 여자', mainContent: '아무래도', time: '오후 11:57', profileIndex: 0 },
       { sender: 'artist', type: 'reply', replyContent: '쿠죠노 하나비👍', mainContent: '오오오오오오', time: '오후 11:58', profileIndex: 0 },
       { sender: 'artist', type: 'reply', replyContent: '일찍 쉬세요. 늦었어요.', mainContent: '보내버리시네요. 주무실건가요.', time: '오후 11:59', profileIndex: 0 },
       { sender: 'artist', type: 'reply', replyContent: '아니 가지마', mainContent: '앙', time: '오후 11:59', profileIndex: 0 },
-      
+
       { sender: 'artist', type: 'text', content: "笑笑", translation: "웃다", time: "오후 10:25", profileIndex: 2 },
       { sender: 'artist', type: 'emote', content: '../emoji/tamagotchi_mametchi_hello.png', isImage: true, time: "오후 10:13", profileIndex: 1 },
     ];
@@ -171,27 +181,26 @@
     const chatContainer = document.getElementById("chat");
 
     messages.forEach(msg => {
-        if (msg.type === 'date') {
+      if (msg.type === 'date') {
         const dateEl = document.createElement('div');
         dateEl.className = 'date-divider';
         dateEl.textContent = msg.content;
         chatContainer.appendChild(dateEl);
         return;
-        }
-        if (msg.sender === 'me') {
+      }     
+      if (msg.sender === 'me') {
         const myMsg = document.createElement("div");
         myMsg.className = "my-chat-message";
         myMsg.innerHTML = `
-            <div style="display:flex; align-items:flex-end;">
+          <div style="display:flex; align-items:flex-end;">
             <div class="time">${msg.time}</div>
             <div class="bubble my-bubble">${msg.content}</div>
-            </div>
+          </div>
         `;
         chatContainer.appendChild(myMsg);
         return;
-        }
-
-        if (msg.profileIndex !== undefined) {
+      }
+      if (msg.profileIndex !== undefined) {
         currentProfileIndex = msg.profileIndex;
         }
         const chatMsg = document.createElement("div");
@@ -217,7 +226,7 @@
         } else {
             let messageBodyHTML = '';
 
-            if (msg.type === 'emote') {
+      if (msg.type === 'emote') {
                 if (msg.isImage) {
                     messageBodyHTML = `<img src="${msg.content}" class="sticker-image" alt="sticker">`;
                 } else {
