@@ -109,17 +109,19 @@
     }
     
     /* ▼▼▼ [수정] 아래 스타일들을 추가하고, 기존 .translation은 삭제! ▼▼▼ */
-
     /* 점선 스타일 */
     .dotted-divider {
-      border: none; /* 기본 선 제거 */
-      border-top: 1px dotted #DCDCDC; /* 위쪽에만 점선 추가 */
-      margin: 8px 0; /* 위아래 여백 */
+      border: none; 
+      background-image: radial-gradient(circle, #CCCCCC 1.5px, transparent 1.5px);
+      background-size: 8px 100%; /* 점과 점 사이의 간격 */
+      background-repeat: repeat-x;
+      background-position: center;
+      height: 2px; /* 선의 높이(두께) 지정 */
+      margin: 8px -13px; /* 4. 말풍선 padding을 무시하고 양 끝으로 늘리기 (핵심!) */
     }
-
     /* 말풍선 내부 번역 텍스트 */
     .translation-inner {
-      font-size: 12px;
+      font-size: 13px;
       color: #9050E7;
       line-height: 1.4;
     }
