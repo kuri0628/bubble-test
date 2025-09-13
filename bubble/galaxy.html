@@ -15,7 +15,12 @@
       background: #EEEEEE;
       padding-bottom: 70px; /* 하단 이미지 높이에 맞춰 여백 주기 */
     }
-    .message-content { display: flex; flex-direction: column; max-width: 95%; }
+    .message-content { 
+      display: flex; 
+      flex-direction: column; 
+      max-width: 95%;
+      align-items: flex-start; /* 🌷다른 말풍선 비율에 따라가지 않도록 */
+    }
     .header {
       display: flex;
       align-items: center;
