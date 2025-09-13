@@ -112,7 +112,7 @@
     /* 점선 스타일 */
     .dotted-divider {
       border: none; 
-      background-image: linear-gradient(to right, #F4F4F4 4px, transparent 5px);
+      background-image: linear-gradient(to right, #F4F4F4 4.5px, transparent 5px);
       background-size: 6.5px 100%; /* 점선 빈 부분 길이 */
       background-repeat: repeat-x;
       background-position: left;
@@ -125,6 +125,11 @@
       color: #9050F3;
       line-height: 1.2;
     }
+    /* ▼▼▼ 이 코드를 CSS 맨 아래에 추가 ▼▼▼ */
+    .bubble.has-translation {
+      padding-bottom: 5px; /* 번역 있는 말풍선의 아래 여백만 줄이기 */
+    }
+
     
   </style>
 </head>
@@ -229,13 +234,16 @@
         messageBodyHTML = `<div class="bubble image-bubble"><img src="${msg.content}" alt="image message"></div>`;
       } else {
         let bubbleContent = msg.content;
+        let bubbleClass = 'bubble'; // ◀ 1. 기본 클래스 이름을 변수로 만들기
+
         if (showTranslations && msg.translation) {
           bubbleContent += `
             <hr class="dotted-divider">
             <div class="translation-inner">${msg.translation}</div>
           `;
+          bubbleClass += ' has-translation'; // ◀ 2. 번역이 있을 때만 클래스 이름 추가!
         }
-        messageBodyHTML = `<div class="bubble">${bubbleContent}</div>`;
+        messageBodyHTML = `<div class="${bubbleClass}">${bubbleContent}</div>`; // ◀ 3. 변수를 클래스로 사용
       }
       
       chatMsg.innerHTML = `
