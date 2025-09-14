@@ -243,41 +243,60 @@
         }
         const chatMsg = document.createElement("div");
         chatMsg.className = "chat-message";
-        let messageBodyHTML = '';
-        if (msg.type === 'emote') {
-          if (msg.isImage) {
-            messageBodyHTML = `<img src="${msg.content}" class="sticker-image" alt="sticker">`;
-          } else {
-            messageBodyHTML = `<div class="standalone-emoji">${msg.content}</div>`;
-          }
-        } else if (msg.type === 'image') {
-          messageBodyHTML = `<div class="bubble image-bubble"><img src="${msg.content}" alt="image message"></div>`;
-        } else {
 // ▼ 수정된 내용
-          let bubbleContent = msg.content;
-          let bubbleClass = 'bubble'; // ◀ 1. 기본 클래스 이름을 변수로 만들기
-          if (showTranslations && msg.translation) {
-            bubbleContent += `
-            <hr class="dotted-divider">
-            <div class="translation-inner">${msg.translation}</div>
-            `;
-            bubbleClass += ' has-translation'; // ◀ 2. 번역이 있을 때만 클래스 이름 추가!
+        if (msg.type === 'reply') {
+          chatMsg.innerHTML = `
+          <div class="profile" style="background-image: url('${artistProfile[currentProfileIndex].img}')"></div>
+          <div class="message-content">
+          <div class="header">
+          <div class="name">${artistProfile[currentProfileIndex].name}</div>
+          </div>
+          <div class="bubble reply-bubble">
+          <div class="reply-title">ARTIST의 답장</div>
+          <div class="reply-content">${msg.replyContent}</div>
+          </div>
+          <div style="display:flex; align-items:flex-end;">
+          <div class="bubble bubble-after-reply">${msg.mainContent}</div>
+          <div class="time">${msg.time}</div>
+          </div>
+          </div>
+          `;
+        } else {
+          let messageBodyHTML = '';
+          if (msg.type === 'emote') {
+            if (msg.isImage) {
+              messageBodyHTML = `<img src="${msg.content}" class="sticker-image" alt="sticker">`;
+            } else {
+              messageBodyHTML = `<div class="standalone-emoji">${msg.content}</div>`;
+            }
+          } else if (msg.type === 'image') {
+            messageBodyHTML = `<div class="bubble image-bubble"><img src="${msg.content}" alt="image message"></div>`;
+          } else {
+            let bubbleContent = msg.content;
+            let bubbleClass = 'bubble';
+            if (showTranslations && msg.translation) {
+              bubbleContent += `
+              <hr class="dotted-divider">
+              <div class="translation-inner">${msg.translation}</div>
+              `;
+              bubbleClass += ' has-translation';
+            }
+            messageBodyHTML = `<div class="${bubbleClass}">${bubbleContent}</div>`;
           }
-// ▲ 수정된 내용
-          messageBodyHTML = `<div class="${bubbleClass}">${bubbleContent}</div>`; // ◀ 3. 변수를 클래스로 사용
+// ▲ 수정된 내용          
+          chatMsg.innerHTML = `
+          <div class="profile" style="background-image: url('${artistProfile[currentProfileIndex].img}')"></div>
+          <div class="message-content">
+          <div class="header">
+          <div class="name">${artistProfile[currentProfileIndex].name}</div>
+          </div>
+          <div style="display:flex; align-items:flex-end;">
+          ${messageBodyHTML}
+          <div class="time">${msg.time}</div>
+          </div>
+          </div>
+          `;
         }
-        chatMsg.innerHTML = `
-        <div class="profile" style="background-image: url('${artistProfile[currentProfileIndex].img}')"></div>
-        <div class="message-content">
-        <div class="header">
-        <div class="name">${artistProfile[currentProfileIndex].name}</div>
-        </div>
-        <div style="display:flex; align-items:flex-end;">
-        ${messageBodyHTML}
-        <div class="time">${msg.time}</div>
-        </div>
-        </div>
-        `;
         chatContainer.appendChild(chatMsg);
       });
     </script>
