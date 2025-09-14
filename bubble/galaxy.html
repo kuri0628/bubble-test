@@ -76,6 +76,11 @@
       position: relative;
       top: 2px;
     }
+    .time .colon {
+      position: relative;
+      top: -1px;
+    }
+
     /* 1. 날짜 구분선 스타일 */
     .date-divider { text-align: center;        
       font-size: 10px; color: #8A8A8A;
@@ -206,7 +211,7 @@
         myMsg.className = "my-chat-message";
         myMsg.innerHTML = `
           <div style="display:flex; align-items:flex-end;">
-            <div class="time">${msg.time}</div>
+            <div class="time">${msg.time.replace(':', '<span class="colon">:</span>')}</div>
             <div class="bubble my-bubble">${msg.content}</div>
           </div>
         `;
@@ -232,7 +237,7 @@
                     </div>
                     <div style="display:flex; align-items:flex-end;">
                         <div class="bubble bubble-after-reply">${msg.mainContent}</div>
-                        <div class="time">${msg.time}</div>
+                        <div class="time">${msg.time.replace(':', '<span class="colon">:</span>')}</div>
                     </div>
                 </div>
             `;
@@ -269,7 +274,7 @@
                     </div>
                     <div style="display:flex; align-items:flex-end;">
                         ${messageBodyHTML}
-                        <div class="time">${msg.time}</div>
+                        <div class="time">${msg.time.replace(':', '<span class="colon">:</span>')}</div>
                     </div>
                 </div>
             `;
