@@ -39,13 +39,18 @@
     gap: 5px /* 메시지-프로필 간격 */
   }
   .profile {
-    width: 40px;
-    height: 40px;
+    width: 41px;
+    height: 41px;
     border-radius: 50%;
     background-size: cover;
     background-position: center;
-    margin-top: 7px; /* 숫자↓ 위치↑ */
+    margin-top: 6px; /* 숫자↓ 위치↑ */
     border: 0.3px solid #cdcdcd; /* 테두리 */
+    / background: linear-gradient(90deg, #D28AFD, #E141FD);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden; /
   }
   .name {
     font-size: 12px;
@@ -199,7 +204,8 @@
    const artistProfile = [
      {img: "../profile/riku_first.jpg", name: "RIKU"},
      {img: "../profile/riku_baby.jpg", name:"陸"},
-     {img: "../profile/profile_riku_color.jpg", name:"陸"}
+     {img: "../profile/profile_riku_color.jpg", name:"陸"},
+     {img: "../profile/profile_jisung_250622.jpg", name:"띵"}
    ];
       
 // 메시지 내용
@@ -208,11 +214,20 @@
      { sender: 'artist', type: 'text', content: "이렇게 1위&nbsp;<br>후보에", time: "20:05", profileIndex: 0 },
      { sender: 'artist', type: 'text', content: "曜日感覚なくなっちゃう", translation: "요일감각이 없어져버려", time: "20:25", profileIndex: 0 },
      { sender: 'artist', type: 'reply', replyContent: "'난 후퇴 유턴'", mainContent: "ㅋㅋ 넌 나중에 보자", time: "20:45", profileIndex: 0 },
-     { sender: 'artist', type: 'image', content: 'pic/riku_250909.jpg', time: '22:00', profileIndex: 0 },
+     { sender: 'artist', type: 'image', content: '..pic/riku_250909.jpg', time: '22:00', profileIndex: 0 },
      { sender: 'artist', type: 'emote', content: "🥰", time: "22:06", profileIndex: 0 },
      { sender: 'artist', type: 'emote', content: '../emoji/tamagotchi_mametchi_hello.png', isImage: true, time: "22:13", profileIndex: 0 },
      { sender: 'me', type: 'text', content: '리쿠야아ㅏ', time: '22:22' },
-/* ▲▲▲ [유형 8개 정리] ▲▲▲ */
+// ▲▲▲ [유형 8개 정리] ▲▲▲
+     { sender: 'artist', type: 'image', content: '../pic/jisung_250909.jpg', time: '오후 05:11', profileIndex: 3 },
+     { sender: 'artist', type: 'text', content: "오늘 오랜만에 요드링도 꼈다구", time: "오후 05:11", profileIndex: 3 },
+     { sender: 'artist', type: 'text', content: "끝났다이", time: "오후 10:23", profileIndex: 3 },
+     { type: 'date', content: '2025년 9월 12일 금요일' },
+     { sender: 'artist', type: 'text', content: "감기 조심하세여...", time: "오후 02:07", profileIndex: 3 },
+     { sender: 'artist', type: 'emote', content: '../emoji/pola_chill.png', isImage: true, time: "오후 02:07", profileIndex: 3 },
+     { sender: 'artist', type: 'text', content: "아니 기온은 높은데", time: "오후 07:09", profileIndex: 3 },
+     { sender: 'artist', type: 'text', content: "왜 춥냐고", time: "오후 07:09", profileIndex: 3 },
+     { sender: 'artist', type: 'text', content: "ㅜㅜ", time: "오후 07:09", profileIndex: 3 },
    ];
       let currentProfileIndex = 0;
       const chatContainer = document.getElementById("chat");
