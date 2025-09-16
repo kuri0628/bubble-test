@@ -116,15 +116,10 @@
 /* ▼▼▼ [음성 메시지] 추가 ▼▼▼ */
   .voice-bubble {
     display: flex;
-    align-items: center; /* 아이콘 - 텍스트 옆으로 정렬*/
-    gap: 8px; /* 아이콘과 텍스트 사이 간격 */
-    font-family: 'Noto Sans KR';
-    font-size: 13px;
-    font-weight: 400;
-    padding: 8px 14px 9.5px 11px; !important; /* 위, 오른쪽, 아래, 왼쪽 */
+    /*padding: 8px 14px 9.5px 11px; !important; 위, 오른쪽, 아래, 왼쪽 */
   }
   .voice-bubble img {
-    width: 22.5px;
+    width: auto;
     height: 22.5px;
   }
 
@@ -212,7 +207,7 @@
     { sender: 'artist', type: 'image', content: '../pic/riku_250909.jpg', time: '오후 10:22', profileIndex: 2 },
 // ▲▲▲ [유형 8개 정리] ▲▲▲
     { sender: 'me', type: 'text', content: '아니 이런거 읽고 가면 어뜩하는데', time: '오후 8:19' },
-    { sender: 'artist', type: 'voice', content: "0:03", time: "오후 8:20", profileIndex: 0 },
+    { sender: 'artist', type: 'voice', voiceImage: 'voice/0.07.jpg', time: "오후 8:20", profileIndex: 0 },
     { sender: 'artist', type: 'text', content: "Skrrrrrrr", time: "오후 8:20", profileIndex: 0 },
     { sender: 'artist', type: 'voice', content: "voice", time: "00:55", profileIndex: 0 },
     { sender: 'artist', type: 'text', content: "응 한소절만", time: "00:55", profileIndex: 0 },
@@ -285,9 +280,8 @@
       } else if (msg.type === 'voice') {
         // 네가 업로드한 이미지 파일 이름을 여기에 정확히 기입해줘.
         messageBodyHTML = `<div class="bubble voice-bubble">
-                            <img src="voice/voice_galaxy.jpg" alt="voice icon">
-                            <span>${msg.content}</span>
-                           </div>`;
+                            <img src="${msg.voiceImage}" alt="voice icon">
+                     </div>`;
       } else {
         let bubbleContent = msg.content;
         let bubbleClass = 'bubble';
