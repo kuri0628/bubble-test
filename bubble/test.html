@@ -28,7 +28,6 @@
       align-items: center;
       margin-bottom: 3.9px; /* 이름-메시지 간격 */
     }
-    /* ▼▼▼ [input bar] ▼▼▼ */
     .fixed-bottom-image { position: fixed; bottom: 0; left: 0; width: 100%; text-align: center; }
     .fixed-bottom-image img { max-width: 500px; width: 100%; display: block; margin: 0 auto; }
     
@@ -57,7 +56,6 @@
       font-weight: 400;
       color: #171718;
     }
-    /* 말풍선 */
     .bubble {
       background: #FFFFFF;
       border-radius: 4px 14.5px 14.5px 14.5px;
@@ -79,7 +77,6 @@
       position: relative;
       top: -2px; /* 숫자↓ 콜론 위치↑ */
     }
-    /* ▼▼▼ [날짜] ▼▼▼ */
     .date-divider { text-align: center;        
       font-size: 10px; color: #8A8A8A;
       margin: 21px 0 22px; /* 날짜 - 메시지 간격 */
@@ -95,18 +92,16 @@
       background: #E0E0E0;
       transform: translateX(-50%);
     }
-    /* ▼▼▼ [내가 보내는 버블] ▼▼▼ */
     .my-chat-message { display: flex; justify-content: flex-end; margin-bottom: 18px; margin-top: 19px; }
     .my-bubble { background: #A584F9; color: #FFFFFF; border-radius: 14.5px 14.5px 4px 14.5px; }
     .my-chat-message .time { margin-left: 0; margin-right: 6px; }
-    /* ▼▼▼ [사진] ▼▼▼ */
+
     .image-bubble { padding: 0; background: none; margin-left: 1.4px; }
     .image-bubble img {
       max-width: 244px;
       border-radius: 4px 13px 13px 13px;
       display: block;
     }
-    /* ▼▼▼ [이모지] ▼▼▼ */
     .standalone-emoji {
       font-size: 66px;
       line-height: 1.5;
@@ -116,7 +111,6 @@
       width: 110px;
       height: auto;
     } 
-    /* ▼▼▼ [번역] ▼▼▼ */
     .dotted-divider {
       border: none; 
       background-image: linear-gradient(to right, #F4F4F4 4.5px, transparent 5px);
@@ -134,7 +128,6 @@
     .bubble.has-translation {
       padding-bottom: 9px;
     }
-    /* ▼▼▼ [ARTIST 답장] ▼▼▼ */
     .reply-bubble {
       background-color: #FCFCFC;
       padding: 13.7px 12px 19px 12px;
@@ -155,29 +148,32 @@
       border-top-left-radius: 4px;
     }
 
-    /* ▼▼▼ [음성 메시지] ▼▼▼ */
-    .audio-bubble {
-      display: flex;
+    /* ▼▼▼ [음성 메시지 UI 변경] - 새로 추가/수정된 부분 ▼▼▼ */
+    .voice-bubble {
+      display: inline-flex;
       align-items: center;
-      gap: 8px; /* 아이콘-파형-시간 사이 간격 */
-      padding: 2px 5px; /* 내부 여백 살짝 조정 */
+      gap: 8px;
+      background-color: #FFFFFF;
+      border-radius: 999px;
+      padding: 10px 20px;
       cursor: pointer;
+      border: 1px solid #EAEAEA;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.06);
+      transition: background-color 0.2s;
     }
-    .play-button svg {
-      width: 14px;
-      height: 14px;
-      fill: #333333; /* 재생 버튼 색상 */
+    .voice-bubble:hover {
+      background-color: #F8F8F8;
     }
-    .waveform img {
-      height: 24px; /* 파형 이미지 높이 */
-      width: 100px; /* 파형 이미지 너비 */
+    .voice-icon {
+      width: 24px;
+      height: 24px;
     }
-    .audio-duration {
-      font-size: 12px;
-      color: #555555;
-      font-weight: 400;
-      white-space: nowrap;
+    .voice-text {
+      font-size: 16px;
+      font-weight: 500;
+      color: #1C1C1C;
     }
+    /* ▲▲▲ [음성 메시지 UI 변경] - 여기까지 ▲▲▲ */
   </style>
 </head>
   <body>
@@ -190,7 +186,6 @@
   </div>
   
   <script>
-    // 오디오 재생 함수
     function playAudio(element) {
       const audioSrc = element.getAttribute('data-src');
       if (!audioSrc) return;
@@ -214,8 +209,11 @@
       { sender: 'me', type: 'text', content: '나야말로 이츠모 아리가토지', time: '오후 8:40' },
       { sender: 'artist', type: 'text', content: "아니야 먼저 자 낼 지장 갈 수도 있으니까", time: "오전 2:27", profileIndex: 0 },
       { sender: 'artist', type: 'text', content: "난 안 자 아직 ㅋㅋㅋㅋ", time: "오전 3:10", profileIndex: 0 },
-      { sender: 'artist', type: 'audio', content: 'bubble/audio/sion_250509_1.mp4', duration: '0:02', time: '오전 4:57', profileIndex: 0 },
-      { sender: 'artist', type: 'audio', content: 'bubble/audio/sion_250509_1.mp4', duration: '0:03', time: '오전 4:58', profileIndex: 0 },
+      // ▼▼▼ [음성 메시지 데이터 변경] ▼▼▼
+      // duration 속성은 더 이상 필요 없으므로 삭제
+      { sender: 'artist', type: 'audio', content: 'bubble/audio/sion_250509_1.mp4', time: '오전 4:57', profileIndex: 0 },
+      { sender: 'artist', type: 'audio', content: 'bubble/audio/sion_250509_1.mp4', time: '오전 4:58', profileIndex: 0 },
+      // ▲▲▲ [음성 메시지 데이터 변경] ▲▲▲
       { sender: 'artist', type: 'text', content: "나는 14시간 딥슬립 할거라 괜찮아", time: "오전 5:03", profileIndex: 0 },
     ];
     let currentProfileIndex = 0;
@@ -229,8 +227,6 @@
         chatContainer.appendChild(dateEl);
         return;
       }     
-      // ▼▼▼ [내가 보낸 메시지] - 수정된 부분 ▼▼▼
-      // audio 관련 로직을 제거하고 원래의 텍스트만 처리하는 코드로 복구
       if (msg.sender === 'me') {
         const myMsg = document.createElement("div");
         myMsg.className = "my-chat-message";
@@ -243,8 +239,6 @@
         chatContainer.appendChild(myMsg);
         return;
       }
-      // ▲▲▲ [내가 보낸 메시지] - 여기까지 ▲▲▲
-
       if (msg.profileIndex !== undefined) {
         currentProfileIndex = msg.profileIndex;
         }
@@ -270,21 +264,18 @@
             `;
         } else {
             let messageBodyHTML = '';
-            // 아티스트가 보낸 메시지는 audio 타입을 그대로 처리
+            
+            // ▼▼▼ [음성 메시지 HTML 생성 방식 변경] ▼▼▼
             if (msg.type === 'audio') {
                 messageBodyHTML = `
-                    <div class="bubble" style="padding: 8px 10px;">
-                        <div class="audio-bubble" onclick="playAudio(this)" data-src="${msg.content}">
-                            <div class="play-button">
-                                <svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"></path></svg>
-                            </div>
-                            <div class="waveform">
-                                <img src="../pic/waveform_gray.png" alt="waveform">
-                            </div>
-                            <div class="audio-duration">${msg.duration}</div>
-                        </div>
+                    <div class="voice-bubble" onclick="playAudio(this)" data-src="${msg.content}">
+                        <svg class="voice-icon" viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                            <path fill-rule="evenodd" clip-rule="evenodd" d="M12 2C12.5523 2 13 2.44772 13 3V21C13 21.5523 12.5523 22 12 22C11.4477 22 11 21.5523 11 21V3C11 2.44772 11.4477 2 12 2ZM5 8C5.55228 8 6 8.44772 6 9V15C6 15.5523 5.55228 16 5 16C4.44772 16 4 15.5523 4 15V9C4 8.44772 4.44772 8 5 8ZM19 8C19.5523 8 20 8.44772 20 9V15C20 15.5523 19.5523 16 19 16C18.4477 16 18 15.5523 18 15V9C18 8.44772 18.4477 8 19 8Z"/>
+                        </svg>
+                        <span class="voice-text">Voice</span>
                     </div>
                 `;
+            // ▲▲▲ [음성 메시지 HTML 생성 방식 변경] ▲▲▲
             } else if (msg.type === 'emote') {
                 if (msg.isImage) {
                     messageBodyHTML = `<img src="${msg.content}" class="sticker-image" alt="sticker">`;
