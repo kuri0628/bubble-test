@@ -1,321 +1,363 @@
 <!DOCTYPE html>
 <html lang="ko">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@600&display=swap" rel="stylesheet">
-  <title>아티스트 채팅</title>
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@600&display=swap" rel="stylesheet">
+    <title>아티스트 채팅</title>
 
-  <style>
-    body {
-      font-family: "Roboto";
-      font-size: 14px;
-      line-height: 1.5;
-      margin: 0;
-      background: #EEEEEE;
-      padding-bottom: 70px; /* input bar 높이에 맞춰 여백 주기 */
+<style>
+  body {
+    font-family: "Roboto";
+    font-size: 14px;
+    line-height: 1.5;
+    margin: 0;
+    background: #EEEEEE;
+    padding-bottom: 70px; /* input bar 높이에 맞춰 여백 주기 */
+  }
+  .message-content {
+    display: flex;
+    flex-direction: column;
+    max-width: 95%;
+    align-items: flex-start; /* 말풍선이 다른 말풍선 비율에 따라가지 않도록 */
+  }
+  .header {
+    display: flex;
+    align-items: center;
+    margin-bottom: 3.9px; /* 이름-메시지 간격 */
+  }
+  .chat-container {
+    max-width: 500px;
+    margin: 0;
+    padding: 8px;
     }
-    .message-content { 
-      display: flex; 
-      flex-direction: column; 
-      max-width: 95%;
-      align-items: flex-start; /* 말퓽선이 다른 말풍선 비율에 따라가지 않도록 */
+  .chat-message {
+    display: flex;
+    align-items: flex-start;
+    margin-bottom: 16.9px; /* 메시지 간 간격 */
+    gap: 6px /* 메시지-프로필 간격 */
     }
-    .header {
-      display: flex;
-      align-items: center;
-      margin-bottom: 3.9px; /* 이름-메시지 간격 */
-    }
-/* ▼▼▼ [input bar] ▼▼▼ */
-    .fixed-bottom-image { position: fixed; bottom: 0; left: 0; width: 100%; text-align: center; }
-    .fixed-bottom-image img { max-width: 500px; width: 100%; display: block; margin: 0 auto; }
-    
-    .chat-container {
-      max-width: 500px;
-      margin: 0;
-      padding: 8px;
-    }
-    .chat-message {
-      display: flex;
-      align-items: flex-start;
-      margin-bottom: 16.9px; /* 메시지 간 간격 */
-      gap: 6px /* 메시지-프로필 간격 */
-    }
-    .profile {
-      width: 39.6px;
-      height: 39.6px;
-      border-radius: 50%;
-      background-size: cover;
-      background-position: center;
-      margin-top: 2px; /* 숫자↓ 위치↑ */
-      border: 0.3px solid #cdcdcd; /* 테두리 */
-    }
-    .name {
-      font-size: 11px;
-      font-weight: 400;
-      color: #171718;
-    }
+  .profile {
+    width: 39.5px;
+    height: 39.6px;
+    border-radius: 50%;
+    background-size: cover;
+    background-position: center;
+    margin-top: 2px; /* 숫자↓ 위치↑ */
+    border: 0.2px solid #E8E8E8; /* 테두리, 기존 색 : cdcdcd;  */
+  }
+  .name {
+    font-size: 11px;
+    font-weight: 400;
+    color: #171718;
+  }
 /* 말풍선 */
-    .bubble {
-      background: #FFFFFF;
-      border-radius: 4px 14.5px 14.5px 14.5px;
-      padding: 12px 12px 11px 12px;  /* 위 오른 아래 왼쪽 여백 */
-      font-size: 13.7px;
-      font-weight: 400;
-      line-height: 1.2;
-    }
-    .time {
-      font-size: 9px;
-      font-weight: 350;
-      color: #AAAAAA;
-      margin-left: 6px;
-      white-space: nowrap;
-      position: relative;
-      top: 2px;
-    }
-    .time .colon {
-      position: relative;
-      top: -2px; /* 숫자↓ 콜론 위치↑ */
-    }
+  .bubble {
+    background: #FFFFFF;
+    border-radius: 4px 14.5px 14.5px 14.5px;
+    padding: 12px 12px 11px 12px;  /* 위 오른 아래 왼쪽 여백 */
+    font-size: 13.7px;
+    font-weight: 400;
+    line-height: 1.2;
+  }
+  .time {
+    font-size: 9px;
+    font-weight: 350;
+    color: #AAAAAA;
+    margin-left: 6px;
+    white-space: nowrap;
+    position: relative;
+    top: 2px;
+  }
+  .time .colon {
+    position: relative;
+    top: -2px; /* 숫자↓ 콜론 위치↑ */
+  }
 /* ▼▼▼ [날짜] ▼▼▼ */
-    /* 1. 날짜 구분선 스타일 */
-    .date-divider { text-align: center;        
-      font-size: 10px; color: #8A8A8A;
-      margin: 21px 0 22px; /* 날짜 - 메시지 간격 */
-      position: relative;  /* 선(::before)을 위치시킬 기준점 */
-    }
-    /* 날짜 위에 선을 그리기 위한 가상 요소 추가 */
-   .date-divider::before {
-      content: '';
-      position: absolute;
-      top: -7px; /* 날짜와 선 간격, 숫자↓ 간격↑ */
-      left: 50%;                   /* 1. 선의 시작점을 화면 중앙으로 이동 */
-      width: 100vw;                /* 2. 선의 너비를 화면 전체 너비로 설정 (핵심!) */
-      height: 0.8px; /* 선 두께 */
-      background: #E0E0E0;
-      transform: translateX(-50%); /* 3. 자기 너비의 절반만큼 왼쪽으로 당겨서 완벽한 중앙 정렬 */
-    }
+   /* 1. 날짜 구분선 스타일 */
+  .date-divider {
+    text-align: center;
+    font-size: 10px; color: #777777; /* 기존 색: 8A8A8A; 날짜 */
+    font-weight: 400;
+    margin: 21.5px 0 21.5px; /* 윗 메시지-날짜(좌우여백조절)-아래메시지 */
+    position: relative;
+  }
+   /* 날짜 위에 선을 그리기 위한 가상 요소 추가 */
+  .date-divider::before {
+    content: '';
+    position: absolute;
+    top: -6.5px; /* 날짜와 선 간격, 숫자↓ 간격↑ */
+    left: 50%; /* 선 시작점이 화면 중앙 */
+    width: 100vw;
+    height: 0.7px; /* 선 두께 */
+    background: #D6D6D6; /* 기존 색: E0E0E0; 날짜 선 */
+    transform: translateX(-50%);
+  }
 /* ▼▼▼ [내가 보내는 버블] ▼▼▼ */
-    /* 오른쪽배치 - 메시지 색 - 시간 */
-    .my-chat-message { display: flex; justify-content: flex-end; margin-bottom: 18px; margin-top: 19px; }
-    .my-bubble { background: #A584F9; color: #FFFFFF; border-radius: 14.5px 14.5px 4px 14.5px; }
-    .my-chat-message .time { margin-left: 0; margin-right: 6px; }
+   /* 오른쪽배치 - 메시지 색 - 시간 */
+  .my-chat-message { display: flex; justify-content: flex-end; margin-bottom: 18px; margin-top: 19px; }
+  .my-bubble { background: #A584F9; color: #FFFFFF; border-radius: 14.5px 14.5px 4px 14.5px; }
+  .my-chat-message .time { margin-left: 0; margin-right: 6px; }
+
 /* ▼▼▼ [사진] ▼▼▼ */
-    /* 3. 사진 메시지 스타일 */
-    .image-bubble { padding: 0; background: none; margin-left: 1.4px; }
-    .image-bubble img {
-      max-width: 244px;
-      border-radius: 4px 13px 13px 13px;
-      display: block;
-    }
+  .image-bubble {
+    padding: 0;
+    background: none;
+    margin-left: 1px;
+    margin-top: 2px;
+  }
+  .image-bubble img {
+    max-width: 244px;
+    border-radius: 4px 13px 13px 13px;
+    display: block;
+  }
+
+/* ▼▼▼ [음성 메시지] 추가 ▼▼▼ */
+  .voice-bubble {
+    display: flex;
+    align-items: center; /* 아이콘과 텍스트 세로 중앙 정렬 */
+    gap: 8px; /* 아이콘과 텍스트 사이 간격 */
+  }
+  .voice-bubble img {
+    width: 18px; /* 아이콘 크기 조절 */
+    height: 18px;
+  }
+
 /* ▼▼▼ [이모지] ▼▼▼ */
-/* 진짜 이모지 */
-    .standalone-emoji {
-      font-size: 66px;
-      line-height: 1.5;
-      background: none;
-    }
-/* 버블 이모티콘 */
-    .sticker-image {
-      width: 110px;
-      height: auto;
-    } 
+   /* 진짜 이모지 */
+  .standalone-emoji {
+    font-size: 66px;
+    line-height: 1.5;
+    background: none;
+  }
+   /* 버블 이모티콘 */
+  .sticker-image {
+    width: 110px;
+    height: auto;
+  }
+
 /* ▼▼▼ [번역] ▼▼▼ */
-    /* 점선 스타일 */
-    .dotted-divider {
-      border: none; 
-      background-image: linear-gradient(to right, #F4F4F4 4.5px, transparent 5px);
-      background-size: 6.5px 100%; /* 점선 빈 부분 길이 */
-      background-repeat: repeat-x;
-      background-position: left;
-      height: 1px; /* 선의 높이(두께) 지정 */
-      margin: 8.5px -13px; /* 점선 상하 간격 , 점선을 말풍선까지 연결 */
-    }
-    /* 말풍선 내부 번역 텍스트 */
-    .translation-inner {
-      font-size: 13.5px;
-      color: #9050F3;
-      line-height: 1.2;
-    }
-    .bubble.has-translation {
-      padding-bottom: 9px; /* 번역 있는 말풍선의 아래 여백만 줄이기 */
-    }
+   /* 점선 스타일 */
+  .dotted-divider {
+    border: none;
+    background-image: linear-gradient(to right, #F4F4F4 4.5px, transparent 5px);
+    background-size: 6.5px 100%; /* 점선 빈 부분 길이 */
+    background-repeat: repeat-x;
+    background-position: left;
+    height: 1px; /* 선의 높이(두께) 지정 */
+    margin: 8.5px -13px; /* 점선 상하 간격 , 점선을 말풍선까지 연결 */
+  }
+   /* 말풍선 내부 번역 텍스트 */
+  .translation-inner {
+    font-size: 13.5px;
+    color: #9050F3;
+    line-height: 1.2;
+  }
+  .bubble.has-translation {
+    padding-bottom: 9px; /* 번역 있는 말풍선의 아래 여백만 줄이기 */
+  }
+
 /* ▼▼▼ [ARTIST 답장] ▼▼▼ */
-    .reply-bubble {
-      background-color: #FCFCFC; /* 배경 색 */
-      padding: 13.7px 12px 19px 12px; /* 위 오른 아래 왼쪽 간격 */
-      margin-bottom: 6px; /* 두 말풍선 간격 */
-      border-radius: 14px;
-    }
-    .reply-title {
-      font-family: 'Noto Sans KR', sans-serif;
-      font-size: 9.5px;
-      color: #020202; /* ARTIST의 답장 */
-      margin-bottom: 5px; /* ARTIST의 답장-팬버블 간격 */
-    }
-    .reply-content {
-      font-size: 11.9px;
-      color: #00000080; /* 팬 버블 7E7E7E */
-    }
-    .bubble-after-reply {
-      border-top-left-radius: 4px;
-    }
-  </style>
+  .reply-bubble {
+    background-color: #FCFCFC; /* 배경 색 */
+    padding: 13.7px 12px 19px 12px; /* 위 오른 아래 왼쪽 간격 */
+    margin-bottom: 6px; /* 두 말풍선 간격 */
+    border-radius: 14px;
+  }
+  .reply-title {
+    font-family: 'Noto Sans KR', sans-serif;
+    font-size: 9.5px;
+    color: #020202; /* ARTIST의 답장 */
+    margin-bottom: 5px; /* ARTIST의 답장-팬버블 간격 */
+  }
+  .reply-content {
+    font-size: 11.9px;
+    color: #00000080; /* 팬 버블 7E7E7E */
+  }
+  .bubble-after-reply {
+    border-top-left-radius: 4px;}
+/* ▼▼▼ [input bar] ▼▼▼ */
+  .fixed-bottom-image { position: fixed; bottom: 0; left: 0; width: 100%; text-align: center; }
+  .fixed-bottom-image img { max-width: 500px; width: 100%; display: block; margin: 0 auto; }
+</style>
+
 </head>
   <body>
-  <div class="chat-container" id="chat"></div>
-  <div class="fixed-bottom-image">
-    <img src="../pic/input_bar.jpg" alt="채팅 입력창 이미지">
-  </div>
-  
-  <script>
-    const showTranslations = true; // 번역을 보려면 true, 숨기려면 false로 변경
+    <div class="chat-container" id="chat"></div>
+    <div class="fixed-bottom-image">
+      <img src="../pic/input_bar.jpg" alt="채팅 입력창 이미지">
+    </div>
 
-    // 아티스트 정보
-    const artistProfile = [
-      {img: "../profile/profile_sunwoo.jpg", name: "김선우"},
-      {img: "../profile/riku_baby.jpg", name:"YUSHI"},
-      {img: "../profile/profile_riku_color.jpg", name:"陸"}
-    ];
+<script>
+  // 번역을 보려면 true, 숨기려면 false로 변경
+  const showTranslations = true;
+  // 아티스트 정보
+  const artistProfile = [
+    {img: "../profile/profile_sunwoo.jpg", name: "김선우"},
+    {img: "../profile/riku_baby.jpg", name:"YUSHI"},
+    {img: "../profile/profile_riku_color.jpg", name:"陸"}
+  ];
+  // 메시지 배열
+  const messages = [
+    { type: 'date', content: '2024년 8월 10일 토요일' },
+    { sender: 'artist', type: 'text', content: "유진! 많이 기다렸어~🫶", time: "오후 2:05", profileIndex: 0 },
+    { sender: 'artist', type: 'text', content: "笑笑", translation: "웃다", time: "오후 10:25", profileIndex: 2 },
+    { sender: 'artist', type: 'reply', replyContent: "'리쿠야<br>보고싶어'", mainContent: "나두", time: "오후 11:05", profileIndex: 0 },
+    { sender: 'artist', type: 'emote', content: "😙", time: "오후 10:06", profileIndex: 1 },
+    { sender: 'artist', type: 'emote', content: '../emoji/tamagotchi_mametchi_hello.png', isImage: true, time: "오후 10:13", profileIndex: 1 },
+    { sender: 'artist', type: 'image', content: '../pic/riku_250909.jpg', time: '오후 10:22', profileIndex: 2 },
+    { sender: 'me', type: 'text', content: '리쿠짱', time: '오후 6:29' },
+// ▲▲▲ [유형 8개 정리] ▲▲▲
+    { type: 'date', content: '2025년 9월 9일 화요일' },
+    { sender: 'artist', type: 'image', content: '../pic/riku_250909.jpg', time: '오후 10:22', profileIndex: 2 },
+    { sender: 'artist', type: 'text', content: "이 의상 최애데스", time: "오후 10:23", profileIndex: 2 },
+    { sender: 'artist', type: 'text', content: "헤헤", time: "오후 10:23", profileIndex: 2 },
+    { sender: 'artist', type: 'text', content: "오늘도 오츠카레사마데스", time: "오후 10:23", profileIndex: 2 },
+    { sender: 'artist', type: 'text', content: "다음주도 의상 예쁠 것 같아", time: "오후 10:24", profileIndex: 2 },
+    { sender: 'artist', type: 'text', content: "아", time: "오후 10:24", profileIndex: 2 },
+    { sender: 'artist', type: 'text', content: "이번주", time: "오후 10:24", profileIndex: 2 },
+    { sender: 'artist', type: 'text', content: "曜日感覚なくなっちゃう", translation: "요일감각이 없어져버려", time: "오후 10:25", profileIndex: 2 },
+    { sender: 'artist', type: 'text', content: "笑笑", translation: "웃다", time: "오후 10:25", profileIndex: 2 },
+    { sender: 'artist', type: 'text', content: "みんなお仕事かな？", translation: "다들 일하시나?", time: "오후 10:25", profileIndex: 2 },
+    { sender: 'artist', type: 'text', content: "頑張ろうね", translation: "잘 해 보자.", time: "오후 10:25", profileIndex: 2 },
+    { sender: 'artist', type: 'text', content: "いつも応援してます☺️", translation: "항상 응원하고 있어요☺️", time: "오후 10:26", profileIndex: 2 },
+    { sender: 'artist', type: 'text', content: "つらかったら辛いって周りの人に<br>助け求めるんだよ", translation: "힘들면 힘들다고 주위 사람들에게 도움을&nbsp;&nbsp;&nbsp;&nbsp;<br>청하는 거야", time: "오후 10:26", profileIndex: 2 },
+    { sender: 'artist', type: 'text', content: "おれもそうするから", translation: "나도 그렇게 할 거니까", time: "오후 10:26", profileIndex: 2 },
+    { sender: 'artist', type: 'text', content: "わかった？", translation: "알겠어?", time: "오후 10:26", profileIndex: 2 },
+    { sender: 'artist', type: 'text', content: "うん！いい子いい子", translation: "응! 아이, 아이, 아이", time: "오후 10:27", profileIndex: 2 },
 
-    // 메시지 배열 (translation 속성은 그대로 유지)
-    const messages = [
-      { type: 'date', content: '2024년 8월 10일 토요일' },
-      { sender: 'artist', type: 'text', content: "유진! 많이 기다렸어~🫶", time: "오후 2:05", profileIndex: 0 },
-      { sender: 'me', type: 'text', content: '선우야 버블을 보내 보아라', time: '오후 6:29' },
-      { sender: 'artist', type: 'reply', replyContent: "'난 후퇴,유턴,좌회전,우회전 못하는데<br>괜찮겠냐'", mainContent: "ㅋㅋ 넌 나중에 보자", time: "오후 11:05", profileIndex: 0 },
-      
-      { type: 'date', content: '2025년 9월 8일 월요일' },
-      { sender: 'artist', type: 'text', content: "이렇게 많은 선배님들이 있는 주에 1위&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<br>후보에", time: "오후 7:05", profileIndex: 0 },
-      { type: 'date', content: '2025년 9월 9일 화요일' },
-      { sender: 'artist', type: 'image', content: 'pic/riku_250909.jpg', time: '오후 10:22', profileIndex: 2 },
-      { sender: 'me', type: 'text', content: '리쿠야아ㅏ', time: '오후 10:22' },
-      { sender: 'artist', type: 'text', content: "이 의상 최애데스", time: "오후 10:23", profileIndex: 2 },
-      { sender: 'artist', type: 'text', content: "헤헤", time: "오후 10:23", profileIndex: 2 },
-      
-      /* ▼▼▼ [수정 2] 번역이 필요한 메시지에 'translation' 속성 추가 ▼▼▼ */
-      { sender: 'artist', type: 'text', content: "曜日感覚なくなっちゃう", translation: "요일감각이 없어져버려", time: "오후 10:25", profileIndex: 2 },
-      { sender: 'artist', type: 'text', content: "笑笑", translation: "웃다", time: "오후 10:25", profileIndex: 2 },
-      { sender: 'artist', type: 'text', content: "みんなお仕事かな？", translation: "다들 일하시나?", time: "오후 10:25", profileIndex: 2 },
-      { sender: 'artist', type: 'text', content: "頑張ろうね", translation: "잘 해 보자.", time: "오후 10:25", profileIndex: 2 },
-      { sender: 'artist', type: 'text', content: "いつも応援してます☺️", translation: "항상 응원하고 있어요☺️", time: "오후 10:26", profileIndex: 2 },
-      { sender: 'artist', type: 'text', content: "つらかったら辛いって周りの人に<br>助け求めるんだよ", translation: "힘들면 힘들다고 주위 사람들에게 도움을&nbsp;&nbsp;&nbsp;&nbsp;<br>청하는 거야", time: "오후 10:26", profileIndex: 2 },
-      { sender: 'artist', type: 'text', content: "おれもそうするから", translation: "나도 그렇게 할 거니까", time: "오후 10:26", profileIndex: 2 },
-      { sender: 'artist', type: 'text', content: "わかった？", translation: "알겠어?", time: "오후 10:26", profileIndex: 2 },
-      { sender: 'artist', type: 'text', content: "うん！いい子いい子", translation: "알겠어?", time: "오후 10:27", profileIndex: 2 },
-      { sender: 'artist', type: 'image', content: 'pic/riku_250912.jpg', time: '오후 8:39', profileIndex: 2 },
-      { sender: 'artist', type: 'text', content: "컬러 2위할 수 잇엇어!!", time: "오후 8:40", profileIndex: 2 },
-      { sender: 'me', type: 'text', content: '리쿠양 카와이하당', time: '오후 8:40' },
-      { sender: 'artist', type: 'text', content: "항상 고마웡", time: "오후 8:40", profileIndex: 2 },
-      { sender: 'artist', type: 'text', content: "더 멋진 사람 될겡", time: "오후 8:40", profileIndex: 2 },
-      { sender: 'me', type: 'text', content: '나야말로 이츠모 아리가토지', time: '오후 8:40' },
-      { sender: 'artist', type: 'text', content: "오늘도 수고햇엉", time: "오후 8:41", profileIndex: 2 },
-      { sender: 'artist', type: 'text', content: "푹 장", time: "오후 8:41", profileIndex: 2 },
-      { sender: 'me', type: 'text', content: '리쿠도 오늘 푸우우욱 자고 사랑해애❤️', time: '오후 8:40' },
-      { sender: 'artist', type: 'text', content: "야식 맛있는거 드시고", time: "오후 10:06", profileIndex: 1 },
-      { sender: 'artist', type: 'emote', content: "🥰", time: "오후 10:06", profileIndex: 1 },
-      { sender: 'artist', type: 'text', content: "푹쉬어요ㅇ", time: "오후 10:06", profileIndex: 1 },
-      { sender: 'artist', type: 'emote', content: '../emoji/tamagotchi_mametchi_hello.png', isImage: true, time: "오후 10:13", profileIndex: 1 },
-      { sender: 'artist', type: 'text', content: "나는 햄버거 먹었어", time: "오후 7:26", profileIndex: 1 },
-      { sender: 'me', type: 'text', content: '햄버거?', time: '오후 7:27' },
-      { sender: 'artist', type: 'text', content: "그리고 숙소 가서도 뭐 먹으려고", time: "오후 7:27", profileIndex: 1 },
-      { sender: 'me', type: 'text', content: '머 먹을거야?', time: '오후 7:27' },
-      { sender: 'artist', type: 'text', content: "맞아！<br>춤 시간없어서 못찍었어요 😓", time: "오후 7:29", profileIndex: 1 },
-      { sender: 'artist', type: 'text', content: "나중에 또 찍을게요 ㅠㅠ", time: "오후 7:29", profileIndex: 1 },
-      { sender: 'me', type: 'text', content: '괜찮아 나는 기다리는 거 잘 할 수 있어', time: '오후 7:29' },
-      { sender: 'me', type: 'text', content: '우시 나한테 먹은 거 알려줘야함 뭐<br>그런 그런 법이 있ㅇ어서 숙소 가서 뭐&nbsp;&nbsp;&nbsp;&nbsp;<br>먹었는지 말하러 쪼르르 와줘야함', time: '오후 8:38' },
-      { type: 'date', content: '2025년 9월 12일 금요일' },
-      { sender: 'me', type: 'text', content: '윳띠 하나도 안 읽어서 속상해', time: '오후 7:06' },
-    ];
-    let currentProfileIndex = 0;
-    const chatContainer = document.getElementById("chat");
+    { type: 'date', content: '2025년 9월 12일 금요일' },
+    { sender: 'artist', type: 'image', content: '../pic/riku_250912.jpg', time: '오후 8:39', profileIndex: 2 },
+    { sender: 'artist', type: 'text', content: "컬러 2위할 수 잇엇어!!", time: "오후 8:40", profileIndex: 2 },
+    { sender: 'me', type: 'text', content: '리쿠양 카와이하당', time: '오후 8:40' },
+    { sender: 'artist', type: 'text', content: "항상 고마웡", time: "오후 8:40", profileIndex: 2 },
+    { sender: 'artist', type: 'text', content: "더 멋진 사람 될겡", time: "오후 8:40", profileIndex: 2 },
+    { sender: 'me', type: 'text', content: '나야말로 이츠모 아리가토지', time: '오후 8:40' },
+    { sender: 'artist', type: 'text', content: "오늘도 수고햇엉", time: "오후 8:41", profileIndex: 2 },
+    { sender: 'artist', type: 'text', content: "푹 장", time: "오후 8:41", profileIndex: 2 },
+    { sender: 'me', type: 'text', content: '리쿠도 오늘 푸우우욱 자고 사랑해애❤️', time: '오후 8:40' },
 
-    messages.forEach(msg => {
-      if (msg.type === 'date') {
-        const dateEl = document.createElement('div');
-        dateEl.className = 'date-divider';
-        dateEl.textContent = msg.content;
-        chatContainer.appendChild(dateEl);
-        return;
-      }     
-      if (msg.sender === 'me') {
-        const myMsg = document.createElement("div");
-        myMsg.className = "my-chat-message";
-        myMsg.innerHTML = `
-          <div style="display:flex; align-items:flex-end;">
-            <div class="time">${msg.time.replace(':', '<span class="colon">:</span>')}</div>
-            <div class="bubble my-bubble">${msg.content}</div>
-          </div>
-        `;
-        chatContainer.appendChild(myMsg);
-        return;
-      }
-      if (msg.profileIndex !== undefined) {
-        currentProfileIndex = msg.profileIndex;
-        }
-        const chatMsg = document.createElement("div");
-        chatMsg.className = "chat-message";
+    { type: 'date', content: '2025년 9월 14일 일요일' },
+    { sender: 'artist', type: 'image', content: '../pic/riku_250914_1.jpg', time: '오후 12:42', profileIndex: 2 },
+    { sender: 'artist', type: 'image', content: '../pic/riku_250914_2.jpg', time: '오후 12:42', profileIndex: 2 },
+    { sender: 'artist', type: 'text', content: "어제 예뻣죠", time: "오후 12:42", profileIndex: 2 },
+    { sender: 'artist', type: 'text', content: "피어싱 멋잇더라", time: "오후 12:43", profileIndex: 2 },
+    { sender: 'artist', type: 'text', content: "오늘도 예뻐용", time: "오후 12:43", profileIndex: 2 },
+    { sender: 'artist', type: 'text', content: "어제가 악마면", time: "오후 12:43", profileIndex: 2 },
+    { sender: 'artist', type: 'text', content: "오늘 천사", time: "오후 12:43", profileIndex: 2 },
+    { sender: 'artist', type: 'text', content: "멋잇는", time: "오후 12:44", profileIndex: 2 },
+    { sender: 'artist', type: 'text', content: "기대 해주세용", time: "오후 12:44", profileIndex: 2 },
+    { sender: 'artist', type: 'text', content: "원래 천사야??ㅋㅋㅋ", time: "오후 12:44", profileIndex: 2 },
+    { sender: 'artist', type: 'text', content: "나 악마가 잘 어울릴 것 같은데", time: "오후 12:45", profileIndex: 2 },
+    { sender: 'artist', type: 'text', content: "아니면 약간 어두운 천사", time: "오후 12:45", profileIndex: 2 },
+    { sender: 'artist', type: 'text', content: "ㅋㅋㅋㅋㅋㅋㅋ", time: "오후 12:45", profileIndex: 2 },
+    { sender: 'artist', type: 'text', content: "뭐 둘다 할게", time: "오후 12:47", profileIndex: 2 },
+    { sender: 'artist', type: 'text', content: "상상은 자유라서", time: "오후 12:47", profileIndex: 2 },
+    { sender: 'artist', type: 'text', content: "자기가 다 정해", time: "오후 12:48", profileIndex: 2 },
+    // ▼▼▼ [음성 메시지] 데이터 추가 ▼▼▼
+    { sender: 'artist', type: 'voice', content: "voice", time: "오후 12:49", profileIndex: 2 },
+  ];
+  let currentProfileIndex = 0;
+  const chatContainer = document.getElementById("chat");
 
-        if (msg.type === 'reply') {
-            chatMsg.innerHTML = `
-                <div class="profile" style="background-image: url('${artistProfile[currentProfileIndex].img}')"></div>
-                <div class="message-content">
-                    <div class="header">
-                        <div class="name">${artistProfile[currentProfileIndex].name}</div>
-                    </div>
-                    <div class="bubble reply-bubble">
-                        <div class="reply-title">ARTIST의 답장</div>
-                        <div class="reply-content">${msg.replyContent}</div>
-                    </div>
-                    <div style="display:flex; align-items:flex-end;">
-                        <div class="bubble bubble-after-reply">${msg.mainContent}</div>
-                        <div class="time">${msg.time.replace(':', '<span class="colon">:</span>')}</div>
-                    </div>
-                </div>
-            `;
-        } else {
-            let messageBodyHTML = '';
+  messages.forEach(msg => {
+// 1. 날짜
+    if (msg.type === 'date') {
+      const dateEl = document.createElement('div');
+      dateEl.className = 'date-divider';
+      dateEl.textContent = msg.content;
+      chatContainer.appendChild(dateEl);
+      return;
+    }
+// 2. 내가 보내는 버블
+    if (msg.sender === 'me') {
+      const myMsg = document.createElement("div");
+      myMsg.className = "my-chat-message";
+      myMsg.innerHTML = `
+      <div style="display:flex; align-items:flex-end;">
+      <div class="time">${msg.time.replace(':', '<span class="colon">:</span>')}</div>
+      <div class="bubble my-bubble">${msg.content}</div>
+      </div>
+      `;
+      chatContainer.appendChild(myMsg);
+      return;
+    }
+
+    if (msg.profileIndex !== undefined) {
+      currentProfileIndex = msg.profileIndex;
+    }
+
+    const chatMsg = document.createElement("div");
+    chatMsg.className = "chat-message";
+// ▼ 아티스트 태그 코드 <span class="artist-tag">ARTIST</span>
+    if (msg.type === 'reply') {
+      chatMsg.innerHTML = `
+      <div class="profile" style="background-image: url('${artistProfile[currentProfileIndex].img}')"></div>
+      <div class="message-content">
+      <div class="header">
+      <span class="artist-tag">ARTIST</span>
+      <div class="name">${artistProfile[currentProfileIndex].name}</div>
+      </div>
+      <div class="bubble reply-bubble">
+      <div class="reply-title">ARTIST의 답장</div>
+      <div class="reply-content">${msg.replyContent}</div>
+      </div>
+      <div style="display:flex; align-items:flex-end;">
+      <div class="bubble bubble-after-reply">${msg.mainContent}</div>
+      <div class="time">${msg.time.replace(':', '<span class="colon">:</span>')}</div>
+      </div>
+      </div>
+      `;
+    } else {
+      let messageBodyHTML = '';
 
       if (msg.type === 'emote') {
-                if (msg.isImage) {
-                    messageBodyHTML = `<img src="${msg.content}" class="sticker-image" alt="sticker">`;
-                } else {
-                    messageBodyHTML = `<div class="standalone-emoji">${msg.content}</div>`;
-                }
-            } else if (msg.type === 'image') {
-                messageBodyHTML = `<div class="bubble image-bubble"><img src="${msg.content}" alt="image message"></div>`;
-            } else {
-                let bubbleContent = msg.content;
-                let bubbleClass = 'bubble';
-
-                if (showTranslations && msg.translation) {
-                    bubbleContent += `
-                    <hr class="dotted-divider">
-                    <div class="translation-inner">${msg.translation}</div>
-                    `;
-                    bubbleClass += ' has-translation';
-                }
-                messageBodyHTML = `<div class="${bubbleClass}">${bubbleContent}</div>`;
-            }
-            
-            chatMsg.innerHTML = `
-                <div class="profile" style="background-image: url('${artistProfile[currentProfileIndex].img}')"></div>
-                <div class="message-content">
-                    <div class="header">
-                        <div class="name">${artistProfile[currentProfileIndex].name}</div>
-                    </div>
-                    <div style="display:flex; align-items:flex-end;">
-                        ${messageBodyHTML}
-                        <div class="time">${msg.time.replace(':', '<span class="colon">:</span>')}</div>
-                    </div>
-                </div>
-            `;
+        if (msg.isImage) {
+          messageBodyHTML = `<img src="${msg.content}" class="sticker-image" alt="sticker">`;
+        } else {
+          messageBodyHTML = `<div class="standalone-emoji">${msg.content}</div>`;
         }
-        
-        chatContainer.appendChild(chatMsg);
-    });
-  </script>
- </body>
+      } else if (msg.type === 'image') {
+        messageBodyHTML = `<div class="bubble image-bubble"><img src="${msg.content}" alt="image message"></div>`;
+      // ▼▼▼ [음성 메시지] 렌더링 로직 추가 ▼▼▼
+      } else if (msg.type === 'voice') {
+        // 네가 업로드한 이미지 파일 이름을 여기에 정확히 기입해줘.
+        messageBodyHTML = `<div class="bubble voice-bubble">
+                            <img src="voice/voice_ios.jpg" alt="voice icon">
+                            <span>${msg.content}</span>
+                           </div>`;
+      } else {
+        let bubbleContent = msg.content;
+        let bubbleClass = 'bubble';
+
+        if (showTranslations && msg.translation) {
+          bubbleContent += `
+          <hr class="dotted-divider">
+          <div class="translation-inner">${msg.translation}</div>
+          `;
+          bubbleClass += ' has-translation';
+        }
+        messageBodyHTML = `<div class="${bubbleClass}">${bubbleContent}</div>`;
+      }
+// ▼ 아티스트 태그 코드 <span class="artist-tag">ARTIST</span>
+      chatMsg.innerHTML = `
+      <div class="profile" style="background-image: url('${artistProfile[currentProfileIndex].img}')"></div>
+      <div class="message-content">
+      <div class="header">
+
+      <div class="name">${artistProfile[currentProfileIndex].name}</div>
+      </div>
+      <div style="display:flex; align-items:flex-end;">
+      ${messageBodyHTML}
+      <div class="time">${msg.time.replace(':', '<span class="colon">:</span>')}</div>
+      </div>
+      </div>
+      `;
+    }
+    chatContainer.appendChild(chatMsg);
+  });
+</script>
+  </body>
 </html>
