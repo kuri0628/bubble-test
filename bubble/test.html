@@ -46,41 +46,18 @@
     background-position: center;
     margin-top: 4.8px; /* 숫자↓ 위치↑ */
     border: 0.3px solid #cdcdcd; /* 테두리 */
-  position: relative; 
-  isolation: isolate;
-  z-index: 1;
+  background-color: #F1F1F1; /* 이미지가 로딩되기 전 배경색 */
+  box-sizing: border-box;
 }
 
-/* 여백을 만드는 회색 유령 */
-.profile::after {
-  content: '';
-  position: absolute;
-  z-index: -1; /* 프로필 바로 뒤 (지하 1층) */
-  
-  /* 프로필보다 사방으로 2px씩 크게 (이게 여백이 됨) */
-  top: -2px;
-  left: -2px;
-  right: -2px;
-  bottom: -2px;
-  
+.profile-wrapper {
+  width: 49px; /* 프로필(41) + 양쪽 여백(2*2) + 양쪽 띠(2*2) = 49px */
+  height: 49px;
   border-radius: 50%;
-  background-color: #F1F1F1; /* 채팅방 배경색과 동일하게 */
-}
-
-/* 그라데이션 띠를 만드는 보라색 유령 */
-.profile::before {
-  content: '';
-  position: absolute;
-  z-index: -2; /* 회색 유령 뒤 (지하 2층) */
-
-  /* 프로필보다 사방으로 4px씩 크게 (여백 2px + 띠 2px) */
-  top: -4px;
-  left: -4px;
-  right: -4px;
-  bottom: -4px;
-  
-  border-radius: 50%;
-  background: linear-gradient(90deg, #633DFD, #E183FF);
+  margin-top: 4.8px;
+  padding: 2px; /* 여백의 두께 */
+  background: linear-gradient(90deg, #633DFD, #E183FF); /* 띠의 색상 */
+  box-sizing: border-box; /* 패딩과 테두리를 너비에 포함시켜 계산 편하게 */
 }
 
   
@@ -314,8 +291,12 @@
         
 // ▼ 아티스트 태그 코드 <span class="artist-tag">ARTIST</span>
         if (msg.type === 'reply') {
+          // 새 코드 (2군데를 모두 이렇게 바꿔줘)
           chatMsg.innerHTML = `
+          <div class="profile-wrapper">
           <div class="profile" style="background-image: url('${artistProfile[currentProfileIndex].img}')"></div>
+          </div>
+          
           <div class="message-content">
           <div class="header">
           <span class="artist-tag">ARTIST</span>
@@ -361,8 +342,12 @@
           }
           
 // ▼ 아티스트 태그 코드 <span class="artist-tag">ARTIST</span>
+          // 새 코드 (2군데를 모두 이렇게 바꿔줘)
           chatMsg.innerHTML = `
+          <div class="profile-wrapper">
           <div class="profile" style="background-image: url('${artistProfile[currentProfileIndex].img}')"></div>
+          </div>
+          
           <div class="message-content">
           <div class="header">
           <span class="artist-tag">ARTIST</span>
