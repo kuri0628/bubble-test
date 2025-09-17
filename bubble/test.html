@@ -47,15 +47,32 @@
     margin-top: 4.8px; /* 숫자↓ 위치↑ */
     border: 0.3px solid #cdcdcd; /* 테두리 */
   position: relative; 
+  isolation: isolate;
 }
 
+/* 여백을 만드는 회색 유령 */
+.profile::after {
+  content: '';
+  position: absolute;
+  z-index: -1; /* 프로필 바로 뒤 (지하 1층) */
+  
+  /* 프로필보다 사방으로 2px씩 크게 (이게 여백이 됨) */
+  top: -2px;
+  left: -2px;
+  right: -2px;
+  bottom: -2px;
+  
+  border-radius: 50%;
+  background-color: #F1F1F1; /* 채팅방 배경색과 동일하게 */
+}
+
+/* 그라데이션 띠를 만드는 보라색 유령 */
 .profile::before {
   content: '';
   position: absolute;
-  /* 프로필 이미지 뒤로 보내기 */
-  z-index: -1; 
-  
-  /* (간격 2px + 띠 두께 2px) = 4px씩 크게 */
+  z-index: -2; /* 회색 유령 뒤 (지하 2층) */
+
+  /* 프로필보다 사방으로 4px씩 크게 (여백 2px + 띠 2px) */
   top: -4px;
   left: -4px;
   right: -4px;
@@ -64,6 +81,7 @@
   border-radius: 50%;
   background: linear-gradient(90deg, #633DFD, #E183FF);
 }
+
   
   .artist-tag {
     transform: scaleX(1.1); /* 장평 : 숫자↑ 너비↑ */
