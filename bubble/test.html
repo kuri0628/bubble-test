@@ -46,26 +46,25 @@
     background-position: center;
     margin-top: 4.8px; /* 숫자↓ 위치↑ */
     border: 0.3px solid #cdcdcd; /* 테두리 */
-  padding: 4px; /* 간격(2px) + 띠 두께(2px) */
-  background: linear-gradient(90deg, #633DFD, #E183FF); /* 띠가 될 그라데이션 배경 */
-  background-clip: padding-box; /* 중요: 배경을 패딩 안쪽으로 제한 */
+  position: relative; 
 }
 
-  .profile::before {
+.profile::before {
   content: '';
   position: absolute;
-  z-index: -1; /* 프로필 사진(z-index: 1)보다 뒤로 보냄 */
-
-  /* 프로필보다 사방으로 4px씩 더 크게 만듦 (간격 2px + 띠 두께 2px) */
+  /* 프로필 이미지 뒤로 보내기 */
+  z-index: -1; 
+  
+  /* (간격 2px + 띠 두께 2px) = 4px씩 크게 */
   top: -4px;
   left: -4px;
   right: -4px;
   bottom: -4px;
-
-  border-radius: 50%; /* 동그랗게 */
-  background: linear-gradient(90deg, #633DFD, #E183FF); /* 그라데이션 색상 */
-}    
-
+  
+  border-radius: 50%;
+  background: linear-gradient(90deg, #633DFD, #E183FF);
+}
+  
   .artist-tag {
     transform: scaleX(1.1); /* 장평 : 숫자↑ 너비↑ */
     transform-origin: left; /* 왼쪽을 기준으로 조절 (글자 시작점 고정) */
