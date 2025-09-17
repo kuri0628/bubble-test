@@ -45,22 +45,14 @@
     background-size: cover;
     background-position: center;
     margin-top: 4.8px; /* 숫자↓ 위치↑ */
-    border: 0.3px solid #cdcdcd; /* 테두리 */
-  background-color: #F1F1F1; /* 이미지가 로딩되기 전 배경색 */
-  box-sizing: border-box;
-}
+    /* border: 0.3px solid #cdcdcd; 테두리 */
+/* ▼▼▼ 이 부분을 추가/수정 ▼▼▼ */
+  border: 2px solid transparent; /* 띠의 두께를 border로 지정. transparent로 하면 그라데이션만 보임. */
+  background-origin: border-box; /* background-image가 border까지 확장되도록 */
+  background-clip: content-box, border-box; /* background-image가 컨텐츠 영역에만 적용되고, border 영역은 따로 처리되도록 */
+  border-image: linear-gradient(90deg, #633DFD, #E183FF) 1; /* 그라데이션 띠 적용 */
+  }
 
-.profile-wrapper {
-  width: 49px; /* 프로필(41) + 양쪽 여백(2*2) + 양쪽 띠(2*2) = 49px */
-  height: 49px;
-  border-radius: 50%;
-  margin-top: 4.8px;
-  padding: 2px; /* 여백의 두께 */
-  background: linear-gradient(90deg, #633DFD, #E183FF); /* 띠의 색상 */
-  box-sizing: border-box; /* 패딩과 테두리를 너비에 포함시켜 계산 편하게 */
-}
-
-  
   .artist-tag {
     transform: scaleX(1.1); /* 장평 : 숫자↑ 너비↑ */
     transform-origin: left; /* 왼쪽을 기준으로 조절 (글자 시작점 고정) */
