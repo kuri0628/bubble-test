@@ -46,11 +46,23 @@
     background-position: center;
     margin-top: 4.8px; /* 숫자↓ 위치↑ */
     border: 0.3px solid #cdcdcd; /* 테두리 */
-    border: 2px solid transparent; /* 띠의 두께를 border로 지정. transparent로 하면 그라데이션만 보임. */
-    background-origin: border-box; /* background-image가 border까지 확장되도록 */
-    background-clip: content-box, border-box; /* background-image가 컨텐츠 영역에만 적용되고, border 영역은 따로 처리되도록 */
-    border-image: linear-gradient(90deg, #633DFD, #E183FF) 1; /* 그라데이션 띠 적용 */
+    position: relative; /* 자식 요소 위치의 기준점 (필수) */
+  z-index: 1;         /* 프로필 사진을 띠보다 위에 있도록 설정 (핵심) */
   }
+  .profile::before {
+  content: '';
+  position: absolute;
+  z-index: -1; /* 프로필 사진(z-index: 1)보다 뒤로 보냄 */
+
+  /* 프로필보다 사방으로 4px씩 더 크게 만듦 (간격 2px + 띠 두께 2px) */
+  top: -4px;
+  left: -4px;
+  right: -4px;
+  bottom: -4px;
+
+  border-radius: 50%; /* 동그랗게 */
+  background: linear-gradient(90deg, #633DFD, #E183FF); /* 그라데이션 색상 */
+}    
 
   .artist-tag {
     transform: scaleX(1.1); /* 장평 : 숫자↑ 너비↑ */
