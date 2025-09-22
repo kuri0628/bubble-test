@@ -307,14 +307,15 @@
     top: 0;
     left: 0;
     right: 0;
+    transform: translateX(-10px); /* 왼쪽으로 30px 이동 (추가) */
     max-width: 500px;
     margin: 0 auto;
-    padding-top: 25px; /* 글자의 세로 위치 */
+    padding-top: 24px; /* 글자의 세로 위치 */
     text-align: center;
     z-index: 1001; /* 상단 이미지(1000)보다 높게 */
     /* 글자 스타일 */
     font-size: 18px;
-    font-weight: bold;
+    font-weight: 600;
     color: #000000;
     pointer-events: none; /* 중요: 글자가 다른 요소 클릭을 방해하지 않도록 설정 */
   }
