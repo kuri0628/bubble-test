@@ -1,0 +1,487 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>아티스트 채팅</title>
+
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100;300;400;500;700;900&display=swap" rel="stylesheet">
+
+  <style>
+    /* 전체 페이지 기본 폰트 적용 */
+    body {
+      font-family: -apple-system, 'Inter', "Roboto", sans-serif;
+      font-weight: 400;
+      font-size: 14px;
+      line-height: 1.5;
+      margin: 0;
+      background: #F1F1F1;
+    }
+
+    /* --- 검색창 스타일 (수정) --- */
+    .search-bar {
+      position: sticky;
+      top: 0;
+      background: #F1F1F1;
+      padding: 10px 8px;
+      z-index: 10;
+      display: flex; /* Flexbox 레이아웃 사용 */
+      align-items: center;
+      gap: 5px;
+    }
+
+    #searchInput {
+      flex-grow: 1; /* 남은 공간을 모두 차지하도록 */
+      padding: 10px;
+      border: 1px solid #E0E0E0;
+      border-radius: 8px;
+      font-size: 14px;
+      box-sizing: border-box;
+    }
+    
+    .search-controls button {
+      width: 38px;
+      height: 38px;
+      border: 1px solid #E0E0E0;
+      border-radius: 8px;
+      background: white;
+      font-size: 18px;
+      cursor: pointer;
+      padding: 0;
+    }
+    
+    .search-controls {
+      display: flex;
+      align-items: center;
+      gap: 5px;
+    }
+
+    #searchCounter {
+      font-size: 12px;
+      color: #8A8A8A;
+      min-width: 40px; /* 카운터 너비 고정 */
+      text-align: center;
+    }
+
+    /* 현재 검색 결과 하이라이트 (추가) */
+    .current-search-result .bubble {
+      animation: highlight-animation 1.2s;
+    }
+
+    @keyframes highlight-animation {
+      0% { box-shadow: 0 0 0 3px rgba(0, 123, 255, 0.5); }
+      70% { box-shadow: 0 0 0 3px rgba(0, 123, 255, 0); }
+      100% { box-shadow: none; }
+    }
+
+
+    .chat-container {
+      max-width: 500px;
+      margin: 0;
+      padding: 8px;
+    }
+
+    .chat-message {
+      display: flex;
+      align-items: flex-start;
+      margin-bottom: 12px;
+      gap: 5px
+    }
+
+    .profile {
+      width: 41px;
+      height: 41px;
+      border-radius: 50%;
+      background-size: cover;
+      background-position: center;
+      margin-top: 7px;
+    }
+
+    .message-content {
+      display: flex;
+      flex-direction: column;
+      max-width: 95%;
+    }
+
+    .header {
+      display: flex;
+      align-items: center;
+      margin-bottom: 3px;
+    }
+
+    .name {
+      font-size: 12px;
+      font-weight: 400;
+      color: #171718;
+    }
+
+    /* 말풍선 */
+    .bubble {
+      background: #FFFFFF;
+      border-radius: 4px 14px 14px 14px;
+      padding: 11px 12px;
+      font-size: 15px;
+      font-weight: 400;
+      line-height: 1;
+      word-break: break-all;
+    }
+
+    .time { font-size: 10px; font-weight: 450; color: #ABABAB;  margin-left: 6px;  white-space: nowrap;  position: relative; top: 2px; }
+
+    /* 날짜 */
+    .date-divider {text-align: center; font-size: 11px; color: #8A8A8A; margin: 32px 0 16px; position: relative; }
+    /* 날짜 선 */
+   .date-divider::before {
+      content: '';
+      position: absolute;
+      top: -6px;
+      left: 50%;
+      width: 100vw;
+      height: 0.8px;
+      background: #E0E0E0;
+      transform: translateX(-50%);
+    }
+
+  </style>
+</head>
+<body>
+
+  <div class="search-bar">
+    <input type="text" id="searchInput" placeholder="메시지 검색 후 Enter">
+    <div class="search-controls">
+      <button id="prevBtn">↑</button>
+      <button id="nextBtn">↓</button>
+      <span id="searchCounter">0 / 0</span>
+    </div>
+  </div>
+
+  <div class="chat-container" id="chat"></div>
+
+  <script>
+    // 채팅 내용
+    const messages = [
+      { type: 'date', content: '2024년 7월 5일' },
+      { text: "안녕하시온", name: "시온", img: "../profile/songbird_sion.jpg", time: "14:19" },
+      { text: "안녕하시온", name: "시온", img: "../profile/songbird_sion.jpg", time: "14:19" },
+      { text: "안녕하세요", name: "사쿠야", img: "../profile/songbird_sakuya.jpg" },
+      { text: "", name: "", img: "../profile/_.jpg" },
+      { text: "", name: "", img: "../profile/_.jpg" },
+      { text: "아 잠만", name: "료", img: "../profile/surf_ryo.jpg", time: "23:43" },
+      { text: "요기가 우리", name: "시온", img: "../profile/surf_sion.jpg", time: "23:43" },
+      { text: "자컨!!!!", name: "료", img: "../profile/surf_ryo.jpg", time: "23:43" },
+      { text: "단톡방이네", name: "시온", img: "../profile/surf_sion.jpg", time: "23:43" },
+      { text: "ㅋㅋㅋㅋㅋ", name: "시온", img: "../profile/surf_sion.jpg", time: "23:43" },
+      { text: "제주도", name: "료", img: "../profile/surf_ryo.jpg", time: "23:43" },
+      { text: "", name: "", img: "../profile/_.jpg" },
+      { text: "", name: "", img: "../profile/_.jpg" },
+      { text: "안지어도 돼요", name: "유우시", img: "../profile/surf_yushi.jpg" },
+      { text: "나~는~요~", name: "재희", img: "../profile/surf_jaehee.jpg" },
+      { text: "풀괜찮은데", name: "사쿠야", img: "../profile/surf_sakuya.jpg" },
+      { text: "지금 고민하고 계신듯", name: "재희", img: "../profile/surf_jaehee.jpg" },
+      { text: "아니 안괜찮아", name: "재희", img: "../profile/surf_jaehee.jpg" },
+      { text: "우시 토비", name: "시온", img: "../profile/surf_sion.jpg" },
+      { text: "어때", name: "시온", img: "../profile/surf_sion.jpg" },
+      { text: "아 귀엽다", name: "재희", img: "../profile/surf_jaehee.jpg" },
+      { text: "비슷한데ㅎㅎ", name: "사쿠야", img: "../profile/surf_sakuya.jpg" },
+      { text: "의미가 뭐냐고 ㅎㅎ", name: "유우시", img: "../profile/surf_yushi.jpg" },
+      { text: "다비야 토비야", name: "시온", img: "../profile/surf_sion.jpg" },
+      { text: "난 다비", name: "사쿠야", img: "../profile/surf_sakuya.jpg" },
+      { text: "뭔가 나루토 생각난다", name: "재희", img: "../profile/surf_jaehee.jpg" },
+      { text: "토비는", name: "재희", img: "../profile/surf_jaehee.jpg" },
+      { text: "의미는 없지", name: "사쿠야", img: "../profile/surf_sakuya.jpg" },
+      { text: "난?", name: "리쿠", img: "../profile/surf_riku.jpg" },
+      { text: "그냥 느낌으로", name: "사쿠야", img: "../profile/surf_sakuya.jpg" },
+      { text: "나는 둘 다 잘 어울리는거 같음", name: "재희", img: "../profile/surf_jaehee.jpg" },
+      { text: "ㅇㅋ리쿠도 지어줄게", name: "시온", img: "../profile/surf_sion.jpg" },
+      { text: "그는 멈추지않은다", name: "유우시", img: "../profile/surf_yushi.jpg" },
+      { text: "ㅋㅋㅋㄱㅋㅋㅋㅋㅋㅋ", name: "재희", img: "../profile/surf_jaehee.jpg" },
+      { text: "아이구 귀여워 우리 다비", name: "시온", img: "../profile/surf_sion.jpg" },
+      { text: "우린 멈추지 않아 ~", name: "재희", img: "../profile/surf_jaehee.jpg" },
+      { text: "웅웅", name: "리쿠", img: "../profile/surf_riku.jpg" },
+      { text: "리쿠는", name: "시온", img: "../profile/surf_sion.jpg" },
+      { text: "두구두구두구두구두구", name: "재희", img: "../profile/surf_jaehee.jpg" },
+      { text: "이 정도면 서바이벌 예능 마지막화 급 끌기 ㅋ", name: "시온", img: "../profile/surf_sion.jpg" },
+      { text: "광고 보고 오시져", name: "재희", img: "../profile/surf_jaehee.jpg" },
+      { text: "네", name: "리쿠", img: "../profile/surf_riku.jpg" },
+      { text: "리쿠는 라일", name: "시온", img: "../profile/surf_sion.jpg" },
+      { text: "오 ㅋㅋㅋㅋㅋㅋ", name: "재희", img: "../profile/surf_jaehee.jpg" },
+      { text: "ㅋㅋㅋㅋㅋㅋ", name: "리쿠", img: "../profile/surf_riku.jpg" },
+      { text: "어때 리쿠야", name: "시온", img: "../profile/surf_sion.jpg" },
+      { text: "라일 조은데", name: "리쿠", img: "../profile/surf_riku.jpg" },
+      { text: "맘에 들어?", name: "시온", img: "../profile/surf_sion.jpg" },
+      { text: "맘에들어", name: "리쿠", img: "../profile/surf_riku.jpg" },
+      { text: "라일 멋있다", name: "사쿠야", img: "../profile/surf_sakuya.jpg" },
+      { text: "형이 하는 게임에서 가져오는거 같은데", name: "유우시", img: "../profile/surf_yushi.jpg" },
+      { text: "그니까", name: "재희", img: "../profile/surf_jaehee.jpg" },
+      { text: "ㅋㅋㅋㅋㅋ", name: "사쿠야", img: "../profile/surf_sakuya.jpg" },
+      { text: "뭔소리야", name: "시온", img: "../profile/surf_sion.jpg" },
+      { text: "나 그래서 뭐임", name: "재희", img: "../profile/surf_jaehee.jpg" },
+      { text: "풀임 폴임", name: "재희", img: "../profile/surf_jaehee.jpg" },
+      { text: "설마 베티도", name: "사쿠야", img: "../profile/surf_sakuya.jpg" },
+      { text: "ㅋㅋㅋㅋㄱㅋㅋㅋㅋㅋㅋㅋㅋ", name: "재희", img: "../profile/surf_jaehee.jpg" },
+      { text: "폴이지 넌", name: "시온", img: "../profile/surf_sion.jpg" },
+      { text: "사쿠야 베티에서 더스틴으로 바꾸기 전에", name: "시온", img: "../profile/surf_sion.jpg" },
+      { text: "그만", name: "시온", img: "../profile/surf_sion.jpg" },
+      { text: "ㅋㅋㅋㅋㅋㅋㅋㅋ 더스틴", name: "재희", img: "../profile/surf_jaehee.jpg" },
+      { text: "좋네", name: "리쿠", img: "../profile/surf_riku.jpg" },
+      { text: "ㅋㅋㅋㅋ", name: "리쿠", img: "../profile/surf_riku.jpg" },
+      { text: "기묘한 이야기 생각난다", name: "재희", img: "../profile/surf_jaehee.jpg" },
+      { text: "응 사실 맞아 그거", name: "시온", img: "../profile/surf_sion.jpg" },
+      { text: "ㅋㅋㅋㄱㅋㅋㅋㅋㅋㅋ", name: "재희", img: "../profile/surf_jaehee.jpg" },
+      { text: "안녕하세요 폴입니다🏋‍♂️", name: "재희", img: "../profile/surf_jaehee.jpg" },
+      { text: "시즈니도 지어줘?", name: "시온", img: "../profile/surf_sion.jpg" },
+      { text: "아잠만", name: "시온", img: "../profile/surf_sion.jpg" },
+      { text: "폴로 하면 그렇게 되는구나", name: "시온", img: "../profile/surf_sion.jpg" },
+      { text: "바꿀게 재희도", name: "시온", img: "../profile/surf_sion.jpg" },
+      { text: "ㅋㅋㅋㅋㅋㅋㅋㅋ 그치", name: "재희", img: "../profile/surf_jaehee.jpg" },
+      { text: "실례를 범할 수도 있으니", name: "시온", img: "../profile/surf_sion.jpg" },
+      { text: "천재네", name: "리쿠", img: "../profile/surf_riku.jpg" },
+      { text: "우리 멤버", name: "리쿠", img: "../profile/surf_riku.jpg" },
+      { text: "든든하다", name: "리쿠", img: "../profile/surf_riku.jpg" },
+      { text: "재희는 포스", name: "시온", img: "../profile/surf_sion.jpg" },
+      { text: "ㅋㅋㄱㅋㄱㅋㅋㅋㅋㅋㅋ", name: "재희", img: "../profile/surf_jaehee.jpg" },
+      { text: "ㅋㅋㄱㅋㅋㅋㅋㅋㅋㅋㅋㅋ", name: "재희", img: "../profile/surf_jaehee.jpg" },
+      { text: "포스", name: "재희", img: "../profile/surf_jaehee.jpg" },
+      { text: "앞으로도 잘 부탁행", name: "리쿠", img: "../profile/surf_riku.jpg" },
+      { text: "멋있다", name: "재희", img: "../profile/surf_jaehee.jpg" },
+      { text: "포스킴", name: "시온", img: "../profile/surf_sion.jpg" },
+      { text: "포즈", name: "리쿠", img: "../profile/surf_riku.jpg" },
+      { text: "포스킴 ㅋㅋㅋㄱㅋㅋㅋㅋㅋㅋㅋ", name: "재희", img: "../profile/surf_jaehee.jpg" },
+      { text: "아", name: "리쿠", img: "../profile/surf_riku.jpg" },
+      { text: "포스", name: "리쿠", img: "../profile/surf_riku.jpg" },
+      { text: "좋네", name: "리쿠", img: "../profile/surf_riku.jpg" },
+      { text: "멋있네 😁", name: "유우시", img: "../profile/surf_yushi.jpg" },
+      { text: "신발도 에어포스만 신고있긴 해", name: "재희", img: "../profile/surf_jaehee.jpg" },
+      { text: "시즈니도 지어주라고..?", name: "시온", img: "../profile/surf_sion.jpg" },
+      { text: "ㅇㅇㅍㅅ은 넘어가자", name: "시온", img: "../profile/surf_sion.jpg" },
+      { text: "시즈니도 지어줄겡", name: "시온", img: "../profile/surf_sion.jpg" },
+      { text: "포스형", name: "사쿠야", img: "../profile/surf_sakuya.jpg" },
+      { text: "응?", name: "재희", img: "../profile/surf_jaehee.jpg" },
+      { text: "맛있게 지었네", name: "사쿠야", img: "../profile/surf_sakuya.jpg" },
+      { text: "아뜰리에", name: "사쿠야", img: "../profile/surf_sakuya.jpg" },
+      { text: '"핫앤그레이트러브인월드"', name: "시온", img: "../profile/surf_sion.jpg" },
+      { text: "궁서체가 없네 여긴", name: "시온", img: "../profile/surf_sion.jpg" },
+      { text: "머가 그렇게 길어", name: "재희", img: "../profile/surf_jaehee.jpg" },
+      { text: "ㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋ", name: "시온", img: "../profile/surf_sion.jpg" },
+      { text: "ㅋㅋㅋㄱㅋㅋㅋㅋㅋㅋ", name: "재희", img: "../profile/surf_jaehee.jpg" },
+      { text: "투더월드여긴엔시티 누구야", name: "시온", img: "../profile/surf_sion.jpg" },
+      { text: "ㅋㅋㅋㄱㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋ", name: "재희", img: "../profile/surf_jaehee.jpg" },
+      { text: "핫머시기라니 내가 마음 써서 지은건데 아무리 그래도", name: "시온", img: "../profile/surf_sion.jpg" },
+      { text: "핫앤그레이트러브인월드", name: "시온", img: "../profile/surf_sion.jpg" },
+      { text: "이번 활동 중에 진짜진짜 만약에 1위 소감을 하게된다면.....", name: "시온", img: "../profile/surf_sion.jpg" },
+      { text: "샤라웃할게 저 이름 그대로", name: "시온", img: "../profile/surf_sion.jpg" },
+      { text: "ㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋ", name: "시온", img: "../profile/surf_sion.jpg" },
+      { text: "잘 부탁 드리겠습니다", name: "유우시", img: "../profile/surf_yushi.jpg" },
+      { text: "❤️", name: "시온", img: "../profile/surf_sion.jpg" },
+      { text: "오늘 츄러스?", name: "유우시", img: "../profile/surf_yushi.jpg" },
+      { text: "먹었는데 맛있더라", name: "유우시", img: "../profile/surf_yushi.jpg" },
+      { text: "아 맞다", name: "재희", img: "../profile/surf_jaehee.jpg" },
+      { text: "저녁으로 츄로스랑 핫도그 먹었어", name: "재희", img: "../profile/surf_jaehee.jpg" },
+      { text: "대기할때 먹었는데 맛있었어", name: "유우시", img: "../profile/surf_yushi.jpg" },
+      { text: "진짜 맛있었음!", name: "재희", img: "../profile/surf_jaehee.jpg" },
+      { text: "여러분도 맛있는거 많이 드세요", name: "유우시", img: "../profile/surf_yushi.jpg" },
+      { text: "사랑한다 시즈니", name: "시온", img: "../profile/surf_sion.jpg" },
+      { text: "내일도 화이팅 👍", name: "유우시", img: "../profile/surf_yushi.jpg" },
+      { text: "굿밤 보내 시즈니💚", name: "재희", img: "../profile/surf_jaehee.jpg" },
+      { text: "pop pop듣고 자야겠다 ㅎㅎ", name: "유우시", img: "../profile/surf_yushi.jpg" },
+      { text: "poppop도 노래 좋다", name: "유우시", img: "../profile/surf_yushi.jpg" },
+      { text: "늦은 시간에 와줘서 고마워요 🙏", name: "유우시", img: "../profile/surf_yushi.jpg" },
+      { text: "푹 자요〜^_^", name: "유우시", img: "../profile/surf_yushi.jpg" },
+      { text: "잘자요〜", name: "유우시", img: "../profile/surf_yushi.jpg" },
+      { type: 'date', content: '2025년 9월 1일' },
+      { text: "이 채팅 영원히 할수 있지?", name: "유우시", img: "../profile/color_yushi.jpg" },
+      { text: "응", name: "사쿠야", img: "../profile/color_sakuya.jpg" },
+      { text: "그럼 영원히 해", name: "유우시", img: "../profile/color_yushi.jpg" },
+      { text: "영원히 하고 싶어", name: "사쿠야", img: "../profile/color_sakuya.jpg" },
+      { text: "👏", name: "유우시", img: "../profile/color_yushi.jpg" },
+      { text: "근데 나 신데렐라라서", name: "사쿠야", img: "../profile/color_sakuya.jpg" },
+      { text: "12시에 가야돼요", name: "사쿠야", img: "../profile/color_sakuya.jpg" },
+      { text: "아 감동 받았는데", name: "유우시", img: "../profile/color_yushi.jpg" },
+      { type: 'date', content: '2025년 9월 8일' },
+      { text: "아 12시다", name: "유우시", img: "../profile/color_yushi.jpg" },
+      { text: "벨 소리가 들린다", name: "유우시", img: "../profile/color_yushi.jpg" },
+      { text: "종소리 ㅎㅎ", name: "유우시", img: "../profile/color_yushi.jpg" },
+      { text: "조금씩 이해 안되는게 있네", name: "유우시", img: "../profile/color_yushi.jpg" },
+      { text: "아아 !! 　⛸️", name: "사쿠야", img: "../profile/color_sakuya.jpg" },
+      { text: "🩴", name: "사쿠야", img: "../profile/color_sakuya.jpg" },
+      { text: "아이스 스케이트 아니야", name: "유우시", img: "../profile/color_yushi.jpg" },
+      { text: "나 근데 재밌어", name: "유우시", img: "../profile/color_yushi.jpg" },
+      { text: "씻었어요?", name: "사쿠야", img: "../profile/color_sakuya.jpg" },
+      { text: "네", name: "유우시", img: "../profile/color_yushi.jpg" },
+      { text: "다시 돌아온 신데렐라", name: "유우시", img: "../profile/color_yushi.jpg" },
+      { text: "오우지사마", name: "사쿠야", img: "../profile/color_sakuya.jpg" },
+      { text: "누텔라", name: "유우시", img: "../profile/color_yushi.jpg" },
+      { text: "누텔라가 아니고요", name: "사쿠야", img: "../profile/color_sakuya.jpg" },
+      { text: "그렇게 달지않아요", name: "사쿠야", img: "../profile/color_sakuya.jpg" },
+      { text: "누테리라?", name: "유우시", img: "../profile/color_yushi.jpg" },
+      { text: "그건머야", name: "사쿠야", img: "../profile/color_sakuya.jpg" },
+      { text: "누텔리라야", name: "유우시", img: "../profile/color_yushi.jpg" },
+      { text: "오우지사마", name: "유우시", img: "../profile/color_yushi.jpg" },
+      { text: "왕자님", name: "유우시", img: "../profile/color_yushi.jpg" },
+      { text: "잘자요 아가씨", name: "사쿠야", img: "../profile/color_sakuya.jpg" },
+      { text: "와우", name: "유우시", img: "../profile/color_yushi.jpg" },
+      { text: "잘가요 레가시", name: "유우시", img: "../profile/color_yushi.jpg" },
+      { text: "ㅎㅎ", name: "유우시", img: "../profile/color_yushi.jpg" },
+      { text: "해석부탁이요", name: "유우시", img: "../profile/color_yushi.jpg" },
+      { text: "제말이에요", name: "사쿠야", img: "../profile/color_sakuya.jpg" },
+      { text: "나도 몰라", name: "유우시", img: "../profile/color_yushi.jpg" },
+      { text: "미안", name: "유우시", img: "../profile/color_yushi.jpg" },
+      { text: "응 오늘 고생했다 증말", name: "유우시", img: "../profile/color_yushi.jpg" },
+      { text: "수고많았아요", name: "사쿠야", img: "../profile/color_sakuya.jpg" },
+      { text: "이렇게 많이 사람도 와주시고🤭", name: "유우시", img: "../profile/color_yushi.jpg" },
+      { text: "내일도 좋은 하루 되길 바라고", name: "유우시", img: "../profile/color_yushi.jpg" },
+      { text: "그니까", name: "사쿠야", img: "../profile/color_sakuya.jpg" },
+      { text: "오늘이구만", name: "유우시", img: "../profile/color_yushi.jpg" },
+      { text: "여러분 진짜 감사해요!!!!", name: "사쿠야", img: "../profile/color_sakuya.jpg" },
+      { text: "나도〜", name: "유우시", img: "../profile/color_yushi.jpg" },
+      { text: "시즈니러브💕", name: "사쿠야", img: "../profile/color_sakuya.jpg" },
+      { text: "잘자영", name: "사쿠야", img: "../profile/color_sakuya.jpg" },
+      { text: "좋은 꿈 꿔요〜너도 여러분도〜😙", name: "유우시", img: "../profile/color_yushi.jpg" },
+      { text: "🫶", name: "사쿠야", img: "../profile/color_sakuya.jpg" },
+      { text: "빠이 😚", name: "유우시", img: "../profile/color_yushi.jpg" },
+      { text: "바이바이🙌", name: "사쿠야", img: "../profile/color_sakuya.jpg" },
+      { text: "아리가토😚", name: "유우시", img: "../profile/color_yushi.jpg" },
+      { text: "오야스미〜🥴", name: "유우시", img: "../profile/color_yushi.jpg" },
+      { text: "잠깐 잘자〜😚", name: "유우시", img: "../profile/color_yushi.jpg" }
+    ];
+
+    const chatContainer = document.getElementById("chat");
+
+    // 메시지 생성 로직
+    messages.forEach(msg => {
+      if (msg.type === 'date') {
+        const dateEl = document.createElement('div');
+        dateEl.className = 'date-divider';
+        dateEl.textContent = msg.content;
+        chatContainer.appendChild(dateEl);
+        return;
+      }
+      const chatMsg = document.createElement("div");
+      chatMsg.className = "chat-message";
+      chatMsg.innerHTML = `
+        <div class="profile"></div>
+        <div class="message-content">
+          <div class="header">
+            <div class="name">${msg.name}</div>
+          </div>
+          <div style="display:flex; align-items:flex-end;">
+            <div class="bubble">${msg.text}</div>
+            <div class="time">${msg.time ?? ""}</div>
+          </div>
+        </div>
+      `;
+      chatMsg.querySelector(".profile").style.backgroundImage = `url('${msg.img}')`;
+      chatContainer.appendChild(chatMsg);
+    });
+
+
+    // --- 검색 기능 스크립트 (수정) ---
+    const searchInput = document.getElementById('searchInput');
+    const prevBtn = document.getElementById('prevBtn');
+    const nextBtn = document.getElementById('nextBtn');
+    const searchCounter = document.getElementById('searchCounter');
+
+    let searchResults = []; // 검색 결과를 담을 배열 (DOM 요소)
+    let currentResultIndex = -1; // 현재 보고 있는 검색 결과의 인덱스
+
+    // 검색 실행 함수
+    const performSearch = () => {
+      const searchTerm = searchInput.value.toLowerCase();
+      
+      // 기존 하이라이트 제거
+      const highlighted = document.querySelector('.current-search-result');
+      if (highlighted) {
+        highlighted.classList.remove('current-search-result');
+      }
+
+      if (!searchTerm) {
+        searchResults = [];
+        currentResultIndex = -1;
+        updateCounter();
+        return;
+      }
+
+      const allMessages = document.querySelectorAll('.chat-message');
+      searchResults = Array.from(allMessages).filter(message => {
+        const bubble = message.querySelector('.bubble');
+        return bubble && bubble.textContent.toLowerCase().includes(searchTerm);
+      });
+
+      if (searchResults.length > 0) {
+        currentResultIndex = 0;
+        navigateToResult(currentResultIndex);
+      } else {
+        currentResultIndex = -1;
+      }
+      updateCounter();
+    };
+    
+    // 특정 검색 결과로 이동하는 함수
+    const navigateToResult = (index) => {
+      if (index < 0 || index >= searchResults.length) return;
+
+      // 기존 하이라이트 제거
+      const previouslyHighlighted = document.querySelector('.current-search-result');
+      if (previouslyHighlighted) {
+        previouslyHighlighted.classList.remove('current-search-result');
+      }
+
+      const targetMessage = searchResults[index];
+      
+      // 부드럽게 스크롤
+      targetMessage.scrollIntoView({ behavior: 'smooth', block: 'center' });
+      
+      // 새 메시지에 하이라이트 클래스 추가
+      targetMessage.classList.add('current-search-result');
+      
+      currentResultIndex = index;
+      updateCounter();
+    };
+
+    // 카운터 업데이트 함수
+    const updateCounter = () => {
+      if (searchResults.length > 0) {
+        searchCounter.textContent = `${currentResultIndex + 1} / ${searchResults.length}`;
+      } else {
+        searchCounter.textContent = `0 / 0`;
+      }
+    };
+    
+    // --- 이벤트 리스너 설정 ---
+
+    // Enter 키로 검색 실행
+    searchInput.addEventListener('keydown', (event) => {
+      if (event.key === 'Enter') {
+        performSearch();
+      }
+    });
+
+    // 이전 버튼 클릭
+    prevBtn.addEventListener('click', () => {
+      if (searchResults.length > 0) {
+        let newIndex = currentResultIndex - 1;
+        if (newIndex < 0) {
+          newIndex = searchResults.length - 1; // 마지막 결과로 순환
+        }
+        navigateToResult(newIndex);
+      } else {
+         performSearch(); // 검색된 결과가 없을때 누르면 검색 시작
+      }
+    });
+
+    // 다음 버튼 클릭
+    nextBtn.addEventListener('click', () => {
+      if (searchResults.length > 0) {
+        let newIndex = currentResultIndex + 1;
+        if (newIndex >= searchResults.length) {
+          newIndex = 0; // 처음 결과로 순환
+        }
+        navigateToResult(newIndex);
+      } else {
+        performSearch();
+      }
+    });
+
+  </script>
+</body>
+</html>
