@@ -329,7 +329,7 @@
     margin: 0 auto;
     padding-top: 30px; /* 상단 이미지 위에서 글자가 시작될 위치 조정 */
     text-align: center; 
-    z-index: 1000;
+    z-index: 1001;
     /* 글자 스타일 */
     font-size: 18px;
     font-weight: bold;
@@ -573,11 +573,7 @@
       searchToggleBtn.addEventListener('click', openSearch);
       closeSearchBtn.addEventListener('click', closeSearch);
       
-      searchInput.addEventListener('keydown', (event) => {
-        if (event.key === 'Enter') {
-          performSearch();
-        }
-      });
+      searchInput.addEventListener('input', performSearch);
       
       // 뒤로가기 또는 ESC 키로 검색창 닫기
       window.addEventListener('hashchange', () => {
