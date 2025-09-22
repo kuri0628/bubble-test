@@ -13,23 +13,20 @@
     line-height: 1.5;
     margin: 0;
     background: #F1F1F1;
-    /* ▼▼▼ [수정] 기본 상단바 높이만큼만 여백 적용 ▼▼▼ */
+    /* ▼▼▼ [수정] 기본 상단바 높이만큼만 여백 적용 (transition 제거) ▼▼▼ */
     padding-top: 60px;
     padding-bottom: 70px;
-    transition: padding-top 0.3s ease; /* 부드러운 전환 효과 */
   }
-  /* 검색창이 활성화됐을 때 body의 여백 추가 */
-  body.search-active {
-    padding-top: 118px;
-  }
+  /* ▼▼▼ [삭제] 검색 활성화 시 여백 추가하는 코드 제거 ▼▼▼ */
+  /* body.search-active { ... } */
 
-  /* ▼▼▼ [검색] ▼▼▼ */
+  /* ▼▼▼ [검색] (수정됨) ▼▼▼ */
   .search-bar {
-    position: sticky;
-    top: 60px;
+    position: fixed; /* sticky -> fixed 로 변경 */
+    top: 0;          /* 60px -> 0 으로 변경 */
     background: #F1F1F1;
     padding: 10px 8px;
-    z-index: 999;
+    z-index: 1001;   /* z-index 추가 (기존 상단바 z-index 1000보다 높게) */
     display: none; /* 평소에는 숨김 */
     align-items: center;
     gap: 5px;
@@ -357,8 +354,8 @@
         { sender: 'artist', type: 'text', content: "오 이런 꿀팁이 있는거 왜 이제 안거얔ㅋ", time: "오후 03:04", profileIndex: 3 },
         { sender: 'artist', type: 'text', content: "테스트를 위해 이렇게 글을 써요", time: "20:05", profileIndex: 0 },
       ];
-      let currentProfileIndex; // 초기값 없이 선언
-const chatContainer = document.getElementById("chat");
+      let currentProfileIndex;
+      const chatContainer = document.getElementById("chat");
       messages.forEach(msg => {
         if (msg.type === 'date') {
           const dateEl = document.createElement('div');
@@ -448,7 +445,7 @@ const chatContainer = document.getElementById("chat");
       // ▼▼▼ [수정] 검색 기능 스크립트 ▼▼▼
 
       // --- DOM 요소 가져오기 ---
-      const body = document.body;
+      const body = document.body; // body 요소는 이제 클래스 추가/제거에 사용되지 않지만, 변수는 그대로 둬도 무방.
       const searchBar = document.querySelector('.search-bar');
       const searchToggleBtn = document.getElementById('search-toggle-btn');
       const closeSearchBtn = document.getElementById('close-search-btn');
@@ -460,18 +457,18 @@ const chatContainer = document.getElementById("chat");
       let searchResults = [];
       let currentResultIndex = -1;
 
-      // --- 함수 정의 ---
+      // --- 함수 정의 (수정됨) ---
       const openSearch = () => {
-        body.classList.add('search-active');
+        /* body.classList.add('search-active'); // 이 줄 삭제됨 */
         searchBar.classList.add('visible');
-        searchInput.focus(); // 검색창 열리면 바로 입력 가능하도록 포커스
+        searchInput.focus();
       };
 
       const closeSearch = () => {
-        body.classList.remove('search-active');
+        /* body.classList.remove('search-active'); // 이 줄 삭제됨 */
         searchBar.classList.remove('visible');
-        searchInput.value = ""; // 검색어 지우기
-        performSearch(); // 검색 결과 초기화
+        searchInput.value = "";
+        performSearch();
       };
 
       const performSearch = () => {
@@ -541,26 +538,25 @@ const chatContainer = document.getElementById("chat");
         }
       });
 
-      // 개선된 코드
-prevBtn.addEventListener('click', () => {
-  if (searchResults.length > 0) {
-    let newIndex = currentResultIndex - 1;
-    if (newIndex < 0) {
-      newIndex = searchResults.length - 1;
-    }
-    navigateToResult(newIndex);
-  }
-});
+      prevBtn.addEventListener('click', () => {
+        if (searchResults.length > 0) {
+          let newIndex = currentResultIndex - 1;
+          if (newIndex < 0) {
+            newIndex = searchResults.length - 1;
+          }
+          navigateToResult(newIndex);
+        }
+      });
 
-nextBtn.addEventListener('click', () => {
-  if (searchResults.length > 0) {
-    let newIndex = currentResultIndex + 1;
-    if (newIndex >= searchResults.length) {
-      newIndex = 0;
-    }
-    navigateToResult(newIndex);
-  }
-});
+      nextBtn.addEventListener('click', () => {
+        if (searchResults.length > 0) {
+          let newIndex = currentResultIndex + 1;
+          if (newIndex >= searchResults.length) {
+            newIndex = 0;
+          }
+          navigateToResult(newIndex);
+        }
+      });
 
     </script>
   </body>
