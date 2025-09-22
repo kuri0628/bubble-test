@@ -232,7 +232,7 @@
     top: 0;
     background: white;
     padding: 10px 8px;
-    z-index: 1001;
+    z-index: 1002; /* seafch bar 1002 - 채팅방 이름 1001 - 구독일 패널 1000 */
     display: none; /* 평소에는 숨김 */
     align-items: center;
     gap: 5px;
@@ -301,10 +301,30 @@
     justify-content: center;
     align-items: center;
   }
+/* ▼▼▼ [채팅방 이름, 구독일] ▼▼▼ */
+  .header-background-text {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  max-width: 500px;
+  margin: 0 auto;
+  padding-top: 25px; /* 글자의 세로 위치 */
+  text-align: center;
+  z-index: 1001; /* 상단 이미지(1000)보다 높게 */
+  /* 글자 스타일 */
+  font-size: 16px;
+  font-weight: bold;
+  color: #000000;
+  pointer-events: none; /* 중요: 글자가 다른 요소 클릭을 방해하지 않도록 설정 */
+}
+
   
 </style>
   </head>
   <body>
+    <div class="header-background-text">
+      덩떵찬</div>
     <div class="fixed-top-image">
       <img src="pic/iphone_구독일-@solsol302_remaster.jpg" alt="상단 고정 이미지">
       <div id="search-toggle-btn">🔍</div>
