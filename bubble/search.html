@@ -95,8 +95,8 @@
     position: absolute;
     top: 10px; /* 숫자↑ 위치↓ */
     right: 45px; /* 숫자↑ 위치← */
-    /* width: 60px;
-    height: 60px; */
+    width: 20px;
+    height: 20px;
     background: transparent; /* 배경을 투명하게 변경 */
     border: none; /* 테두리 없음 */
     border-radius: 50%;
@@ -104,7 +104,7 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    font-size: 16px;
+    font-size: 20px;
   }
 
 
@@ -356,8 +356,8 @@
         { sender: 'artist', type: 'text', content: "오 이런 꿀팁이 있는거 왜 이제 안거얔ㅋ", time: "오후 03:04", profileIndex: 3 },
         { sender: 'artist', type: 'text', content: "테스트를 위해 이렇게 글을 써요", time: "20:05", profileIndex: 0 },
       ];
-      let currentProfileIndex = 0;
-      const chatContainer = document.getElementById("chat");
+      let currentProfileIndex; // 초기값 없이 선언
+const chatContainer = document.getElementById("chat");
       messages.forEach(msg => {
         if (msg.type === 'date') {
           const dateEl = document.createElement('div');
@@ -540,29 +540,26 @@
         }
       });
 
-      prevBtn.addEventListener('click', () => {
-        if (searchResults.length > 0) {
-          let newIndex = currentResultIndex - 1;
-          if (newIndex < 0) {
-            newIndex = searchResults.length - 1;
-          }
-          navigateToResult(newIndex);
-        } else {
-          performSearch();
-        }
-      });
+      // 개선된 코드
+prevBtn.addEventListener('click', () => {
+  if (searchResults.length > 0) {
+    let newIndex = currentResultIndex - 1;
+    if (newIndex < 0) {
+      newIndex = searchResults.length - 1;
+    }
+    navigateToResult(newIndex);
+  }
+});
 
-      nextBtn.addEventListener('click', () => {
-        if (searchResults.length > 0) {
-          let newIndex = currentResultIndex + 1;
-          if (newIndex >= searchResults.length) {
-            newIndex = 0;
-          }
-          navigateToResult(newIndex);
-        } else {
-          performSearch();
-        }
-      });
+nextBtn.addEventListener('click', () => {
+  if (searchResults.length > 0) {
+    let newIndex = currentResultIndex + 1;
+    if (newIndex >= searchResults.length) {
+      newIndex = 0;
+    }
+    navigateToResult(newIndex);
+  }
+});
 
     </script>
   </body>
