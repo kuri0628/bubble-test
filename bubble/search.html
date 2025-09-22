@@ -303,28 +303,47 @@
   }
 /* ▼▼▼ [채팅방 이름, 구독일] ▼▼▼ */
   .header-background-text {
-  position: fixed;
-  top: 0;
-  left: 0;
-  right: 0;
-  max-width: 500px;
-  margin: 0 auto;
-  padding-top: 25px; /* 글자의 세로 위치 */
-  text-align: center;
-  z-index: 1001; /* 상단 이미지(1000)보다 높게 */
-  /* 글자 스타일 */
-  font-size: 18px;
-  font-weight: bold;
-  color: #000000;
-  pointer-events: none; /* 중요: 글자가 다른 요소 클릭을 방해하지 않도록 설정 */
-}
-
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    max-width: 500px;
+    margin: 0 auto;
+    padding-top: 25px; /* 글자의 세로 위치 */
+    text-align: center;
+    z-index: 1001; /* 상단 이미지(1000)보다 높게 */
+    /* 글자 스타일 */
+    font-size: 18px;
+    font-weight: bold;
+    color: #000000;
+    pointer-events: none; /* 중요: 글자가 다른 요소 클릭을 방해하지 않도록 설정 */
+  }
+/* ▼▼▼ 새로운 글자 스타일 추가 ▼▼▼ */
+  .d-day {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    max-width: 500px; /* .fixed-top-image와 동일하게 설정 */
+    margin: 0 auto;
+    padding-top: 30px; /* 상단 이미지 위에서 글자가 시작될 위치 조정 */
+    text-align: center; 
+    z-index: 1000;
+    /* 글자 스타일 */
+    font-size: 18px;
+    font-weight: bold;
+    color: #000000;
+    pointer-events: none;
+  }
   
 </style>
   </head>
   <body>
     <div class="header-background-text">
       덩떵찬</div>
+    <div class="d-day">
+    148
+    </div>
     <div class="fixed-top-image">
       <img src="pic/iphone_구독일-@solsol302_remaster.jpg" alt="상단 고정 이미지">
       <div id="search-toggle-btn">🔍</div>
