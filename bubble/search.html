@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>아티스트 채팅</title>
+    <!-- Inter 폰트 불러오기 -->
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100;300;400;500;700;800;900&display=swap" rel="stylesheet">
 <style>
   body {
@@ -13,18 +14,17 @@
     line-height: 1.5;
     margin: 0;
     background: #F1F1F1;
-    /* ▼▼▼ [수정] 기본 상단바 높이만큼만 여백 적용 (transition 제거) ▼▼▼ */
-    padding-top: 60px;
-    padding-bottom: 70px;
+    padding-top: 60px; /* 구독일 패널 */
+    padding-bottom: 70px; /* input bar와 겹치지 않도록 */
   }
   /* ▼▼▼ [삭제] 검색 활성화 시 여백 추가하는 코드 제거 ▼▼▼ */
   /* body.search-active { ... } */
 
-  /* ▼▼▼ [검색] (수정됨) ▼▼▼ */
+  /* ▼▼▼ [검색] ▼▼▼ */
   .search-bar {
     position: fixed; /* sticky -> fixed 로 변경 */
-    top: 0;          /* 60px -> 0 으로 변경 */
-    background: #F1F1F1;
+    top: 0;
+    background: white;
     padding: 10px 8px;
     z-index: 1001;   /* z-index 추가 (기존 상단바 z-index 1000보다 높게) */
     display: none; /* 평소에는 숨김 */
