@@ -13,19 +13,24 @@
     line-height: 1.5;
     margin: 0;
     background: #F1F1F1;
-    /* ▼▼▼ [수정] 상단바와 검색창 높이만큼 안쪽 여백 추가 ▼▼▼ */
-    padding-top: 118px; /* 상단 고정 이미지(60px) + 검색창(58px) 높이만큼 조절 */
-    padding-bottom: 70px; /* input bar와 겹치지 않도록 */
+    /* ▼▼▼ [수정] 기본 상단바 높이만큼만 여백 적용 ▼▼▼ */
+    padding-top: 60px;
+    padding-bottom: 70px;
+    transition: padding-top 0.3s ease; /* 부드러운 전환 효과 */
+  }
+  /* 검색창이 활성화됐을 때 body의 여백 추가 */
+  body.search-active {
+    padding-top: 118px;
   }
 
-  /* ▼▼▼ [추가] 검색창 스타일 ▼▼▼ */
+  /* ▼▼▼ [수정] 검색창 스타일 ▼▼▼ */
   .search-bar {
     position: sticky;
-    top: 60px; /* 상단 고정 이미지 아래에 붙도록 */
+    top: 60px;
     background: #F1F1F1;
     padding: 10px 8px;
     z-index: 999;
-    display: flex;
+    display: none; /* 평소에는 숨김 */
     align-items: center;
     gap: 5px;
     max-width: 500px;
@@ -34,6 +39,10 @@
     left: 0;
     right: 0;
   }
+  /* .visible 클래스가 추가되면 보이도록 설정 */
+  .search-bar.visible {
+    display: flex;
+  }
   #searchInput {
     flex-grow: 1;
     padding: 10px;
@@ -41,6 +50,11 @@
     border-radius: 8px;
     font-size: 14px;
     box-sizing: border-box;
+  }
+  .search-controls {
+    display: flex;
+    align-items: center;
+    gap: 5px;
   }
   .search-controls button {
     width: 38px;
@@ -52,17 +66,21 @@
     cursor: pointer;
     padding: 0;
   }
-  .search-controls {
-    display: flex;
-    align-items: center;
-    gap: 5px;
-  }
   #searchCounter {
     font-size: 12px;
     color: #8A8A8A;
     min-width: 40px;
     text-align: center;
   }
+  /* 닫기 버튼 스타일 */
+  #close-search-btn {
+    background: #e0e0e0;
+    border: none;
+    font-size: 16px;
+    color: #555;
+    margin-right: 5px;
+  }
+
   /* 현재 검색 결과 하이라이트 */
   .current-search-result > .message-content .bubble,
   .current-search-result .my-bubble {
@@ -73,7 +91,23 @@
     70% { box-shadow: 0 0 0 3px rgba(0, 123, 255, 0); }
     100% { box-shadow: none; }
   }
-  /* ▲▲▲ [추가] 검색창 스타일 끝 ▲▲▲ */
+
+  /* ▼▼▼ [추가] 검색 열기 버튼 스타일 ▼▼▼ */
+  #search-toggle-btn {
+    position: absolute;
+    top: 15px;
+    right: 15px;
+    width: 30px;
+    height: 30px;
+    background: rgba(255,255,255,0.7);
+    border: 1px solid #ddd;
+    border-radius: 50%;
+    cursor: pointer;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 16px;
+  }
 
 
   .message-content {
@@ -89,7 +123,7 @@
   }
   .chat-container {
     max-width: 500px;
-    margin: 0 auto; /* 가운데 정렬 */
+    margin: 0 auto;
     padding: 8px;
   }
   .chat-message {
@@ -252,9 +286,9 @@
     position: fixed;
     top: 0;
     left: 0;
-    right: 0; /* right 추가 */
-    max-width: 500px; /* max-width 추가 */
-    margin: 0 auto; /* 가운데 정렬 */
+    right: 0;
+    max-width: 500px;
+    margin: 0 auto;
     width: 100%;
     background: #F1F1F1;
     z-index: 1000;
@@ -268,9 +302,11 @@
   <body>
     <div class="fixed-top-image">
       <img src="pic/iphone_구독일-@solsol302_remaster.jpg" alt="상단 고정 이미지">
+      <div id="search-toggle-btn">🔍</div>
     </div>
 
     <div class="search-bar">
+       <button id="close-search-btn">X</button>
       <input type="text" id="searchInput" placeholder="메시지 검색 후 Enter">
       <div class="search-controls">
         <button id="prevBtn">↑</button>
@@ -286,7 +322,7 @@
     </div>
 
     <script>
-      // 스크립트 부분은 수정할 필요 없어! 그대로 두면 돼.
+      // 기존 메시지 렌더링 스크립트 (수정 없음)
       const showTranslations = true;
       const artistProfile = [
         {img: "../profile/riku_first.jpg", name: "RIKU"},
@@ -408,19 +444,37 @@
         chatContainer.appendChild(chatMsg);
       });
 
-      // ▼▼▼ [추가] 검색 기능 스크립트 ▼▼▼
+      // ▼▼▼ [수정] 검색 기능 스크립트 ▼▼▼
+
+      // --- DOM 요소 가져오기 ---
+      const body = document.body;
+      const searchBar = document.querySelector('.search-bar');
+      const searchToggleBtn = document.getElementById('search-toggle-btn');
+      const closeSearchBtn = document.getElementById('close-search-btn');
       const searchInput = document.getElementById('searchInput');
       const prevBtn = document.getElementById('prevBtn');
       const nextBtn = document.getElementById('nextBtn');
       const searchCounter = document.getElementById('searchCounter');
 
-      let searchResults = []; // 검색 결과를 담을 배열 (DOM 요소)
-      let currentResultIndex = -1; // 현재 보고 있는 검색 결과의 인덱스
+      let searchResults = [];
+      let currentResultIndex = -1;
 
-      // 검색 실행 함수
+      // --- 함수 정의 ---
+      const openSearch = () => {
+        body.classList.add('search-active');
+        searchBar.classList.add('visible');
+        searchInput.focus(); // 검색창 열리면 바로 입력 가능하도록 포커스
+      };
+
+      const closeSearch = () => {
+        body.classList.remove('search-active');
+        searchBar.classList.remove('visible');
+        searchInput.value = ""; // 검색어 지우기
+        performSearch(); // 검색 결과 초기화
+      };
+
       const performSearch = () => {
         const searchTerm = searchInput.value.toLowerCase();
-
         const highlighted = document.querySelector('.current-search-result');
         if (highlighted) {
           highlighted.classList.remove('current-search-result');
@@ -432,11 +486,9 @@
           updateCounter();
           return;
         }
-        
-        // 아티스트 메시지(.chat-message)와 내 메시지(.my-chat-message)를 모두 선택
+
         const allMessages = document.querySelectorAll('.chat-message, .my-chat-message');
         searchResults = Array.from(allMessages).filter(message => {
-          // 답장, 번역 등 모든 텍스트를 포함하기 위해 message 전체의 textContent에서 검색
           return message.textContent.toLowerCase().includes(searchTerm);
         });
 
@@ -449,7 +501,6 @@
         updateCounter();
       };
 
-      // 특정 검색 결과로 이동하는 함수
       const navigateToResult = (index) => {
         if (index < 0 || index >= searchResults.length) return;
 
@@ -465,7 +516,6 @@
         updateCounter();
       };
 
-      // 카운터 업데이트 함수
       const updateCounter = () => {
         if (searchResults.length > 0) {
           searchCounter.textContent = `${currentResultIndex + 1} / ${searchResults.length}`;
@@ -475,6 +525,15 @@
       };
 
       // --- 이벤트 리스너 설정 ---
+      searchToggleBtn.addEventListener('click', openSearch);
+      closeSearchBtn.addEventListener('click', closeSearch);
+      
+      document.addEventListener('keydown', (event) => {
+        if (event.key === 'Escape' && searchBar.classList.contains('visible')) {
+          closeSearch();
+        }
+      });
+
       searchInput.addEventListener('keydown', (event) => {
         if (event.key === 'Enter') {
           performSearch();
