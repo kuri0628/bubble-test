@@ -149,8 +149,8 @@
 /* ▼▼▼ [이모지] ▼▼▼ */
    /* 진짜 이모지 */
   .emoji {
-    font-size: 50px;
-    line-height: 1;
+    font-size: 66px;
+    line-height: 1.5;
     background: none;
   }
    /* 버블 이모티콘 */
@@ -161,7 +161,7 @@
 /* ▼▼▼ [번역] ▼▼▼ */
    /* 점선 스타일 */
   .dotted-divider {
-    border: none;
+    border: none; 
     background-image: linear-gradient(to right, #F4F4F4 4.5px, transparent 5px);
     background-size: 6.5px 100%; /* 점선 빈 부분 길이 */
     background-repeat: repeat-x;
@@ -181,19 +181,18 @@
 /* ▼▼▼ [ARTIST 답장] ▼▼▼ */
   .reply-bubble {
     background-color: #FFFFFF80; /* 배경 색 */
-    padding: 13.7px 10px 12px 12px; /* 위 오른 아래 왼쪽 간격 */
+    padding: 13.7px 12px 19px 12px; /* 위 오른 아래 왼쪽 간격 */
     margin-bottom: 6px; /* 두 말풍선 간격 */
     border-radius: 14px;
   }
   .reply-title {
-    font-size: 11px;
-    font-weight: 700;
+    font-family: 'Noto Sans KR', sans-serif;
+    font-size: 9.5px;
     color: #020202; /* ARTIST의 답장 */
-    margin-bottom: 6px; /* ARTIST의 답장-팬버블 간격 */
+    margin-bottom: 5px; /* ARTIST의 답장-팬버블 간격 */
   }
   .reply-content {
-    font-size: 13px;
-    line-height: 1.5;
+    font-size: 11.9px;
     color: #00000080; /* 팬 버블 7E7E7E */
   }
   .bubble-after-reply {
@@ -202,13 +201,47 @@
 /* ▼▼▼ [음성] ▼▼▼ */
   .voice {
     display: flex;
-    padding: 8px 18px 7px 8px; !important; /* 위 오른 아래 왼쪽 여백 */
+    padding: 8px 14px 8px 10px; !important; /* 위, 오른쪽, 아래, 왼쪽 */
   }
   .voice img {
     width: auto;
-    height: 22.7px;
+    height: 22.8px;
   }
-/* ▼▼▼ [input bar] ▼▼▼ */
+/* ▼▼▼ [채팅방 이름] ▼▼▼ */
+  .nickname {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    transform: translateX(-3px);
+    max-width: 550px;
+    margin: 0 auto;
+    padding-top: 25px;
+    text-align: center;
+    z-index: 1001;
+    font-size: 18px;
+    font-weight: 500;
+    color: #000000;
+    pointer-events: none;
+  }
+/* ▼▼▼ [구독일 하트] ▼▼▼ */
+  .d-day {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    max-width: 600px;
+    margin: 0 auto;
+    padding-top: 63px;
+    transform: translateX(34px);
+    text-align: center;
+    z-index: 1001;
+    font-size: 12px;
+    font-weight: 600;
+    color: #000000;
+    pointer-events: none;
+  }
+/* ▼▼▼ [메시지를 입력하세요] ▼▼▼ */
   .input-bar {
     position: fixed;
     bottom: 0;
@@ -222,6 +255,7 @@
     display: block;
     margin: 0 auto;
   }
+/* ▼▼▼ [구독일 패널] ▼▼▼ */
   .title-bar {
     position: fixed;
     top: 0;
@@ -237,6 +271,7 @@
     width: 100%;
     display: block;
   }
+/* ▼▼▼ [검색] ▼▼▼ */
   .search {
     position: fixed;
     top: 0;
@@ -304,38 +339,7 @@
     justify-content: center;
     align-items: center;
   }
-  .nickname {
-    position: fixed;
-    top: 0;
-    left: 0;
-    right: 0;
-    transform: translateX(-3px);
-    max-width: 550px;
-    margin: 0 auto;
-    padding-top: 25px;
-    text-align: center;
-    z-index: 1001;
-    font-size: 18px;
-    font-weight: 500;
-    color: #000000;
-    pointer-events: none;
-  }
-  .d-day {
-    position: fixed;
-    top: 0;
-    left: 0;
-    right: 0;
-    max-width: 600px;
-    margin: 0 auto;
-    padding-top: 63px;
-    transform: translateX(34px);
-    text-align: center;
-    z-index: 1001;
-    font-size: 12px;
-    font-weight: 600;
-    color: #000000;
-    pointer-events: none;
-  }
+  
 </style>
   </head>
   <body>
