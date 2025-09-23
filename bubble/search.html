@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>아티스트 채팅</title>
+    <!-- Inter 폰트 불러오기 -->
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100;300;400;500;700;800;900&display=swap" rel="stylesheet">
 <style>
   body {
@@ -11,10 +12,32 @@
     font-weight: 400;
     font-size: 14px;
     line-height: 1.5;
-    margin: 0; /* 화면에 테두리 안 생기게 하는 요소 */
+    margin: 0;
     background: #F1F1F1;
     padding-top: 70px; /* 구독일 패널 */
-    padding-bottom: 80px; /* input bar와 겹치지 않도록 */
+    padding-bottom: 80px; /* input bar 높이에 맞춰 여백 주기 */
+  }
+  .message-content { 
+    display: flex; 
+    flex-direction: column; 
+    max-width: 95%;
+    align-items: flex-start; /* 말풍선이 다른 말풍선 비율에 따라가지 않도록 */
+  }
+  .header {
+    display: flex;
+    align-items: center;
+    margin-bottom: 3.5px; /* 이름-메시지 간격 */
+  }
+  .chat-container {
+    max-width: 500px;
+    margin: 0 auto;
+    padding: 8px;
+  }
+  .chat-message {
+    display: flex;
+    align-items: flex-start;
+    margin-bottom: 14.5px; /* 메시지 간 간격 */
+    gap: 6.5px /* 메시지-프로필 간격 */
   }
   .profile {
     width: 41px;
@@ -30,12 +53,6 @@
     justify-content: center;
     overflow: hidden; */
   }
-/* 프사랑 아티스트 뱃지 그룹 */
-  .header {
-    display: flex;
-    align-items: center;
-    margin-bottom: 3.5px; /* 이름-메시지 간격 */
-  }
   .artist-tag {
     transform: scaleX(1.1); /* 장평 : 숫자↑ 너비↑ */
     transform-origin: left; /* 왼쪽을 기준으로 조절 (글자 시작점 고정) */
@@ -47,48 +64,11 @@
     padding: 2px 5.5px 1px 5.5px;  /* 위 오른 아래 왼쪽 여백 */
     border-radius: 999px;
     margin-right: 10px;
-  }
+    }
   .name {
     font-size: 12px;
     font-weight: 600;
     color: #171718;
-  }
-/* ▼▼▼ [날짜] ▼▼▼ */
-   /* 1. 날짜 구분선 스타일 */
-  .date {
-    text-align: center;
-    font-size: 11px;
-    color: #8A8A8A;
-    margin: 32px 0 16px; /* 날짜-메시지 간격 ,  */
-    position: relative;
-  }
-   /* 날짜 위에 선을 그리기 위한 가상 요소 추가 */
-  .date::before {
-    content: '';
-    position: absolute;
-    top: -6px; /* 날짜와 선 간격, 숫자↓ 간격↑ */
-    left: 50%;
-    width: 100vw;
-    height: 0.8px; /* 선 두께 */
-    background: #E0E0E0;
-    transform: translateX(-50%);
-  }
-  .message-content {
-    display: flex;
-    flex-direction: column;
-    max-width: 95%;
-    align-items: flex-start; /* 말풍선이 다른 말풍선 비율에 따라가지 않도록 */
-  }
-  .chat-container {
-    max-width: 500px;
-    margin: 0 auto;
-    padding: 8px;
-  }
-  .chat-message {
-    display: flex;
-    align-items: flex-start;
-    margin-bottom: 14.5px; /* 메시지 간 간격 */
-    gap: 6.5px /* 메시지-프로필 간격 */
   }
 /* 말풍선 */
   .bubble {
@@ -102,55 +82,75 @@
   .time {
     font-size: 10px;
     font-weight: 400;
-    color: rgba(0, 0, 0, 0.5)
-    margin-left: 10px;
+    color: rgba(0, 0, 0, 0.3);
+    margin-left: 6px;
     white-space: nowrap;
     position: relative;
     top: 2px;
   }
+/* ▼▼▼ [날짜] ▼▼▼ */
+   /* 1. 날짜 구분선 스타일 */
+  .date-divider { 
+    text-align: center;        
+    font-size: 11px; 
+    color: #8A8A8A;
+    margin: 32px 0 16px; /* 날짜-메시지 간격 ,  */
+    position: relative;
+  }
+   /* 날짜 위에 선을 그리기 위한 가상 요소 추가 */
+  .date-divider::before {
+    content: '';
+    position: absolute;
+    top: -6px; /* 날짜와 선 간격, 숫자↓ 간격↑ */
+    left: 50%;
+    width: 100vw;
+    height: 0.8px; /* 선 두께 */
+    background: #E0E0E0;
+    transform: translateX(-50%);
+  }
 /* ▼▼▼ [내가 보내는 버블] ▼▼▼ */
    /* 오른쪽배치 - 메시지 색 - 시간 */
-  .my-chat-message {
-    display: flex;
-    justify-content: flex-end;
+  .my-chat-message { 
+    display: flex; 
+    justify-content: flex-end; 
     margin-bottom: 12px;
   }
-  .my-bubble {
-    background: #A584F9;
-    color: #FFFFFF;
+  .my-bubble { 
+    background: #A584F9; 
+    color: #FFFFFF; 
     border-radius: 13px 13px 4px 13px;
   }
   .my-chat-message .time {
-    margin-left: 0;
-    margin-right: 6px;
+    margin-left: 0; 
+    margin-right: 6px; 
   }
 /* ▼▼▼ [사진] ▼▼▼ */
    /* 3. 사진 메시지 스타일 */
-  .picture {
+  .image-bubble {
     padding: 0px;
     background: none;
   }
-  .picture img {
+  .image-bubble img {
     max-width: 265px;
     border-radius: 4px 13px 13px 13px;
     display: block;
   }
 /* ▼▼▼ [이모지] ▼▼▼ */
    /* 진짜 이모지 */
-  .emoji {
+  .standalone-emoji {
     font-size: 50px;
     line-height: 1;
     background: none;
   }
    /* 버블 이모티콘 */
-  .sticker {
+  .sticker-image {
     width: 110px;
     height: auto;
   }
 /* ▼▼▼ [번역] ▼▼▼ */
    /* 점선 스타일 */
   .dotted-divider {
-    border: none;
+    border: none; 
     background-image: linear-gradient(to right, #F4F4F4 4.5px, transparent 5px);
     background-size: 6.5px 100%; /* 점선 빈 부분 길이 */
     background-repeat: repeat-x;
@@ -189,29 +189,29 @@
     border-top-left-radius: 4px;
   }
 /* ▼▼▼ [음성] ▼▼▼ */
-  .voice {
+  .voice-bubble {
     display: flex;
     padding: 8px 18px 7px 8px; !important; /* 위 오른 아래 왼쪽 여백 */
   }
-  .voice img {
+  .voice-bubble img {
     width: auto;
     height: 22.7px;
   }
 /* ▼▼▼ [input bar] ▼▼▼ */
-  .input-bar {
-    position: fixed;
-    bottom: 0;
-    left: 0;
-    width: 100%;
-    text-align: center;
+  .fixed-bottom-image { 
+    position: fixed; 
+    bottom: 0; 
+    left: 0; 
+    width: 100%; 
+    text-align: center; 
   }
-  .input-bar img {
-    max-width: 500px;
-    width: 100%;
-    display: block;
-    margin: 0 auto;
+  .fixed-bottom-image img { 
+    max-width: 500px; 
+    width: 100%; 
+    display: block; 
+    margin: 0 auto; 
   }
-  .title-bar {
+  .fixed-top-image {
     position: fixed;
     top: 0;
     left: 0;
@@ -222,17 +222,18 @@
     background: #F1F1F1;
     z-index: 1000;
   }
-  .title-bar img {
+  .fixed-top-image img {
     width: 100%;
     display: block;
   }
-  .search {
+/* ▼▼▼ [검색] ▼▼▼ */
+  .search-bar {
     position: fixed;
     top: 0;
     background: white;
     padding: 10px 8px;
-    z-index: 1002;
-    display: none;
+    z-index: 1002; /* seafch bar 1002 - 채팅방 이름 1001 - 구독일 패널 1000 */
+    display: none; /* 평소에는 숨김 */
     align-items: center;
     gap: 5px;
     max-width: 500px;
@@ -241,7 +242,7 @@
     left: 0;
     right: 0;
   }
-  .search.visible {
+  .search-bar.visible {
     display: flex;
   }
   #searchInput {
@@ -277,7 +278,14 @@
     min-width: 40px;
     text-align: center;
   }
-  #search-icon {
+  #close-search-btn {
+    border: none;
+    font-size: 16px;
+    color: #555;
+    margin-right: 5px;
+  }
+/* 검색 아이콘 */
+  #search-toggle-btn {
     position: absolute;
     top: 18px;
     right: 46px;
@@ -293,52 +301,58 @@
     justify-content: center;
     align-items: center;
   }
-  .nickname {
+/* ▼▼▼ [채팅방 이름] ▼▼▼ */
+  .header-background-text {
     position: fixed;
     top: 0;
     left: 0;
     right: 0;
-    transform: translateX(-3px);
+    transform: translateX(-3px); /* 왼쪽으로 2px 이동 */
     max-width: 550px;
     margin: 0 auto;
-    padding-top: 25px;
+    padding-top: 25px; /* 글자의 세로 위치 */
     text-align: center;
-    z-index: 1001;
+    z-index: 1001; /* 상단 이미지(1000)보다 높게 */
+    /* 글자 스타일 */
     font-size: 18px;
     font-weight: 500;
     color: #000000;
-    pointer-events: none;
+    pointer-events: none; /* 중요: 글자가 다른 요소 클릭을 방해하지 않도록 설정 */
   }
+/* ▼▼▼ [구독일] ▼▼▼ */
   .d-day {
     position: fixed;
     top: 0;
     left: 0;
     right: 0;
-    max-width: 600px;
+    max-width: 600px; /* .fixed-top-image와 동일하게 설정 */
     margin: 0 auto;
-    padding-top: 63px;
-    transform: translateX(34px);
-    text-align: center;
+    padding-top: 63px; /* 상단 이미지 위에서 글자가 시작될 위치 조정 */
+    transform: translateX(34px); /* 오른쪽으로 10px 이동 */
+    text-align: center; 
     z-index: 1001;
+    /* 글자 스타일 */
     font-size: 12px;
     font-weight: 600;
     color: #000000;
     pointer-events: none;
   }
+  
 </style>
   </head>
   <body>
-    <div class="nickname">
+    <div class="header-background-text">
       덩떵찬</div>
     <div class="d-day">
     148
     </div>
-    <div class="title-bar">
+    <div class="fixed-top-image">
       <img src="pic/iphone_구독일-@solsol302_remaster.jpg" alt="상단 고정 이미지">
-      <div id="search-icon">🔍</div>
+      <div id="search-toggle-btn">🔍</div>
     </div>
-
-    <div class="search">
+    
+    <div class="search-bar">
+      <button id="close-search-btn">X</button>
       <input type="text" id="searchInput" placeholder="채팅 검색">
       <div class="search-controls">
         <button id="prevBtn">↑</button>
@@ -346,22 +360,24 @@
         <span id="searchCounter">0 / 0</span>
       </div>
     </div>
-
+    
     <div class="chat-container" id="chat"></div>
-    <div class="input-bar">
+    <div class="fixed-bottom-image">
       <img src="pic/iphone_input_bar-nct방의 지성2.jpg" alt="채팅 입력창 이미지">
     </div>
-
+    
     <script>
-      const showTranslations = true;
-
+      const showTranslations = true; // 번역을 보려면 true, 숨기려면 false로 변경
+      
+// 아티스트 정보
    const artistProfile = [
      {img: "../profile/riku_first.jpg", name: "RIKU"},
      {img: "../profile/riku_baby.jpg", name:"陸"},
      {img: "../profile/profile_riku_color.jpg", name:"陸"},
      {img: "../profile/profile_jisung_250622.jpg", name:"띵"}
    ];
-
+      
+// 메시지 내용
    const messages = [
      { type: 'date', content: '2025년 9월 8일 월요일' },
      { sender: 'artist', type: 'text', content: "이렇게 1위&nbsp;<br>후보에", time: "20:05", profileIndex: 0 },
@@ -395,7 +411,7 @@
       messages.forEach(msg => {
         if (msg.type === 'date') {
           const dateEl = document.createElement('div');
-          dateEl.className = 'date'; // 'date-divider'를 'date'로 변경
+          dateEl.className = 'date-divider';
           dateEl.textContent = msg.content;
           chatContainer.appendChild(dateEl);
           return;
@@ -439,14 +455,14 @@
           let messageBodyHTML = '';
           if (msg.type === 'emote') {
             if (msg.isImage) {
-              messageBodyHTML = `<img src="${msg.content}" class="sticker" alt="sticker">`;
+              messageBodyHTML = `<img src="${msg.content}" class="sticker-image" alt="sticker">`;
             } else {
-              messageBodyHTML = `<div class="emoji">${msg.content}</div>`;
+              messageBodyHTML = `<div class="standalone-emoji">${msg.content}</div>`;
             }
           } else if (msg.type === 'image') {
-            messageBodyHTML = `<div class="bubble picture"><img src="${msg.content}" alt="image message"></div>`;
+            messageBodyHTML = `<div class="bubble image-bubble"><img src="${msg.content}" alt="image message"></div>`;
           } else if (msg.type === 'voice') {
-            messageBodyHTML = `<div class="bubble voice">
+            messageBodyHTML = `<div class="bubble voice-bubble">
             <img src="../voice/ios_voice.jpg" alt="voice icon">
             </div>`;
           } else {
@@ -478,18 +494,17 @@
         chatContainer.appendChild(chatMsg);
       });
 
-      // ▼▼▼ 검색 기능 스크립트 ('X' 버튼 제거 버전) ▼▼▼
+      // ▼▼▼ 검색 기능 스크립트 ▼▼▼
 
       // --- DOM 요소 가져오기 ---
-      const searchBar = document.querySelector('.search');
-      const searchIcon = document.getElementById('search-icon');
-      // 'X' 버튼 관련 변수 삭제
+      const searchBar = document.querySelector('.search-bar');
+      const searchToggleBtn = document.getElementById('search-toggle-btn');
+      const closeSearchBtn = document.getElementById('close-search-btn');
       const searchInput = document.getElementById('searchInput');
       const prevBtn = document.getElementById('prevBtn');
       const nextBtn = document.getElementById('nextBtn');
       const searchCounter = document.getElementById('searchCounter');
 
-      // --- 상태 변수 ---
       let searchResults = [];
       let currentResultIndex = -1;
 
@@ -497,17 +512,19 @@
       const openSearch = () => {
         searchBar.classList.add('visible');
         searchInput.focus();
-        if (location.hash !== '#search') {
-          location.hash = 'search';
-        }
+        location.hash = 'search'; // URL에 #search 추가
       };
 
       const closeSearch = () => {
-        history.back();
+        history.back(); // 뒤로가기로 창 닫기
       };
 
       const performSearch = () => {
-        const searchTerm = searchInput.value.trim().toLowerCase();
+        const searchTerm = searchInput.value.toLowerCase();
+        const highlighted = document.querySelector('.current-search-result');
+        if (highlighted) {
+          highlighted.classList.remove('current-search-result');
+        }
 
         if (!searchTerm) {
           searchResults = [];
@@ -517,13 +534,15 @@
         }
 
         const allMessages = document.querySelectorAll('.chat-message, .my-chat-message');
-        searchResults = Array.from(allMessages).filter(message =>
-          message.textContent.toLowerCase().includes(searchTerm)
-        );
+        searchResults = Array.from(allMessages).filter(message => {
+          return message.textContent.toLowerCase().includes(searchTerm);
+        });
 
-        currentResultIndex = searchResults.length > 0 ? 0 : -1;
-        if (currentResultIndex !== -1) {
-            navigateToResult(currentResultIndex);
+        if (searchResults.length > 0) {
+          currentResultIndex = 0;
+          navigateToResult(currentResultIndex);
+        } else {
+          currentResultIndex = -1;
         }
         updateCounter();
       };
@@ -531,32 +550,33 @@
       const navigateToResult = (index) => {
         if (index < 0 || index >= searchResults.length) return;
 
+        const previouslyHighlighted = document.querySelector('.current-search-result');
+        if (previouslyHighlighted) {
+          previouslyHighlighted.classList.remove('current-search-result');
+        }
+
         const targetMessage = searchResults[index];
         targetMessage.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        targetMessage.classList.add('current-search-result');
         currentResultIndex = index;
         updateCounter();
       };
 
       const updateCounter = () => {
-        const total = searchResults.length;
-        searchCounter.textContent = total > 0 ? `${currentResultIndex + 1} / ${total}` : `0 / 0`;
-      };
-
-      const handleNavigation = (direction) => {
-        if (searchResults.length === 0) return;
-        const total = searchResults.length;
-        const newIndex = (currentResultIndex + direction + total) % total;
-        navigateToResult(newIndex);
+        if (searchResults.length > 0) {
+          searchCounter.textContent = `${currentResultIndex + 1} / ${searchResults.length}`;
+        } else {
+          searchCounter.textContent = `0 / 0`;
+        }
       };
 
       // --- 이벤트 리스너 설정 ---
-      searchIcon.addEventListener('click', openSearch);
-      // 'X' 버튼 관련 이벤트 리스너 삭제
+      searchToggleBtn.addEventListener('click', openSearch);
+      closeSearchBtn.addEventListener('click', closeSearch);
+      
       searchInput.addEventListener('input', performSearch);
-
-      prevBtn.addEventListener('click', () => handleNavigation(-1));
-      nextBtn.addEventListener('click', () => handleNavigation(1));
-
+      
+      // 뒤로가기 또는 ESC 키로 검색창 닫기
       window.addEventListener('hashchange', () => {
         if (location.hash !== '#search') {
           searchBar.classList.remove('visible');
@@ -564,10 +584,30 @@
           performSearch();
         }
       });
-
+      
       document.addEventListener('keydown', (event) => {
         if (event.key === 'Escape' && searchBar.classList.contains('visible')) {
           closeSearch();
+        }
+      });
+
+      prevBtn.addEventListener('click', () => {
+        if (searchResults.length > 0) {
+          let newIndex = currentResultIndex - 1;
+          if (newIndex < 0) {
+            newIndex = searchResults.length - 1;
+          }
+          navigateToResult(newIndex);
+        }
+      });
+
+      nextBtn.addEventListener('click', () => {
+        if (searchResults.length > 0) {
+          let newIndex = currentResultIndex + 1;
+          if (newIndex >= searchResults.length) {
+            newIndex = 0;
+          }
+          navigateToResult(newIndex);
         }
       });
     </script>
