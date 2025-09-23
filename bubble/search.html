@@ -4,7 +4,6 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>아티스트 채팅</title>
-    <!-- Inter 폰트 불러오기 -->
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100;300;400;500;700;800;900&display=swap" rel="stylesheet">
 <style>
   body {
@@ -15,7 +14,7 @@
     margin: 0;
     background: #F1F1F1;
     padding-top: 70px; /* 구독일 패널 */
-    padding-bottom: 80px; /* input bar와 겹치지 않도록 */
+    padding-bottom: 80px; /* input bar 높이에 맞춰 여백 주기 */
   }
   .message-content { 
     display: flex; 
@@ -255,12 +254,6 @@
     min-width: 40px;
     text-align: center;
   }
-  #close-search-btn {
-    border: none;
-    font-size: 16px;
-    color: #555;
-    margin-right: 5px;
-  }
   #search-toggle-btn {
     position: absolute;
     top: 18px;
@@ -323,7 +316,6 @@
     </div>
     
     <div class="search-bar">
-      <button id="close-search-btn">X</button>
       <input type="text" id="searchInput" placeholder="채팅 검색">
       <div class="search-controls">
         <button id="prevBtn">↑</button>
@@ -463,12 +455,12 @@
         chatContainer.appendChild(chatMsg);
       });
 
-      // ▼▼▼ 검색 기능 스크립트 (최종 수정본) ▼▼▼
+      // ▼▼▼ 검색 기능 스크립트 ('X' 버튼 제거 버전) ▼▼▼
 
       // --- DOM 요소 가져오기 ---
       const searchBar = document.querySelector('.search-bar');
       const searchToggleBtn = document.getElementById('search-toggle-btn');
-      const closeSearchBtn = document.getElementById('close-search-btn');
+      // 'X' 버튼 관련 변수 삭제
       const searchInput = document.getElementById('searchInput');
       const prevBtn = document.getElementById('prevBtn');
       const nextBtn = document.getElementById('nextBtn');
@@ -483,12 +475,12 @@
         searchBar.classList.add('visible');
         searchInput.focus();
         if (location.hash !== '#search') {
-          location.hash = 'search'; // URL에 #search 추가
+          location.hash = 'search';
         }
       };
 
       const closeSearch = () => {
-        history.back(); // 뒤로가기로 창 닫기
+        history.back();
       };
 
       const performSearch = () => {
@@ -536,14 +528,12 @@
 
       // --- 이벤트 리스너 설정 ---
       searchToggleBtn.addEventListener('click', openSearch);
-      closeSearchBtn.addEventListener('click', closeSearch);
-      
+      // 'X' 버튼 관련 이벤트 리스너 삭제
       searchInput.addEventListener('input', performSearch);
       
       prevBtn.addEventListener('click', () => handleNavigation(-1));
       nextBtn.addEventListener('click', () => handleNavigation(1));
 
-      // 뒤로가기 또는 ESC 키로 검색창 닫기
       window.addEventListener('hashchange', () => {
         if (location.hash !== '#search') {
           searchBar.classList.remove('visible');
