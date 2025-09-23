@@ -364,57 +364,43 @@
 
     <div class="chat-container" id="chat"></div>
     <div class="input-bar">
-      <img src="pic/iphone_input_bar-nct방의 지성2.jpg" alt="채팅 입력창 이미지">
+      <img src="../pic/input_bar.jpg" alt="메시지 보내기">
     </div>
 
     <script>
-      const showTranslations = true;
-
-   const artistProfile = [
-     {img: "../profile/riku_first.jpg", name: "RIKU"},
-     {img: "../profile/riku_baby.jpg", name:"陸"},
-     {img: "../profile/profile_riku_color.jpg", name:"陸"},
-     {img: "../profile/profile_jisung_250622.jpg", name:"띵"}
-   ];
-
-   const messages = [
-     { type: 'date', content: '2025년 9월 8일 월요일' },
-     { sender: 'artist', type: 'text', content: "이렇게 1위&nbsp;<br>후보에", time: "20:05", profileIndex: 0 },
-     { sender: 'artist', type: 'text', content: "曜日感覚なくなっちゃう", translation: "요일감각이 없어져버려", time: "20:25", profileIndex: 0 },
-     { sender: 'artist', type: 'reply', replyContent: "'난 후퇴 유턴'", mainContent: "ㅋㅋ 넌 나중에 보자", time: "20:45", profileIndex: 0 },
-     { sender: 'artist', type: 'image', content: '../pic/riku_250909.jpg', time: '22:00', profileIndex: 0 },
-     { sender: 'artist', type: 'emote', content: "🥰", time: "22:06", profileIndex: 0 },
-     { sender: 'artist', type: 'emote', content: '../emoji/tamagotchi_mametchi_hello.png', isImage: true, time: "22:13", profileIndex: 0 },
-     { sender: 'artist', type: 'voice', time: "오후 8:20", profileIndex: 0 },
-     { sender: 'me', type: 'text', content: '리쿠야아ㅏ', time: '22:22' },
-     { sender: 'artist', type: 'image', content: '../pic/jisung_250909.jpg', time: '오후 05:11', profileIndex: 3 },
-     { sender: 'artist', type: 'text', content: "오늘 오랜만에 요드링도 꼈다구", time: "오후 05:11", profileIndex: 3 },
-     { sender: 'artist', type: 'text', content: "끝났다이", time: "오후 10:23", profileIndex: 3 },
-     { type: 'date', content: '2025년 9월 12일 금요일' },
-     { sender: 'artist', type: 'text', content: "감기 조심하세여...", time: "오후 02:07", profileIndex: 3 },
-     { sender: 'artist', type: 'emote', content: '../emoji/pola_chill.png', isImage: true, time: "오후 02:07", profileIndex: 3 },
-     { sender: 'artist', 'type': 'text', content: "아니 기온은 높은데", time: "오후 07:09", profileIndex: 3 },
-     { sender: 'artist', type: 'text', content: "왜 오늘 언니 테스트 이렇게", time: "20:05", profileIndex: 0 },
-     { sender: 'artist', type: 'text', content: "왜 춥냐고", time: "오후 07:09", profileIndex: 3 },
-     { sender: 'artist', type: 'text', content: "ㅜㅜ", time: "오후 07:09", profileIndex: 3 },
-     { type: 'date', content: '2025년 9월 14일 일요일' },
-     { sender: 'artist', type: 'reply', replyContent: "서현언니 나외라 뿅💜💜", mainContent: "뿅💜💜", time: "16:05", profileIndex: 0 },
-     { sender: 'artist', type: 'reply', replyContent: "팬들이 서현 양을 얼마나 그리워하고 있는지. 몰라줘.<br>熱愛崇拜 My Seohyun.", mainContent: "나도 보고싶엉😭💜", time: "16:06", profileIndex: 0 },
-     { sender: 'artist', type: 'reply', replyContent: "스미노 하야토씨는 학창시절에 소녀시대를 들었다고<br>합니다🎵🚕정말 깜짝 놀랐다고 이야기.. 전체보기", mainContent: "앗ㅋㅋ백스테이지에서 봤을때 미스터택시<br>좋아하셨다고 얘하셔서 나도 놀랐엉<br>ㅋㅋㅋㅋㅋ 🚕", time: "16:07", profileIndex: 0 },
-     { sender: 'artist', type: 'reply', replyContent: "다쳤어? 무슨 일이야? 괜찮아?😭😭😭😭", mainContent: "괜찮아요 고마워요ㅎㅎ", time: "오후 03:04", profileIndex: 0 },
-     { sender: 'artist', type: 'text', content: "오 이런 꿀팁이 있는거 왜 이제 안거얔ㅋ", time: "오후 03:04", profileIndex: 3 },
-     { sender: 'artist', type: 'text', content: "테스트를 위해 이렇게 글을 써요", time: "20:05", profileIndex: 0 },
-   ];
+  // 번역을 보려면 true, 숨기려면 false로 변경
+  const showTranslations = true;
+  // 아티스트 정보
+  const artistProfile = [
+    {img: "../riku_profile_color.jpg", name: "ㅇㅅㅇ"},
+    {img: "../profile/riku_baby.jpg", name:"YUSHI"},
+    {img: "../profile/profile_riku_color.jpg", name:"陸"}
+  ];
+  // 메시지 배열
+  const messages = [
+    { type: 'date', content: '2024년 8월 10일 토요일' },
+    { sender: 'artist', type: 'text', content: "헤헤", time: "오후 10:23", profileIndex: 2 },
+    { sender: 'artist', type: 'text', content: "笑笑", translation: "웃다", time: "오후 10:25", profileIndex: 2 },
+    { sender: 'artist', type: 'reply', replyContent: "'리쿠야<br>보고싶어'", mainContent: "나두", time: "오후 11:05", profileIndex: 0 },
+    { sender: 'artist', type: 'emote', content: "😙", time: "오후 10:06", profileIndex: 1 },
+    { sender: 'artist', type: 'emote', content: '../emoji/tamagotchi_mametchi_hello.png', isImage: true, time: "오후 10:13", profileIndex: 1 },
+    { sender: 'artist', type: 'image', content: '../pic/riku_250909.jpg', time: '오후 10:22', profileIndex: 2 },
+    { sender: 'artist', type: 'voice', content: "voice", time: "오후 10:23", profileIndex: 0 },
+    { sender: 'me', type: 'text', content: '리쿠도 오늘 푸우우욱 자고 사랑해애❤️', time: '오후 8:40' },
+// ▲▲▲ [유형 9개 정리] ▲▲▲
+  ];
       let currentProfileIndex;
       const chatContainer = document.getElementById("chat");
       messages.forEach(msg => {
+// 1. 날짜
         if (msg.type === 'date') {
           const dateEl = document.createElement('div');
-          dateEl.className = 'date'; // 'date-divider'를 'date'로 변경
+          dateEl.className = 'date';
           dateEl.textContent = msg.content;
           chatContainer.appendChild(dateEl);
           return;
         }
+// 2. 내가 보내는 버블
         if (msg.sender === 'me') {
           const myMsg = document.createElement("div");
           myMsg.className = "my-chat-message";
@@ -432,7 +418,8 @@
         }
         const chatMsg = document.createElement("div");
         chatMsg.className = "chat-message";
-        if (msg.type === 'reply') {
+// ▼ 아티스트 태그 코드 <span class="artist-tag">ARTIST</span>
+    if (msg.type === 'reply') {
           chatMsg.innerHTML = `
           <div class="profile" style="background-image: url('${artistProfile[currentProfileIndex].img}')"></div>
           <div class="message-content">
@@ -462,7 +449,7 @@
             messageBodyHTML = `<div class="bubble picture"><img src="${msg.content}" alt="image message"></div>`;
           } else if (msg.type === 'voice') {
             messageBodyHTML = `<div class="bubble voice">
-            <img src="../voice/ios_voice.jpg" alt="voice icon">
+            <img src="${msg.voiceImage}" alt="음성메시지">
             </div>`;
           } else {
             let bubbleContent = msg.content;
@@ -476,7 +463,8 @@
             }
             messageBodyHTML = `<div class="${bubbleClass}">${bubbleContent}</div>`;
           }
-          chatMsg.innerHTML = `
+// ▼ 아티스트 태그 코드 <span class="artist-tag">ARTIST</span>
+      chatMsg.innerHTML = `
           <div class="profile" style="background-image: url('${artistProfile[currentProfileIndex].img}')"></div>
           <div class="message-content">
           <div class="header">
