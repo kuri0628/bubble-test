@@ -137,13 +137,13 @@
   }
 /* ▼▼▼ [이모지] ▼▼▼ */
    /* 진짜 이모지 */
-  .standalone-emoji {
+  .emoji {
     font-size: 50px;
     line-height: 1;
     background: none;
   }
    /* 버블 이모티콘 */
-  .sticker-image {
+  .sticker {
     width: 110px;
     height: auto;
   }
@@ -189,29 +189,29 @@
     border-top-left-radius: 4px;
   }
 /* ▼▼▼ [음성] ▼▼▼ */
-  .voice-bubble {
+  .voice {
     display: flex;
     padding: 8px 18px 7px 8px; !important; /* 위 오른 아래 왼쪽 여백 */
   }
-  .voice-bubble img {
+  .voice img {
     width: auto;
     height: 22.7px;
   }
 /* ▼▼▼ [input bar] ▼▼▼ */
-  .fixed-bottom-image {
+  .input-bar {
     position: fixed;
     bottom: 0;
     left: 0;
     width: 100%;
     text-align: center;
   }
-  .fixed-bottom-image img {
+  .input-bar img {
     max-width: 500px;
     width: 100%;
     display: block;
     margin: 0 auto;
   }
-  .fixed-top-image {
+  .title-bar {
     position: fixed;
     top: 0;
     left: 0;
@@ -222,7 +222,7 @@
     background: #F1F1F1;
     z-index: 1000;
   }
-  .fixed-top-image img {
+  .title-bar img {
     width: 100%;
     display: block;
   }
@@ -293,7 +293,7 @@
     justify-content: center;
     align-items: center;
   }
-  .header-background-text {
+  .nickname {
     position: fixed;
     top: 0;
     left: 0;
@@ -328,12 +328,12 @@
 </style>
   </head>
   <body>
-    <div class="header-background-text">
+    <div class="nickname">
       덩떵찬</div>
     <div class="d-day">
     148
     </div>
-    <div class="fixed-top-image">
+    <div class="title-bar">
       <img src="pic/iphone_구독일-@solsol302_remaster.jpg" alt="상단 고정 이미지">
       <div id="search-toggle-btn">🔍</div>
     </div>
@@ -348,7 +348,7 @@
     </div>
 
     <div class="chat-container" id="chat"></div>
-    <div class="fixed-bottom-image">
+    <div class="input-bar">
       <img src="pic/iphone_input_bar-nct방의 지성2.jpg" alt="채팅 입력창 이미지">
     </div>
 
@@ -439,14 +439,14 @@
           let messageBodyHTML = '';
           if (msg.type === 'emote') {
             if (msg.isImage) {
-              messageBodyHTML = `<img src="${msg.content}" class="sticker-image" alt="sticker">`;
+              messageBodyHTML = `<img src="${msg.content}" class="sticker" alt="sticker">`;
             } else {
-              messageBodyHTML = `<div class="standalone-emoji">${msg.content}</div>`;
+              messageBodyHTML = `<div class="emoji">${msg.content}</div>`;
             }
           } else if (msg.type === 'image') {
             messageBodyHTML = `<div class="bubble picture"><img src="${msg.content}" alt="image message"></div>`;
           } else if (msg.type === 'voice') {
-            messageBodyHTML = `<div class="bubble voice-bubble">
+            messageBodyHTML = `<div class="bubble voice">
             <img src="../voice/ios_voice.jpg" alt="voice icon">
             </div>`;
           } else {
