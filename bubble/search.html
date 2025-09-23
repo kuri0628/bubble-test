@@ -4,7 +4,6 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>아티스트 채팅</title>
-    <!-- Inter 폰트 불러오기 -->
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100;300;400;500;700;800;900&display=swap" rel="stylesheet">
 <style>
   body {
@@ -56,15 +55,15 @@
   }
 /* ▼▼▼ [날짜] ▼▼▼ */
    /* 1. 날짜 구분선 스타일 */
-  .date-divider { 
-    text-align: center;        
-    font-size: 11px; 
+  .date {
+    text-align: center;
+    font-size: 11px;
     color: #8A8A8A;
     margin: 32px 0 16px; /* 날짜-메시지 간격 ,  */
     position: relative;
   }
    /* 날짜 위에 선을 그리기 위한 가상 요소 추가 */
-  .date-divider::before {
+  .date::before {
     content: '';
     position: absolute;
     top: -6px; /* 날짜와 선 간격, 숫자↓ 간격↑ */
@@ -74,9 +73,9 @@
     background: #E0E0E0;
     transform: translateX(-50%);
   }
-  .message-content { 
-    display: flex; 
-    flex-direction: column; 
+  .message-content {
+    display: flex;
+    flex-direction: column;
     max-width: 95%;
     align-items: flex-start; /* 말풍선이 다른 말풍선 비율에 따라가지 않도록 */
   }
@@ -111,27 +110,27 @@
   }
 /* ▼▼▼ [내가 보내는 버블] ▼▼▼ */
    /* 오른쪽배치 - 메시지 색 - 시간 */
-  .my-chat-message { 
-    display: flex; 
-    justify-content: flex-end; 
+  .my-chat-message {
+    display: flex;
+    justify-content: flex-end;
     margin-bottom: 12px;
   }
-  .my-bubble { 
-    background: #A584F9; 
-    color: #FFFFFF; 
+  .my-bubble {
+    background: #A584F9;
+    color: #FFFFFF;
     border-radius: 13px 13px 4px 13px;
   }
   .my-chat-message .time {
-    margin-left: 0; 
-    margin-right: 6px; 
+    margin-left: 0;
+    margin-right: 6px;
   }
 /* ▼▼▼ [사진] ▼▼▼ */
    /* 3. 사진 메시지 스타일 */
-  .image-bubble {
+  .picture {
     padding: 0px;
     background: none;
   }
-  .image-bubble img {
+  .picture img {
     max-width: 265px;
     border-radius: 4px 13px 13px 13px;
     display: block;
@@ -151,7 +150,7 @@
 /* ▼▼▼ [번역] ▼▼▼ */
    /* 점선 스타일 */
   .dotted-divider {
-    border: none; 
+    border: none;
     background-image: linear-gradient(to right, #F4F4F4 4.5px, transparent 5px);
     background-size: 6.5px 100%; /* 점선 빈 부분 길이 */
     background-repeat: repeat-x;
@@ -199,18 +198,18 @@
     height: 22.7px;
   }
 /* ▼▼▼ [input bar] ▼▼▼ */
-  .fixed-bottom-image { 
-    position: fixed; 
-    bottom: 0; 
-    left: 0; 
-    width: 100%; 
-    text-align: center; 
+  .fixed-bottom-image {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    text-align: center;
   }
-  .fixed-bottom-image img { 
-    max-width: 500px; 
-    width: 100%; 
-    display: block; 
-    margin: 0 auto; 
+  .fixed-bottom-image img {
+    max-width: 500px;
+    width: 100%;
+    display: block;
+    margin: 0 auto;
   }
   .fixed-top-image {
     position: fixed;
@@ -319,7 +318,7 @@
     margin: 0 auto;
     padding-top: 63px;
     transform: translateX(34px);
-    text-align: center; 
+    text-align: center;
     z-index: 1001;
     font-size: 12px;
     font-weight: 600;
@@ -338,7 +337,7 @@
       <img src="pic/iphone_구독일-@solsol302_remaster.jpg" alt="상단 고정 이미지">
       <div id="search-toggle-btn">🔍</div>
     </div>
-    
+
     <div class="search-bar">
       <input type="text" id="searchInput" placeholder="채팅 검색">
       <div class="search-controls">
@@ -347,22 +346,22 @@
         <span id="searchCounter">0 / 0</span>
       </div>
     </div>
-    
+
     <div class="chat-container" id="chat"></div>
     <div class="fixed-bottom-image">
       <img src="pic/iphone_input_bar-nct방의 지성2.jpg" alt="채팅 입력창 이미지">
     </div>
-    
+
     <script>
       const showTranslations = true;
-      
+
    const artistProfile = [
      {img: "../profile/riku_first.jpg", name: "RIKU"},
      {img: "../profile/riku_baby.jpg", name:"陸"},
      {img: "../profile/profile_riku_color.jpg", name:"陸"},
      {img: "../profile/profile_jisung_250622.jpg", name:"띵"}
    ];
-      
+
    const messages = [
      { type: 'date', content: '2025년 9월 8일 월요일' },
      { sender: 'artist', type: 'text', content: "이렇게 1위&nbsp;<br>후보에", time: "20:05", profileIndex: 0 },
@@ -396,7 +395,7 @@
       messages.forEach(msg => {
         if (msg.type === 'date') {
           const dateEl = document.createElement('div');
-          dateEl.className = 'date-divider';
+          dateEl.className = 'date'; // 'date-divider'를 'date'로 변경
           dateEl.textContent = msg.content;
           chatContainer.appendChild(dateEl);
           return;
@@ -445,7 +444,7 @@
               messageBodyHTML = `<div class="standalone-emoji">${msg.content}</div>`;
             }
           } else if (msg.type === 'image') {
-            messageBodyHTML = `<div class="bubble image-bubble"><img src="${msg.content}" alt="image message"></div>`;
+            messageBodyHTML = `<div class="bubble picture"><img src="${msg.content}" alt="image message"></div>`;
           } else if (msg.type === 'voice') {
             messageBodyHTML = `<div class="bubble voice-bubble">
             <img src="../voice/ios_voice.jpg" alt="voice icon">
@@ -518,7 +517,7 @@
         }
 
         const allMessages = document.querySelectorAll('.chat-message, .my-chat-message');
-        searchResults = Array.from(allMessages).filter(message => 
+        searchResults = Array.from(allMessages).filter(message =>
           message.textContent.toLowerCase().includes(searchTerm)
         );
 
@@ -531,7 +530,7 @@
 
       const navigateToResult = (index) => {
         if (index < 0 || index >= searchResults.length) return;
-        
+
         const targetMessage = searchResults[index];
         targetMessage.scrollIntoView({ behavior: 'smooth', block: 'center' });
         currentResultIndex = index;
@@ -542,7 +541,7 @@
         const total = searchResults.length;
         searchCounter.textContent = total > 0 ? `${currentResultIndex + 1} / ${total}` : `0 / 0`;
       };
-      
+
       const handleNavigation = (direction) => {
         if (searchResults.length === 0) return;
         const total = searchResults.length;
@@ -554,7 +553,7 @@
       searchToggleBtn.addEventListener('click', openSearch);
       // 'X' 버튼 관련 이벤트 리스너 삭제
       searchInput.addEventListener('input', performSearch);
-      
+
       prevBtn.addEventListener('click', () => handleNavigation(-1));
       nextBtn.addEventListener('click', () => handleNavigation(1));
 
@@ -565,7 +564,7 @@
           performSearch();
         }
       });
-      
+
       document.addEventListener('keydown', (event) => {
         if (event.key === 'Escape' && searchBar.classList.contains('visible')) {
           closeSearch();
