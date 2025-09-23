@@ -226,7 +226,7 @@
     width: 100%;
     display: block;
   }
-  .search-bar {
+  .search {
     position: fixed;
     top: 0;
     background: white;
@@ -241,7 +241,7 @@
     left: 0;
     right: 0;
   }
-  .search-bar.visible {
+  .search.visible {
     display: flex;
   }
   #searchInput {
@@ -277,7 +277,7 @@
     min-width: 40px;
     text-align: center;
   }
-  #search-toggle-btn {
+  #search-icon {
     position: absolute;
     top: 18px;
     right: 46px;
@@ -335,10 +335,10 @@
     </div>
     <div class="title-bar">
       <img src="pic/iphone_구독일-@solsol302_remaster.jpg" alt="상단 고정 이미지">
-      <div id="search-toggle-btn">🔍</div>
+      <div id="search-icon">🔍</div>
     </div>
 
-    <div class="search-bar">
+    <div class="search">
       <input type="text" id="searchInput" placeholder="채팅 검색">
       <div class="search-controls">
         <button id="prevBtn">↑</button>
@@ -481,8 +481,8 @@
       // ▼▼▼ 검색 기능 스크립트 ('X' 버튼 제거 버전) ▼▼▼
 
       // --- DOM 요소 가져오기 ---
-      const searchBar = document.querySelector('.search-bar');
-      const searchToggleBtn = document.getElementById('search-toggle-btn');
+      const searchBar = document.querySelector('.search');
+      const searchIcon = document.getElementById('search-icon');
       // 'X' 버튼 관련 변수 삭제
       const searchInput = document.getElementById('searchInput');
       const prevBtn = document.getElementById('prevBtn');
@@ -550,7 +550,7 @@
       };
 
       // --- 이벤트 리스너 설정 ---
-      searchToggleBtn.addEventListener('click', openSearch);
+      searchIcon.addEventListener('click', openSearch);
       // 'X' 버튼 관련 이벤트 리스너 삭제
       searchInput.addEventListener('input', performSearch);
 
