@@ -17,29 +17,6 @@
     padding-top: 70px; /* 구독일 패널 */
     padding-bottom: 80px; /* input bar와 겹치지 않도록 */
   }
-/* 프사랑 아티스트 뱃지 그룹 */  
-  .message-content { 
-    display: flex; 
-    flex-direction: column; 
-    max-width: 95%;
-    align-items: flex-start; /* 말풍선이 다른 말풍선 비율에 따라가지 않도록 */
-  }
-  .header {
-    display: flex;
-    align-items: center;
-    margin-bottom: 3.5px; /* 이름-메시지 간격 */
-  }
-  .chat-container {
-    max-width: 500px;
-    margin: 0 auto;
-    padding: 8px;
-  }
-  .chat-message {
-    display: flex;
-    align-items: flex-start;
-    margin-bottom: 14.5px; /* 메시지 간 간격 */
-    gap: 6.5px /* 메시지-프로필 간격 */
-  }
   .profile {
     width: 41px;
     height: 41px;
@@ -54,6 +31,12 @@
     justify-content: center;
     overflow: hidden; */
   }
+/* 프사랑 아티스트 뱃지 그룹 */
+  .header {
+    display: flex;
+    align-items: center;
+    margin-bottom: 3.5px; /* 이름-메시지 간격 */
+  }
   .artist-tag {
     transform: scaleX(1.1); /* 장평 : 숫자↑ 너비↑ */
     transform-origin: left; /* 왼쪽을 기준으로 조절 (글자 시작점 고정) */
@@ -65,11 +48,28 @@
     padding: 2px 5.5px 1px 5.5px;  /* 위 오른 아래 왼쪽 여백 */
     border-radius: 999px;
     margin-right: 10px;
-    }
+  }
   .name {
     font-size: 12px;
     font-weight: 600;
     color: #171718;
+  }  
+  .message-content { 
+    display: flex; 
+    flex-direction: column; 
+    max-width: 95%;
+    align-items: flex-start; /* 말풍선이 다른 말풍선 비율에 따라가지 않도록 */
+  }
+  .chat-container {
+    max-width: 500px;
+    margin: 0 auto;
+    padding: 8px;
+  }
+  .chat-message {
+    display: flex;
+    align-items: flex-start;
+    margin-bottom: 14.5px; /* 메시지 간 간격 */
+    gap: 6.5px /* 메시지-프로필 간격 */
   }
 /* 말풍선 */
   .bubble {
