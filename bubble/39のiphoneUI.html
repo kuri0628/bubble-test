@@ -206,7 +206,7 @@
     transform: translateX(-3px);
     max-width: 550px;
     margin: 0 auto;
-    padding-top: 25px;
+    padding-top: 15px;
     text-align: center;
     z-index: 1001;
     font-size: 18px;
@@ -315,7 +315,7 @@
   }
   #search-icon {
     position: absolute;
-    top: 20px;
+    top: 15px;
     right: 46px;
     width: 40px;
     height: 40px;
@@ -323,7 +323,6 @@
     opacity: 0.5;
     background: transparent;
     border: none;
-    border-radius: 50%;
     cursor: pointer;
     display: flex;
     justify-content: center;
@@ -370,7 +369,7 @@
 // 메시지 배열
   const messages = [
     { type: 'date', content: '2024년 8월 10일 토요일' },
-    { sender: 'artist', type: 'text', content: "헤헤", time: "오후 10:23", profileIndex: 3 },
+    { sender: 'artist', type: 'text', content: "헤헤", time: "오후 10:23", profileIndex: 0 },
     { sender: 'artist', type: 'text', content: "笑笑", translation: "웃다", time: "오후 10:25", profileIndex: 3 },
     { sender: 'artist', type: 'reply', replyContent: "'리쿠야<br>보고싶어'", mainContent: "나두", time: "오후 11:05", profileIndex: 3 },
     { sender: 'artist', type: 'emote', content: "😙", time: "오후 10:06", profileIndex: 3 },
@@ -379,12 +378,12 @@
     { sender: 'artist', type: 'voice', content: 'voice/voice.jpg', time: '21:49', profileIndex: 3 },
     { sender: 'me', type: 'text', content: '리쿠도 오늘 푸우우욱 자고 사랑해애❤️', time: '오후 8:40' },
 // ▲▲▲ [유형 9개 정리] ▲▲▲
-    { sender: 'artist', type: 'image', content: '../pic/sion_250924_2.jpg', time: '21:33', profileIndex: 3 },
+    { sender: 'artist', type: 'image', content: 'pic/sion_250924_2.jpg', time: '21:33', profileIndex: 3 },
     { sender: 'artist', type: 'text', content: "오늘의 추천곡", time: "21:33", profileIndex: 3 },
     { sender: 'artist', type: 'text', content: "ㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋ", time: "21:34", profileIndex: 3 },
     { sender: 'artist', type: 'voice', content: 'voice/voice.jpg', time: '21:49', profileIndex: 3 },
     { sender: 'artist', type: 'text', content: "아 기니 표정 보고싶은데", time: "22:01", profileIndex: 3 },
-    { sender: 'me', type: 'emote', content: 'emoji/다마고치프렌즈_러블리치_1_신남.png', isImage: true, time: "22:02", profileIndex: 3 },
+    { sender: 'artist', type: 'emote', content: 'emoji/다마고치프렌즈_러블리치_1_신남.png', isImage: true, time: "22:02", profileIndex: 3 },
    ];
       let currentProfileIndex;
       const chatContainer = document.getElementById("chat");
