@@ -95,12 +95,12 @@
     background: #FFFFFF;
     border-radius: 4px 13px 13px 13px;
     padding: 11px 12px 11px 11px;  /* 위 오른 아래 왼쪽 여백 */
-    font-size: 15.5px;
+    font-size: 13px;
     font-weight: 400;
     line-height: 1;
   }
   .time {
-    font-size: 10px;
+    font-size: 9px;
     font-weight: 400;
     color: rgba(0, 0, 0, 0.3);
     margin-left: 6px;
@@ -144,8 +144,8 @@
   }
    /* 버블 이모티콘 */
   .sticker {
-    width: 110px;
-    height: auto;
+    width: auto;
+    height: 120px;
   }
 /* ▼▼▼ [번역] ▼▼▼ */
    /* 점선 스타일 */
@@ -199,34 +199,34 @@
   }
 /* ▼▼▼ [채팅방 이름] ▼▼▼ */
   .nickname {
+    font-size: 14px;
+    font-weight: 300;
+    color: #000000;
     position: fixed;
+    padding-top: 14px;
     top: 0;
     left: 0;
     right: 0;
     transform: translateX(-3px);
     max-width: 550px;
     margin: 0 auto;
-    padding-top: 15px;
     text-align: center;
     z-index: 1001;
-    font-size: 18px;
-    font-weight: 500;
-    color: #000000;
     pointer-events: none;
   }
 /* ▼▼▼ [하트 수] ▼▼▼ */
   .d-day {
+    padding-top: 55px;
+    transform: translateX(40px); /*  */
     position: fixed;
     top: 0;
     left: 0;
     right: 0;
     max-width: 600px;
     margin: 0 auto;
-    padding-top: 50px;
-    transform: translateX(34px);
     text-align: center;
     z-index: 1001;
-    font-size: 12px;
+    font-size: 11px;
     font-weight: 600;
     color: #000000;
     pointer-events: none;
@@ -375,13 +375,13 @@
     { sender: 'artist', type: 'emote', content: "😙", time: "오후 10:06", profileIndex: 3 },
     { sender: 'artist', type: 'emote', content: '../emoji/tamagotchi_mametchi_hello.png', isImage: true, time: "오후 10:13", profileIndex: 3 },
     { sender: 'artist', type: 'image', content: '../pic/riku_250909.jpg', time: '오후 10:22', profileIndex: 3 },
-    { sender: 'artist', type: 'voice', content: 'voice/voice.jpg', time: '21:49', profileIndex: 3 },
+    { sender: 'artist', type: 'voice', time: '21:49', profileIndex: 3 },
     { sender: 'me', type: 'text', content: '리쿠도 오늘 푸우우욱 자고 사랑해애❤️', time: '오후 8:40' },
 // ▲▲▲ [유형 9개 정리] ▲▲▲
     { sender: 'artist', type: 'image', content: 'pic/sion_250924_2.jpg', time: '21:33', profileIndex: 3 },
     { sender: 'artist', type: 'text', content: "오늘의 추천곡", time: "21:33", profileIndex: 3 },
     { sender: 'artist', type: 'text', content: "ㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋ", time: "21:34", profileIndex: 3 },
-    { sender: 'artist', type: 'voice', content: "voice/voice.jpg", time: '21:49', profileIndex: 3 },
+    { sender: 'artist', type: 'voice', time: '21:49', profileIndex: 3 },
     { sender: 'artist', type: 'text', content: "아 기니 표정 보고싶은데", time: "22:01", profileIndex: 3 },
     { sender: 'artist', type: 'emote', content: 'emoji/다마고치프렌즈_러블리치_1_신남.png', isImage: true, time: "22:02", profileIndex: 3 },
    ];
@@ -442,7 +442,7 @@
             messageBodyHTML = `<div class="bubble picture"><img src="${msg.content}" alt="image message"></div>`;
           } else if (msg.type === 'voice') {
             messageBodyHTML = `<div class="bubble voice">
-            <img src="../voice/ios_voice.jpg" alt="voice icon">
+            <img src="voice/voice.jpg" alt="음성메시지">
             </div>`;
           } else {
             let bubbleContent = msg.content;
