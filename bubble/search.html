@@ -188,7 +188,7 @@
   .bubble-after-reply {
     border-top-left-radius: 4px;
   }
-/* ▼▼▼ [음성] ▼▼▼ */
+/* ▼▼▼ [음성 메시지] ▼▼▼ */
   .voice {
     display: flex;
     padding: 8px 18px 7px 8px; !important; /* 위 오른 아래 왼쪽 여백 */
@@ -197,7 +197,41 @@
     width: auto;
     height: 22.7px;
   }
-/* ▼▼▼ [input bar] ▼▼▼ */
+/* ▼▼▼ [채팅방 이름] ▼▼▼ */
+  .nickname {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    transform: translateX(-3px);
+    max-width: 550px;
+    margin: 0 auto;
+    padding-top: 25px;
+    text-align: center;
+    z-index: 1001;
+    font-size: 18px;
+    font-weight: 500;
+    color: #000000;
+    pointer-events: none;
+  }
+/* ▼▼▼ [하트 수] ▼▼▼ */
+  .d-day {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    max-width: 600px;
+    margin: 0 auto;
+    padding-top: 63px;
+    transform: translateX(34px);
+    text-align: center;
+    z-index: 1001;
+    font-size: 12px;
+    font-weight: 600;
+    color: #000000;
+    pointer-events: none;
+  }
+/* ▼▼▼ [메시지를 입력하세요] ▼▼▼ */
   .input-bar {
     position: fixed;
     bottom: 0;
@@ -211,6 +245,7 @@
     display: block;
     margin: 0 auto;
   }
+/* ▼▼▼ [구독일 패널] ▼▼▼ */
   .title-bar {
     position: fixed;
     top: 0;
@@ -293,38 +328,7 @@
     justify-content: center;
     align-items: center;
   }
-  .nickname {
-    position: fixed;
-    top: 0;
-    left: 0;
-    right: 0;
-    transform: translateX(-3px);
-    max-width: 550px;
-    margin: 0 auto;
-    padding-top: 25px;
-    text-align: center;
-    z-index: 1001;
-    font-size: 18px;
-    font-weight: 500;
-    color: #000000;
-    pointer-events: none;
-  }
-  .d-day {
-    position: fixed;
-    top: 0;
-    left: 0;
-    right: 0;
-    max-width: 600px;
-    margin: 0 auto;
-    padding-top: 63px;
-    transform: translateX(34px);
-    text-align: center;
-    z-index: 1001;
-    font-size: 12px;
-    font-weight: 600;
-    color: #000000;
-    pointer-events: none;
-  }
+  
 </style>
   </head>
   <body>
@@ -334,7 +338,7 @@
     148
     </div>
     <div class="title-bar">
-      <img src="pic/iphone_구독일-@solsol302_remaster.jpg" alt="상단 고정 이미지">
+      <img src="pic/iphone_구독일패널_트위터_@solsol302.jpg" alt="구독일 패널">
       <div id="search-icon">🔍</div>
     </div>
 
@@ -349,20 +353,30 @@
 
     <div class="chat-container" id="chat"></div>
     <div class="input-bar">
-      <img src="pic/iphone_input_bar-nct방의 지성2.jpg" alt="채팅 입력창 이미지">
+      <img src="pic/iphone_inputBar_nct방_지성2.jpg" alt="메시지를 입력하세요">
     </div>
-
-    <script>
-      const showTranslations = true;
-
-   const artistProfile = [
-     {img: "../profile/riku_first.jpg", name: "RIKU"},
-     {img: "../profile/riku_baby.jpg", name:"陸"},
-     {img: "../profile/profile_riku_color.jpg", name:"陸"},
-     {img: "../profile/profile_jisung_250622.jpg", name:"띵"}
-   ];
-
-   const messages = [
+    
+<script>
+// 번역을 보려면 true, 숨기려면 false로 변경
+  const showTranslations = true;
+// 아티스트 정보
+  const artistProfile = [
+    {img: "../profile/riku_first.jpg", name: "RIKU"},
+    {img: "profile/riku_1st_250506_baby.jpg", name:"陸"},
+    {img: "profile/riku_2nd_250821_color.jpg", name:"陸"},
+    {img: "profile/sion_3rd_250821_color.jpg", name:"ㅇㅅㅇ"}
+  ];
+// 메시지 배열
+  const messages = [
+    { type: 'date', content: '2024년 8월 10일 토요일' },
+    { sender: 'artist', type: 'text', content: "헤헤", time: "오후 10:23", profileIndex: 1 },
+    { sender: 'artist', type: 'text', content: "笑笑", translation: "웃다", time: "오후 10:25", profileIndex: 2 },
+    { sender: 'artist', type: 'reply', replyContent: "'리쿠야<br>보고싶어'", mainContent: "나두", time: "오후 11:05", profileIndex: 0 },
+    { sender: 'artist', type: 'emote', content: "😙", time: "오후 10:06", profileIndex: 1 },
+    { sender: 'artist', type: 'emote', content: '../emoji/tamagotchi_mametchi_hello.png', isImage: true, time: "오후 10:13", profileIndex: 1 },
+    { sender: 'artist', type: 'image', content: '../pic/riku_250909.jpg', time: '오후 10:22', profileIndex: 2 },
+    { sender: 'me', type: 'text', content: '리쿠도 오늘 푸우우욱 자고 사랑해애❤️', time: '오후 8:40' },
+// ▲▲▲ [유형 9개 정리] ▲▲▲
      { type: 'date', content: '2025년 9월 8일 월요일' },
      { sender: 'artist', type: 'text', content: "이렇게 1위&nbsp;<br>후보에", time: "20:05", profileIndex: 0 },
      { sender: 'artist', type: 'text', content: "曜日感覚なくなっちゃう", translation: "요일감각이 없어져버려", time: "20:25", profileIndex: 0 },
@@ -478,9 +492,7 @@
         chatContainer.appendChild(chatMsg);
       });
 
-      // ▼▼▼ 검색 기능 스크립트 ('X' 버튼 제거 버전) ▼▼▼
-
-      // --- DOM 요소 가져오기 ---
+      //검색 기능 관련 각각 이름 호명하기
       const searchBar = document.querySelector('.search');
       const searchIcon = document.getElementById('search-icon');
       // 'X' 버튼 관련 변수 삭제
@@ -489,11 +501,11 @@
       const nextBtn = document.getElementById('nextBtn');
       const searchCounter = document.getElementById('searchCounter');
 
-      // --- 상태 변수 ---
+      // 결과 도출에 대한 함수
       let searchResults = [];
       let currentResultIndex = -1;
 
-      // --- 함수 정의 ---
+      // 검색 과정 시 행동 명령
       const openSearch = () => {
         searchBar.classList.add('visible');
         searchInput.focus();
@@ -549,9 +561,9 @@
         navigateToResult(newIndex);
       };
 
-      // --- 이벤트 리스너 설정 ---
+      // 돋보기 누르면 검색창 열기
       searchIcon.addEventListener('click', openSearch);
-      // 'X' 버튼 관련 이벤트 리스너 삭제
+      // 검색창에 치는 거 실시간 반영시키는 코드
       searchInput.addEventListener('input', performSearch);
 
       prevBtn.addEventListener('click', () => handleNavigation(-1));
