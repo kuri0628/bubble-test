@@ -39,8 +39,8 @@
   .artist-tag {
     transform: scaleX(1.1); /* 장평 : 숫자↑ 너비↑ */
     transform-origin: left; /* 왼쪽을 기준으로 조절 (글자 시작점 고정) */
-    font-weight: 750;
-    font-size: 7px;
+    font-weight: 650;
+    font-size: 6px;
     letter-spacing: 0.1px; /* 자간 */
     color: #fff; /* 진한보라: #6040FF , 연보라: #DA87FE #D28AFD */
     background: linear-gradient(90deg, #633DFD 0%, #9342FF 50%, #E183FF 100%);
@@ -49,8 +49,8 @@
     margin-right: 10px;
   }
   .name {
-    font-size: 12px;
-    font-weight: 600;
+    font-size: 10px;
+    font-weight: 500;
     color: #171718;
   }
 /* ▼▼▼ [날짜] ▼▼▼ */
@@ -95,13 +95,13 @@
     background: #FFFFFF;
     border-radius: 4px 13px 13px 13px;
     padding: 11px 12px 11px 11px;  /* 위 오른 아래 왼쪽 여백 */
-    font-size: 13px;
+    font-size: 14px;
     font-weight: 400;
     line-height: 1;
   }
   .time {
     font-size: 9px;
-    font-weight: 400;
+    font-weight: 450;
     color: rgba(0, 0, 0, 0.3);
     margin-left: 6px;
     white-space: nowrap;
@@ -145,7 +145,7 @@
    /* 버블 이모티콘 */
   .sticker {
     width: auto;
-    height: 120px;
+    height: 115px;
   }
 /* ▼▼▼ [번역] ▼▼▼ */
    /* 점선 스타일 */
@@ -195,15 +195,15 @@
   }
   .voice img {
     width: auto;
-    height: 22.7px;
+    height: 18px;
   }
 /* ▼▼▼ [채팅방 이름] ▼▼▼ */
   .nickname {
     font-size: 14px;
-    font-weight: 300;
+    font-weight: 400;
     color: #000000;
     position: fixed;
-    padding-top: 14px;
+    padding-top: 20px;
     top: 0;
     left: 0;
     right: 0;
@@ -216,8 +216,8 @@
   }
 /* ▼▼▼ [하트 수] ▼▼▼ */
   .d-day {
-    padding-top: 55px;
-    transform: translateX(40px); /*  */
+    padding-top: 57px;
+    transform: translateX(30px); /* 숫자↑위치→ */
     position: fixed;
     top: 0;
     left: 0;
@@ -555,12 +555,6 @@
           searchBar.classList.remove('visible');
           searchInput.value = "";
           performSearch();
-        }
-      });
-
-      document.addEventListener('keydown', (event) => {
-        if (event.key === 'Escape' && searchBar.classList.contains('visible')) {
-          closeSearch();
         }
       });
     </script>
